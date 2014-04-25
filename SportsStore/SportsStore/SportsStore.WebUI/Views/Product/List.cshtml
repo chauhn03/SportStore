@@ -1,14 +1,18 @@
-﻿@model IEnumerable<SportsStore.Domain.Entities.Product>
+﻿@using SportsStore.WebUI.Models;
+@using SportsStore.WebUI.HtmlHelpers;
+@using SportsStore.Domain.Entities;
+
+@model ProductListViewModel
 
 @{
     ViewBag.Title = "Products";
 }
 
-@foreach (SportsStore.Domain.Entities.Product product in this.Model)
+@foreach (Product product in this.Model.Products)
 {
-    <div>
-        <h3>@product.Name</h3>
-        @product.Description
-        <h4>@product.Price.ToString("C")</h4>
-    </div>
+    Html.RenderPartial("ProductSummary", product);
 }
+
+<div>
+    @Html.PageLinks(@Model.PagingInfo, x => Url.Action("List", new { page = x, category = @Model.CurrentCategory }))
+</div>

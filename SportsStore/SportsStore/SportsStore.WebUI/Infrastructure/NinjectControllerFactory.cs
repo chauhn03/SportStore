@@ -1,13 +1,8 @@
-﻿using Moq;
+﻿using System;
+using System.Web.Mvc;
 using Ninject;
 using SportsStore.Domain.Abstract;
-using SportsStore.Domain.Concrete;
-using SportsStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using SportsStore.Domain.Fake;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -35,7 +30,8 @@ namespace SportsStore.WebUI.Infrastructure
             //}.AsQueryable());
 
             //kernel.Bind<IProductRepository>().ToConstant(mock.Object);
-            kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            //kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind<IProductRepository>().To <FakeProductRepository>();            
         }
     }
 }
