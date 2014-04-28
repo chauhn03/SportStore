@@ -1,7 +1,15 @@
 ﻿@model SportsStore.Domain.Entities.Product
 
-<div>
+<div class="item">
     <h3>@Model.Name</h3>
-    @Model.Description
+    @Model.Description    
+
+    @using (Html.BeginForm("AddToCart", "Cart"))
+    { 
+        @Html.HiddenFor(product => product.ProductId)
+        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+        <input type="submit" value="+ Add to cart" />
+    }
+
     <h4>@Model.Price.ToString("C")</h4>
 </div>
