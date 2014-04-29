@@ -10,5 +10,9 @@
         action = "List",
         category = category,
         page = 1
+    },
+    new
+    {
+        @class =(category == ViewBag.SelectedCategory) ? "selected" : null
     });
 }

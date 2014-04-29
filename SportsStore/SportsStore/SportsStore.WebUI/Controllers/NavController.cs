@@ -16,11 +16,12 @@ namespace SportsStore.WebUI.Controllers
         //
         // GET: /Nav/
 
-        public PartialViewResult Menu()
+        public PartialViewResult Menu(string category = null)
         {
+            ViewBag.SelectedCategory = category; 
             IEnumerable<string> categories = this.repository.Products.Select(product => product.Category)
                                                                      .Distinct()
-                                                                     .OrderBy(category => category);
+                                                                     .OrderBy(categoryName => categoryName);
             return this.PartialView(categories);
         }
 

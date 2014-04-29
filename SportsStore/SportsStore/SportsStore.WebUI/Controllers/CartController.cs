@@ -1,22 +1,20 @@
-﻿using SportsStore.Domain.Abstract;
+﻿using System.Linq;
+using System.Web.Mvc;
+using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Providers.Entities;
 
 namespace SportsStore.WebUI.Controllers
 {
     public class CartController : Controller
     {
         private IProductRepository repository;
+        private IOrderProcessor orderProcessor;
 
-        public CartController(IProductRepository repository)
+        public CartController(IProductRepository repository, IOrderProcessor orderProcessor)
         {
             this.repository = repository;
+            this.orderProcessor = orderProcessor;
         }
 
         public ViewResult Index(Cart cart, string returnUrl)
@@ -58,6 +56,26 @@ namespace SportsStore.WebUI.Controllers
         public ViewResult Checkout()
         {
             return this.View(new ShippingDetails());
+        }
+
+        [HttpPost]
+        public ViewResult CheckOut(Cart cart, ShippingDetails shippingDetails)
+        {
+            if (cart.GetItems().Count() == 0)
+            {
+                this.ModelState.AddModelError("", "Sorry, your cart is empty");
+            }
+
+            if (this.ModelState.IsValid)
+            {
+                this.orderProcessor.ProcessOrder(cart, shippingDetails);
+                cart.Clear();
+                return this.View("Completed");
+            }
+            else
+            {
+                return this.View(shippingDetails);
+            }
         }
     }
 }
