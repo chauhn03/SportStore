@@ -7,11 +7,14 @@ namespace SportsStore.Domain.Fake
 {
     public class FakeProductRepository : IProductRepository
     {
-        private IList<Product> data;
+        private static IDictionary<int, Product> data;
 
         public FakeProductRepository()
         {
-            this.InitDummyData();
+            if (data == null)
+            {
+                this.InitDummyData();
+            }
         }
 
         private void InitDummyData()
@@ -41,22 +44,36 @@ namespace SportsStore.Domain.Fake
                 new Product{ ProductId = 20, Name = "Product 20", Description = "Description 20", Category = "Category1", Price = 1120 },
             };
 
-            this.data = new List<Product>(dumyData);
+            data = new List<Product>(dumyData).ToDictionary(p => p.ProductId);
         }
 
         public IQueryable<Entities.Product> Products
         {
-            get 
+            get
             {
-                return this.data.AsQueryable();
+                return data.Values.AsQueryable();
             }
         }
 
 
         public Product GetProductById(int productId)
         {
-            Product product = this.data.SingleOrDefault(p => p.ProductId == productId);
-            return product ?? new Product();
+            return data.ContainsKey(productId) ? data[productId] : new Product();
         }
+
+
+        public void SaveProduct(Product product)
+        {
+            if (product.ProductId == 0)
+            {
+                product.ProductId = data.Count + 1;
+                data.Add(product.ProductId, product);
+            }
+            else
+            {
+                data[product.ProductId] = product;
+            }
+        }
+
     }
 }

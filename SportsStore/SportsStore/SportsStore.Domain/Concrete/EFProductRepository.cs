@@ -24,5 +24,11 @@ namespace SportsStore.Domain.Concrete
         {
             throw new NotImplementedException();
         }
+
+
+        public void SaveProduct(Entities.Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
