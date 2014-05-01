@@ -7,12 +7,12 @@ namespace SportsStore.Domain.Fake
 {
     public class EmailSettings
     {
-        public string MailToAddress = "orders@example.com";
-        public string MailFromAddress = "sportsstore@example.com";
+        public string MailToAddress = "chauhn.k28@gmail.com";
+        public string MailFromAddress = "chauhn.k28@gmail.com";
         public bool UseSsl = true;
-        public string Username = "MySmtpUsername";
-        public string Password = "MySmtpPassword";
-        public string ServerName = "smtp.example.com";
+        public string Username = "chauhn.k28@gmail.com";
+        public string Password = "Chau.Hoang86";
+        public string ServerName = "smtp.gmail.com";
         public int ServerPort = 587;
         public bool WriteAsFile = false;
         public string FileLocation = @"c:\sports_store_emails";
@@ -34,7 +34,7 @@ namespace SportsStore.Domain.Fake
                 smtpClient.EnableSsl = emailSettings.UseSsl;
                 smtpClient.Host = emailSettings.ServerName;
                 smtpClient.Port = emailSettings.ServerPort;
-                smtpClient.UseDefaultCredentials = false;
+                smtpClient.UseDefaultCredentials = true;
                 smtpClient.Credentials = new NetworkCredential(emailSettings.Username, emailSettings.Password);
 
                 if (emailSettings.WriteAsFile)

@@ -18,5 +18,11 @@ namespace SportsStore.Domain.Concrete
                 return context.Products;
             }
         }
+
+
+        public Entities.Product GetProductById(int productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

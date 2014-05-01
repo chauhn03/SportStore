@@ -51,5 +51,12 @@ namespace SportsStore.Domain.Fake
                 return this.data.AsQueryable();
             }
         }
+
+
+        public Product GetProductById(int productId)
+        {
+            Product product = this.data.SingleOrDefault(p => p.ProductId == productId);
+            return product ?? new Product();
+        }
     }
 }
