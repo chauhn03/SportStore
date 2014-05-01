@@ -75,5 +75,9 @@ namespace SportsStore.Domain.Fake
             }
         }
 
+        public void Delete(int productId)
+        {
+            data.Remove(productId);
+        }
     }
 }

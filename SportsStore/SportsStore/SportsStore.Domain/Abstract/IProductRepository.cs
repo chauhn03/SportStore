@@ -14,5 +14,7 @@ namespace SportsStore.Domain.Abstract
         Product GetProductById(int productId);
 
         void SaveProduct(Product product);
+
+        void Delete(int productId);
     }
 }
