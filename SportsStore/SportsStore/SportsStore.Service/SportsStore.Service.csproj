@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7424AF19-C0C4-48ED-B152-E6B7DD132332}</ProjectGuid>
+    <ProjectGuid>{636605CF-B217-4286-9466-138FD2FEFB51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SportsStore.Domain</RootNamespace>
-    <AssemblyName>SportsStore.Domain</AssemblyName>
+    <RootNamespace>SportsStore.Service</RootNamespace>
+    <AssemblyName>SportsStore.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,19 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,22 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAuthProvider.cs" />
+    <Compile Include="Abstract\ICategoryService.cs" />
+    <Compile Include="Abstract\IOrderService.cs" />
+    <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Abstract\IProductService.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="Entities\Cart.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Customer.cs" />
-    <Compile Include="Entities\EmailSettings.cs" />
-    <Compile Include="Entities\Product.cs" />
-    <Compile Include="Entities\ShippingDetails.cs" />
-    <Compile Include="EntityBase.cs" />
+    <Compile Include="EntityService\CategoryService.cs" />
+    <Compile Include="EntityService\OrderService.cs" />
+    <Compile Include="EntityService\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SportsStore.Domain\SportsStore.Domain.csproj">
+      <Project>{7424af19-c0c4-48ed-b152-e6b7dd132332}</Project>
+      <Name>SportsStore.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SportsStore.Repository\SportsStore.Repository.csproj">
+      <Project>{a4b603d4-6af1-41e8-b6f6-d50c52cc0857}</Project>
+      <Name>SportsStore.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

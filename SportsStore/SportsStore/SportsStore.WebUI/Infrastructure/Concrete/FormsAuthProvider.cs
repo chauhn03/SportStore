@@ -1,12 +1,8 @@
-﻿using SportsStore.Domain.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-
-namespace SportsStore.WebUI.Infrastructure.Concrete
+﻿namespace SportsStore.WebUI.Infrastructure.Concrete
 {
+    using SportsStore.Domain.Abstract;
+    using System.Web.Security;
+
     public class FormsAuthProvider : IAuthProvider
     {
         public bool Authenticate(string userName, string password)

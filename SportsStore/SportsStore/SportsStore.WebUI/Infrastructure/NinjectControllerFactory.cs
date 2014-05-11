@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Ninject;
+using SportsStore.Domain.Entities;
+using SportsStore.Repository;
+using SportsStore.Service.Abstract;
+using SportsStore.Service.EntityService;
+using System;
 using System.Configuration;
 using System.Web.Mvc;
-using Ninject;
-using SportsStore.Domain.Abstract;
-using SportsStore.Domain.Fake;
-using SportsStore.WebUI.Infrastructure.Concrete;
-using SportsStore.Domain.Concrete;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -25,23 +25,20 @@ namespace SportsStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            //Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            //mock.Setup(m => m.Products).Returns(new List<Product> { 
-            //    new Product{ Name = "Football", Price = 25 },
-            //    new Product { Name = "Surf board", Price = 179},
-            //    new Product { Name = "Running Shoes", Price = 95 }
-            //}.AsQueryable());
-
-            //kernel.Bind<IProductRepository>().ToConstant(mock.Object);
-            //kernel.Bind<IProductRepository>().To<EFProductRepository>();
-            kernel.Bind<IProductRepository>().To <EFProductRepository>();
             EmailSettings emailSettings = new EmailSettings
             {
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
 
-            kernel.Bind<IOrderProcessor>().To<FakeEmailOrderProcessor>().WithConstructorArgument("emailSettings", emailSettings);
-            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IOrderService>().To<OrderService>().WithConstructorArgument("emailSettings", emailSettings);;
+            kernel.Bind<ICategoryService>().To<CategoryService>();
+
+            
+
+            //kernel.Bind<IOrderProcessor>().To<FakeEmailOrderProcessor>().WithConstructorArgument("emailSettings", emailSettings);
+            //kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

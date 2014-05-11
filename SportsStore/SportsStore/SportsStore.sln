@@ -7,6 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.UnitTests", "Sp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.Domain", "SportsStore.Domain\SportsStore.Domain.csproj", "{7424AF19-C0C4-48ED-B152-E6B7DD132332}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CC4B89DD-6C53-4CEF-86AC-0BF818D2A9D4}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.Repository", "SportsStore.Repository\SportsStore.Repository.csproj", "{A4B603D4-6AF1-41E8-B6F6-D50C52CC0857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.Service", "SportsStore.Service\SportsStore.Service.csproj", "{636605CF-B217-4286-9466-138FD2FEFB51}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -29,8 +40,19 @@ Global
 		{7424AF19-C0C4-48ED-B152-E6B7DD132332}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7424AF19-C0C4-48ED-B152-E6B7DD132332}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7424AF19-C0C4-48ED-B152-E6B7DD132332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4B603D4-6AF1-41E8-B6F6-D50C52CC0857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4B603D4-6AF1-41E8-B6F6-D50C52CC0857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4B603D4-6AF1-41E8-B6F6-D50C52CC0857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B603D4-6AF1-41E8-B6F6-D50C52CC0857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636605CF-B217-4286-9466-138FD2FEFB51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636605CF-B217-4286-9466-138FD2FEFB51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636605CF-B217-4286-9466-138FD2FEFB51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636605CF-B217-4286-9466-138FD2FEFB51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

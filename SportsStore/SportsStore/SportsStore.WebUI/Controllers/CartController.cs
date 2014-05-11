@@ -3,17 +3,18 @@ using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
+using SportsStore.Service.Abstract;
 
 namespace SportsStore.WebUI.Controllers
 {
     public class CartController : Controller
     {
-        private IProductRepository repository;
-        private IOrderProcessor orderProcessor;
+        private IProductService productService;
+        private IOrderService orderProcessor;
 
-        public CartController(IProductRepository repository, IOrderProcessor orderProcessor)
+        public CartController(IProductService productService, IOrderService orderProcessor)
         {
-            this.repository = repository;
+            this.productService = productService;
             this.orderProcessor = orderProcessor;
         }
 
@@ -28,7 +29,7 @@ namespace SportsStore.WebUI.Controllers
 
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = this.repository.Products.SingleOrDefault(p => p.ProductId == productId);
+            Product product = this.productService.GetById(productId);
             if (product != null)
             {
                 cart.AddItem(product, 1);
@@ -39,7 +40,7 @@ namespace SportsStore.WebUI.Controllers
 
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = this.repository.Products.SingleOrDefault(p => p.ProductId == productId);
+            Product product = this.productService.GetById(productId);
             if (product != null)
             {
                 cart.RemoveItem(product);

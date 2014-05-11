@@ -1,18 +1,19 @@
-﻿@model IEnumerable<string>
+﻿@using SportsStore.Domain.Entities;
+@model IEnumerable<Category>
 
 @Html.ActionLink("Home", "List", "Product")
 
-@foreach (string category in this.Model)
+@foreach (Category category in this.Model)
 {
-    @Html.RouteLink(category, new
+    @Html.RouteLink(category.Name, new
     {
         controller = "Product",
         action = "List",
-        category = category,
+        categoryId = category.CategoryId,
         page = 1
     },
     new
     {
-        @class =(category == ViewBag.SelectedCategory) ? "selected" : null
+        @class =(category.CategoryId == ViewBag.SelectedCategory) ? "selected" : null
     });
 }

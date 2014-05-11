@@ -1,27 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
+using SportsStore.Service.Abstract;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using SportsStore.Domain.Abstract;
 
 namespace SportsStore.WebUI.Controllers
 {
     public class NavController : Controller
     {
-        private IProductRepository repository;
+        private ICategoryService service;
 
-        public NavController(IProductRepository repository)
+        public NavController(ICategoryService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
         //
         // GET: /Nav/
 
-        public PartialViewResult Menu(string category = null)
+        public PartialViewResult Menu(int? categoryId = null)
         {
-            ViewBag.SelectedCategory = category; 
-            IEnumerable<string> categories = this.repository.Products.Select(product => product.Category)
-                                                                     .Distinct()
-                                                                     .OrderBy(categoryName => categoryName);
+            ViewBag.SelectedCategory = categoryId; 
+            IQueryable<Category> categories = this.service.GetAll();
             return this.PartialView(categories);
         }
 

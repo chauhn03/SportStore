@@ -3,16 +3,17 @@ using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
+using SportsStore.Service.Abstract;
 
 namespace SportsStore.WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductRepository repository;
+        private IProductService service;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductService productService)
         {
-            this.repository = productRepository;
+            this.service = productService;
             this.PageSize = 3;
         }
 
@@ -22,9 +23,9 @@ namespace SportsStore.WebUI.Controllers
             set;
         }
 
-        public ViewResult List(string category, int page = 1)
+        public ViewResult List(int? categoryId, int page = 1)
         {
-            IQueryable<Product> products = this.repository.Products.Where(product => category == null || product.Category == category);
+            IQueryable<Product> products = service.GetByCategory(categoryId);
 
             ProductListViewModel viewModel = new ProductListViewModel()
             {
@@ -32,7 +33,7 @@ namespace SportsStore.WebUI.Controllers
                 Products = products.OrderBy(product => product.ProductId)
                                    .Skip((page - 1) * this.PageSize)
                                    .Take(this.PageSize),
-                CurrentCategory = category
+                CurrentCategory = categoryId
             };
 
             return this.View(viewModel);
@@ -40,7 +41,7 @@ namespace SportsStore.WebUI.Controllers
 
         public FileContentResult GetImage(int productId)
         {
-            Product product = this.repository.GetProductById(productId);
+            Product product = this.service.GetById(productId);
             if (product != null)
             {
                 return File(product.ImageData, product.ImageMimeType);
