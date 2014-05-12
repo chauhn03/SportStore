@@ -5,9 +5,9 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class EFProductRepository : EFRepository<Product>, IProductRepository
     {
-        public ProductRepository(DbContext dataContext)
+        public EFProductRepository(DbContext dataContext)
             : base(dataContext)
         {
         }

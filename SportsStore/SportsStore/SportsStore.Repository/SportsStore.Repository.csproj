@@ -58,18 +58,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICategoryRepository.cs" />
-    <Compile Include="EF\CategoryRepository.cs" />
+    <Compile Include="EF\EFCategoryRepository.cs" />
     <Compile Include="EF\DataContext.cs" />
     <Compile Include="EF\DatabaseInitialiser.cs" />
     <Compile Include="DataContainer.cs" />
+    <Compile Include="Fake\FakeCategoryRepository.cs" />
+    <Compile Include="Fake\FakeCustomerRepository.cs" />
+    <Compile Include="Fake\FakeProductRepository.cs" />
+    <Compile Include="Fake\FakeRepository.cs" />
+    <Compile Include="Fake\FakeUnitOfWork.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="EF\CustomerRepository.cs" />
+    <Compile Include="EF\EFCustomerRepository.cs" />
     <Compile Include="Abstract\ICustomerRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
     <Compile Include="Abstract\IRepository.cs" />
-    <Compile Include="EF\ProductRepository.cs" />
-    <Compile Include="EF\Repository.cs" />
-    <Compile Include="EF\UnitOfWork.cs" />
+    <Compile Include="EF\EFProductRepository.cs" />
+    <Compile Include="EF\EFRepository.cs" />
+    <Compile Include="EF\EFUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

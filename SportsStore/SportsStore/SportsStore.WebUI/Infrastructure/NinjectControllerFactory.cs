@@ -1,11 +1,12 @@
-﻿using Ninject;
-using SportsStore.Domain.Entities;
-using SportsStore.Repository;
-using SportsStore.Service.Abstract;
-using SportsStore.Service.EntityService;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Web.Mvc;
+using Ninject;
+using SportsStore.Domain.Entities;
+using SportsStore.Repository;
+using SportsStore.Repository.Fake;
+using SportsStore.Service.Abstract;
+using SportsStore.Service.EntityService;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -30,7 +31,7 @@ namespace SportsStore.WebUI.Infrastructure
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
 
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<IUnitOfWork>().To<FakeUnitOfWork>();
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IOrderService>().To<OrderService>().WithConstructorArgument("emailSettings", emailSettings);;
             kernel.Bind<ICategoryService>().To<CategoryService>();

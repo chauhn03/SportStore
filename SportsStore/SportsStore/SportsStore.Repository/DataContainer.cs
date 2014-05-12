@@ -32,7 +32,7 @@
 
         private static void InitDefaults()
         {
-            RegisterType<IUnitOfWork, UnitOfWork>();
+            RegisterType<IUnitOfWork, EFUnitOfWork>();
         }
     }
 }

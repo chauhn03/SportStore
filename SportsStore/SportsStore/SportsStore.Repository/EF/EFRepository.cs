@@ -1,15 +1,15 @@
-﻿using SportsStore.Repository.Abstract;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
+using SportsStore.Repository.Abstract;
 
 namespace SportsStore.Repository.EF
 {
     // TODO: Add more base functionality
-    public class Repository<T> : IRepository<T> where T : class
+    public class EFRepository<T> : IRepository<T> where T : class
     {
         protected readonly DbSet<T> DbSet;
 
-        public Repository(DbContext dbContext)
+        public EFRepository(DbContext dbContext)
         {
             DbSet = dbContext.Set<T>();
         }

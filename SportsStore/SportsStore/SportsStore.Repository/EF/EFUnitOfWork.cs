@@ -7,7 +7,7 @@
     /// Unit of work provides access to repositories.  Operations on multiple repositories are atomic through
     /// the use of Commit().
     /// </summary>
-    public class UnitOfWork : IUnitOfWork
+    public class EFUnitOfWork : IUnitOfWork
     {
         private readonly DataContext db = new DataContext();
 
@@ -27,7 +27,7 @@
         {
             get
             {
-                return customers ?? (customers = new CustomerRepository(db));
+                return customers ?? (customers = new EFCustomerRepository(db));
             }
         }
 
@@ -35,7 +35,7 @@
         {
             get
             {
-                return this.products ?? (this.products = new ProductRepository(db));
+                return this.products ?? (this.products = new EFProductRepository(db));
             }
         }
 
@@ -43,7 +43,7 @@
         {
             get
             {
-                return this.catetories ?? (this.catetories = new CategoryRepository(db));
+                return this.catetories ?? (this.catetories = new EFCategoryRepository(db));
             }
         }
 

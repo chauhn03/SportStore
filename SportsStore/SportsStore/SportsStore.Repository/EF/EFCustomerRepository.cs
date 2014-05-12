@@ -5,9 +5,9 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class CustomerRepository : Repository<Customer>, ICustomerRepository
+    public class EFCustomerRepository : EFRepository<Customer>, ICustomerRepository
     {
-        public CustomerRepository(DbContext dbContext)
+        public EFCustomerRepository(DbContext dbContext)
             : base(dbContext)
         {
         }

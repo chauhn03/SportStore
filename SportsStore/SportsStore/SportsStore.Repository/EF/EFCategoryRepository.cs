@@ -4,9 +4,9 @@ using System.Data.Entity;
 
 namespace SportsStore.Repository.EF
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class EFCategoryRepository : EFRepository<Category>, ICategoryRepository
     {
-        public CategoryRepository(DbContext dbContext)
+        public EFCategoryRepository(DbContext dbContext)
             : base(dbContext)
         {
         }        
