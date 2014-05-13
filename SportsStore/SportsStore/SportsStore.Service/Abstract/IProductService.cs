@@ -1,17 +1,14 @@
 ﻿namespace SportsStore.Service.Abstract
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using SportsStore.Domain.Entities;
 
-    public interface IProductService
+    public interface IProductService : IService<Product>
     {
-        IQueryable<SportsStore.Domain.Entities.Product> GetList();
+        IQueryable<Product> GetAll();
 
-        IQueryable<Domain.Entities.Product> GetByCategory(int? categoryId);
+        IQueryable<Product> GetByCategory(int? categoryId);
 
-        Domain.Entities.Product GetById(int productId);
+        Product GetById(int productId);
     }
 }

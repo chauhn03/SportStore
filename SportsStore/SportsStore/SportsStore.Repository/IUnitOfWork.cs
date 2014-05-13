@@ -1,7 +1,7 @@
 ﻿namespace SportsStore.Repository
 {
-    using Repository.Abstract;
     using System;
+    using Repository.Abstract;
 
     /// <summary>
     /// Unit of work provides access to repositories.  Operations on multiple repositories are atomic through
@@ -15,6 +15,6 @@
 
         ICategoryRepository Categories { get; }
 
-        void Commit();
+        void Commit();       
     }
 }

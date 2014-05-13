@@ -1,21 +1,18 @@
-﻿using SportsStore.Domain.Abstract;
-using SportsStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
+using SportsStore.Domain.Entities;
+using SportsStore.Service.Abstract;
 
 namespace SportsStore.WebUI.Controllers
 {
     [Authorize]
     public class AdminController : Controller
     {
-        private IProductRepository repository;
+        private IProductService service;
 
-        public AdminController(IProductRepository repository)
+        public AdminController(IProductService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         //
@@ -23,12 +20,12 @@ namespace SportsStore.WebUI.Controllers
 
         public ActionResult Index()
         {
-            return View(repository.Products);
+            return View(this.service.GetAll());
         }
 
         public ViewResult Edit(int productId)
         {
-            Product product = this.repository.GetProductById(productId);
+            Product product = this.service.GetById(productId);
             return this.View(product);
         }
 
@@ -44,7 +41,11 @@ namespace SportsStore.WebUI.Controllers
                     image.InputStream.Read(product.ImageData, 0, image.ContentLength);
                 }
 
-                repository.SaveProduct(product);
+                if (product.ProductId < 0)
+                {
+                    this.service.Add(product);
+                }                
+
                 TempData["message"] = string.Format("{0} has been saved", product.Name);
                 return this.RedirectToAction("Index");
             }
@@ -53,7 +54,7 @@ namespace SportsStore.WebUI.Controllers
                 // there is something wrong with the data values.
                 return this.View(product);
             }
-        }
+        }        
 
         public ViewResult Create()
         {
@@ -63,8 +64,8 @@ namespace SportsStore.WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(int productId)
         {
-            Product product = this.repository.GetProductById(productId);
-            this.repository.Delete(productId);
+            Product product = this.service.GetById(productId);
+            this.service.Delete(product);
             TempData["message"] = string.Format("{0} was deleted", product.Name);
             return this.RedirectToAction("Index");
         }

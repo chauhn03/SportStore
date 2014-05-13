@@ -1,16 +1,12 @@
-﻿using SportsStore.Domain.Entities;
+﻿using System.Linq;
+using SportsStore.Domain.Entities;
 using SportsStore.Repository;
 using SportsStore.Repository.Abstract;
 using SportsStore.Service.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportsStore.Service.EntityService
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : Service<Category, ICategoryRepository>, ICategoryService
     {
         private IUnitOfWork unitOfWork;
 

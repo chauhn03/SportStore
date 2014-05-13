@@ -9,10 +9,24 @@ namespace SportsStore.Repository.Fake
     public class FakeCategoryRepository : FakeRepository<Category>, ICategoryRepository
     {
         private List<Category> categories;
+        private static FakeCategoryRepository instance;
 
-        public FakeCategoryRepository()
+        private FakeCategoryRepository()
         {
             this.GenerateDummyData();
+        }
+
+        public static FakeCategoryRepository Instance 
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new FakeCategoryRepository();
+                }
+
+                return instance;
+            }
         }
 
         private void GenerateDummyData()

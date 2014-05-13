@@ -8,10 +8,24 @@ namespace SportsStore.Repository.Fake
 {
     public class FakeProductRepository : FakeRepository<Product>, IProductRepository
     {
+        private static FakeProductRepository instance;
         private List<Product> products;
-        public FakeProductRepository()
+        private FakeProductRepository()
         {
             this.GenerateDummyData();
+        }
+
+        public static FakeProductRepository Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new FakeProductRepository();
+                }
+
+                return instance;
+            }
         }
 
         private void GenerateDummyData()

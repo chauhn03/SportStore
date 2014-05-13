@@ -3,12 +3,12 @@
 namespace SportsStore.Repository.Fake
 {
     public class FakeUnitOfWork : IUnitOfWork
-    {
+    {    
         public Abstract.ICustomerRepository Customers
         {
             get 
             {
-                return new FakeCustomerRepository();
+                return FakeCustomerRepository.Instance;
             }
         }
 
@@ -16,7 +16,7 @@ namespace SportsStore.Repository.Fake
         {
             get
             {
-                return new FakeProductRepository();
+                return FakeProductRepository.Instance;
             }
         }
 
@@ -24,13 +24,12 @@ namespace SportsStore.Repository.Fake
         {
             get 
             {
-                return new FakeCategoryRepository();
+                return FakeCategoryRepository.Instance;
             }
         }
 
         public void Commit()
         {
-            throw new NotImplementedException();
         }
 
         public void Dispose()

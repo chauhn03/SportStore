@@ -1,32 +1,24 @@
-﻿using SportsStore.Domain.Entities;
+﻿using System.Linq;
+using SportsStore.Domain.Entities;
 using SportsStore.Repository;
+using SportsStore.Repository.Abstract;
 using SportsStore.Service.Abstract;
-using System.Linq;
 
 namespace SportsStore.Service.EntityService
 {
-    public class ProductService : IProductService
+    public class ProductService : Service<Product, IProductRepository>, IProductService
     {
         private IUnitOfWork unitOfWork;
 
         public ProductService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-        }
-
-        public IQueryable<Product> GetList()
-        {
-            return this.unitOfWork.Products.GetAll();
+            this.Repository = unitOfWork.Products;
         }
 
         public IQueryable<Product> GetByCategory(int? categoryId)
         {
             return this.unitOfWork.Products.GetByCategory(categoryId);
-        }
-
-        public Product GetById(int productId)
-        {
-            return this.unitOfWork.Products.GetById(productId);
-        }
+        }       
     }
 }
