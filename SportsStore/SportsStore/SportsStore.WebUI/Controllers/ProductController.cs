@@ -14,7 +14,7 @@ namespace SportsStore.WebUI.Controllers
         public ProductController(IProductService productService)
         {
             this.service = productService;
-            this.PageSize = 3;
+            this.PageSize = 5;
         }
 
         public int PageSize

@@ -14,5 +14,5 @@
 }
 
 <div>
-    @Html.PageLinks(@Model.PagingInfo, x => Url.Action("List", new { page = x, category = @Model.CurrentCategory }))
+    @Html.PageLinks(@Model.PagingInfo, x => Url.Action("List", new { page = x, categoryId = @Model.CurrentCategory }))
 </div>
