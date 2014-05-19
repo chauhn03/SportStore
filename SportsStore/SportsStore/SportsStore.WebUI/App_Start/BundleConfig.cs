@@ -38,6 +38,19 @@ namespace SportsStore.WebUI
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+            
+            #region Admin
+            bundles.Add(new StyleBundle("~/Content/admin/css").Include(
+                      "~/Content/admin/css/reset.css",
+                      "~/Content/admin/css/text.css",
+                      "~/Content/admin/css/grid.css",
+                      "~/Content/admin/css/layout.css",
+                      "~/Content/admin/css/nav.css",
+                      "~/Content/admin/css/css/table/demo_page.css",
+                      "~/Content/admin/css/css/table/demo_table.css",
+                      "~/Content/admin/css/css/table/demo_table_jui.css"
+                      ));
+            #endregion
         }
     }
 }

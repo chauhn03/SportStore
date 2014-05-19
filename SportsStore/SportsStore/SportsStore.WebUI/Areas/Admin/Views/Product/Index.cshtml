@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+	<div class="grid_2">
+		<div class="box sidemenu">
+			<div class="block" id="section-menu">
+				<ul class="section menu">
+					<li><a class="menuitem">Tác Vụ</a>
+						<ul class="submenu">
+							<li><a>Nhóm Sản Phẩm</a> </li>
+							<li><a>Tạo Nhóm</a> </li>
+							<li><a>Tạo Sản Phẩm</a> </li>
+							<li><a data-bind="click: removeProduct">Xóa Sản Phẩm</a> </li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="grid_10">
+		<div class="box round first grid">
+			<h2>Sản Phẩm</h2>
+			@*  <div class="grid_1">
+				<a class="btn-mini btn-grey btn-plus" data-bind="click: removeProduct"><span></span>Add</a>
+			</div>*@
+			<div class="block">
+				<div>
+					<table id="example" class="tablesorter">
+						<thead>
+							<tr>
+								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>
+								<th>Platform(s)</th>
+								<th>Engine version</th>
+								<th>CSS grade</th>
+							</tr>
+						</thead>
+
+						<tbody data-bind="foreach: products, visible: products().length > 0">
+							<tr>
+								<td class="column_checkbox">
+									<input type="checkbox" /></td>
+								<td data-bind="text: sanPhamId" />
+								<td data-bind="text: tenSanPham" />
+								<td data-bind="text: nhaCungCap" />
+							</tr>
+						</tbody>
+					</table>
+
+					<table class="form">
+						<tr>
+							<td class="col1">
+								<button id="bntDelete" class="btn btn-grey" title="Submit">Xóa</button>
+							</td>
+							<td class="col2">
+								<button id="bntAdd" class="btn btn-grey" title="Submit">Thêm</button>
+							</td>
+						</tr>
+					</table>              
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear">
+	</div>
+</div>
