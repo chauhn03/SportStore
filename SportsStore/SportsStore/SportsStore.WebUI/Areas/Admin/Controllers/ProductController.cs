@@ -1,10 +1,9 @@
-﻿using SportsStore.Domain.Entities;
-using SportsStore.Service.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SportsStore.Domain.Entities;
+using SportsStore.Service.Abstract;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
@@ -14,14 +13,32 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         public ProductController(IProductService productService)
         {
             this.service = productService;
+            this.PageSize = 12;
+        }
+
+        public int PageSize
+        {
+            get;
+            set;
         }
 
         //
         // GET: /Admin/Product/
 
-        public ActionResult Index()
+        public ActionResult Index(int? categoryId, int page = 1)
         {
-            return View(this.service.GetAll());
+            IQueryable<Product> products = service.GetByCategory(categoryId);
+
+            ProductListViewModel viewModel = new ProductListViewModel()
+            {
+                PagingInfo = new PagingInfo() { CurrentPage = page, ItemPerPage = this.PageSize, TotalItems = products.Count() },
+                Products = products.OrderBy(product => product.ProductId)
+                                   .Skip((page - 1) * this.PageSize)
+                                   .Take(this.PageSize),
+                CurrentCategory = categoryId
+            };
+
+            return this.View(viewModel);
         }
 
         public ViewResult Edit(int productId)

@@ -1,6 +1,12 @@
-﻿@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+﻿@using SportsStore.WebUI.Models;
+@using SportsStore.WebUI.HtmlHelpers;
+@using SportsStore.Domain.Entities;
+
+@model ProductListViewModel
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div>
@@ -28,27 +34,37 @@
 			</div>*@
 			<div class="block">
 				<div>
-					<table id="example" class="tablesorter">
+					<table class="data display datatable" id="example">
 						<thead>
 							<tr>
-								<td class="column_checkbox">
-									<input id="ckCheckAll" type="checkbox" /></td>
+								@*								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>*@
 								<th>Platform(s)</th>
 								<th>Engine version</th>
 								<th>CSS grade</th>
+                                <th />
 							</tr>
 						</thead>
 
 						<tbody data-bind="foreach: products, visible: products().length > 0">
-							<tr>
-								<td class="column_checkbox">
-									<input type="checkbox" /></td>
-								<td data-bind="text: sanPhamId" />
-								<td data-bind="text: tenSanPham" />
-								<td data-bind="text: nhaCungCap" />
-							</tr>
+							@foreach (var product in Model.Products)
+							{
+								<tr>
+									@*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+									<td>@product.Name</td>
+									<td>@product.CategoryId</td>
+									<td>@product.Price</td>
+                                    <td>@Html.ActionLink("Edit", "Edit", new { productId = product.ProductId })</td>
+								</tr>
+							}
 						</tbody>
 					</table>
+
+					<div>
+						@Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x, categoryId = @Model.CurrentCategory }))
+					</div>
+
 
 					<table class="form">
 						<tr>
@@ -59,7 +75,7 @@
 								<button id="bntAdd" class="btn btn-grey" title="Submit">Thêm</button>
 							</td>
 						</tr>
-					</table>              
+					</table>
 				</div>
 			</div>
 		</div>
@@ -67,3 +83,22 @@
 	<div class="clear">
 	</div>
 </div>
+@section scripts
+{
+	<link href="~/Content/admin/css/table/demo_page.css" rel="stylesheet" />
+	<script src="~/Content/admin/js/table/jquery.dataTables.min.js"></script>
+	<script src="~/Content/admin/js/setup.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			setupLeftMenu();
+
+			$('.datatable').dataTable(
+				{
+					"bFilter": false,
+					"bPaginate": false,
+					"bInfo": false
+				});
+			setSidebarHeight();
+		});
+	</script>
+}

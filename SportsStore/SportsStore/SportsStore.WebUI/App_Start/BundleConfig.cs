@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace SportsStore.WebUI
 {
@@ -40,7 +39,7 @@ namespace SportsStore.WebUI
                         "~/Content/themes/base/jquery.ui.theme.css"));
             
             #region Admin
-            bundles.Add(new StyleBundle("~/Content/admin/css").Include(
+            bundles.Add(new StyleBundle("~/Content/bluewhale-admin/css").Include(
                       "~/Content/admin/css/reset.css",
                       "~/Content/admin/css/text.css",
                       "~/Content/admin/css/grid.css",
@@ -49,6 +48,19 @@ namespace SportsStore.WebUI
                       "~/Content/admin/css/css/table/demo_page.css",
                       "~/Content/admin/css/css/table/demo_table.css",
                       "~/Content/admin/css/css/table/demo_table_jui.css"
+                      ));
+
+            bundles.Add(new StyleBundle("~/bundles/bluewhale_admin_jquery").Include( 
+                      "~/Content/admin/js/jquery-1.6.4.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/bluewhale_admin_jquery_ui").Include(                     
+                      "~/Content/admin/js/jquery-ui/jquery.ui.core.min.js",
+                      "~/Content/admin/js/jquery-ui/jquery.ui.widget.min.js",
+                      "~/Content/admin/js/jquery-ui/jquery.ui.accordion.min.js",
+                      "~/Content/admin/js/jquery-ui/jquery.effects.core.min.js",
+                      "~/Content/admin/js/jquery-ui/jquery.effects.slide.min.js",
+                      "~/Content/admin/js/jquery-ui/jquery.ui.mouse.min.js",
+                      "~/Content/admin/js/jquery-ui/jquery.ui.sortable.min.js"
                       ));
             #endregion
         }

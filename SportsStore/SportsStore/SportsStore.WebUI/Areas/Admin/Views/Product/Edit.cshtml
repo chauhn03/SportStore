@@ -1,0 +1,111 @@
+﻿@model SportsStore.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid_12">
+    <div class="box round first fullpage">
+        <h2>Product: @Model.Name</h2>
+        <div class="block ">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)          
+
+                <table class="form">
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Name)
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "medium" })
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </td>
+                    </tr>
+                </table>
+                @Html.HiddenFor(model => model.ProductId)
+
+                          
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Description)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Description)
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Price)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Price)
+                    @Html.ValidationMessageFor(model => model.Price)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Category)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Category)
+                    @Html.ValidationMessageFor(model => model.Category)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.CategoryId)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.CategoryId)
+                    @Html.ValidationMessageFor(model => model.CategoryId)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ImageMimeType)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ImageMimeType)
+                    @Html.ValidationMessageFor(model => model.ImageMimeType)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Created)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Created)
+                    @Html.ValidationMessageFor(model => model.Created)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Modified)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Modified)
+                    @Html.ValidationMessageFor(model => model.Modified)
+                </div>
+
+                <p>
+                    <input type="submit" value="Save" />
+                </p>                
+            }
+
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/themes/base/css")
+
+    <script type="text/javascript">
+        
+    </script>
+}
