@@ -37,10 +37,8 @@
                             </div>
                         </td>
                         <td>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Description, new { @class = "large" })
-                                @Html.ValidationMessageFor(model => model.Description)
-                            </div>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "tinymce" })
+                            @*@Html.ValidationMessageFor(model => model.Description)*@
                         </td>
                     </tr>
 
@@ -151,14 +149,20 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Styles.Render("~/Content/themes/base/css")
-    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
-    <link href="~/Content/themes/base/ComboBox.css" rel="stylesheet" />
+    @Styles.Render("~/Content/themes/ui-lightness/css")
+    <link href="~/Content/ComboBox.css" rel="stylesheet" />
+
     <script src="~/Scripts/ComboboxWidget.js"></script>
+    @*<script src="~/Content/admin/js/tiny-mce/jquery.tinymce.js"></script>*@    
+    <script src="~/Scripts/admin/js/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            //setupTinyMCE();
+            setDatePicker('datepicker');
+            setupTinyMCE_Classy();
             $("#combobox").combobox();
-            $("#datepicker").datepicker();
+            $("#datepicker").datepicker();            
         });
     </script>
 }

@@ -1,14 +1,14 @@
-﻿function setSidebarHeight(){
-	setTimeout(function(){
-var height = $(document).height();
-    $('.grid_12').each(function () {
-        height -= $(this).outerHeight();
-    });
-    height -= $('#site_info').outerHeight();
-	height-=1;
-	//salert(height);
-    $('.sidemenu').css('height', height);					   
-						},100);
+﻿function setSidebarHeight() {
+    setTimeout(function () {
+        var height = $(document).height();
+        $('.grid_12').each(function () {
+            height -= $(this).outerHeight();
+        });
+        height -= $('#site_info').outerHeight();
+        height -= 1;
+        //salert(height);
+        $('.sidemenu').css('height', height);
+    }, 100);
 }
 
 //Dashboard chart
@@ -112,7 +112,7 @@ function drawPointsChart(containerElement) {
               lineWidth: 5,
               markerOptions: { style: "filledSquare", size: 10 }
           }
-      ]
+        ]
     }
   );
 
@@ -123,7 +123,7 @@ function drawPieChart(containerElement) {
     var data = [
     ['Heavy Industry', 12], ['Retail', 9], ['Light Industry', 14],
     ['Out of home', 16], ['Commuting', 7], ['Orientation', 9]
-  ];
+    ];
     var plot1 = jQuery.jqplot('chart1', [data],
     {
         seriesDefaults: {
@@ -431,6 +431,41 @@ function setupTinyMCE() {
     });
 }
 
+// use tinymce 4.0.26 (folder tinymce)
+function setupTinyMCE_Classy() {
+    tinymce.init({
+        //script_url: 'js/tinymce/tinymce.js',
+        selector: "textarea",
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+        ],
+
+        toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+        menubar: false,
+        toolbar_items_size: 'small',
+
+        style_formats: [
+                { title: 'Bold text', inline: 'b' },
+                { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                { title: 'Example 1', inline: 'span', classes: 'example1' },
+                { title: 'Example 2', inline: 'span', classes: 'example2' },
+                { title: 'Table styles' },
+                { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+        ],
+
+        templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+        ]
+    });
+}
+
 //setup DatePicker
 function setDatePicker(containerElement) {
     var datePicker = $('#' + containerElement);
@@ -502,6 +537,6 @@ function setupLeftMenu() {
         })
         .find("a.menuitem:first").addClass("current")
         .next().addClass("current");
-		
-		$('#section-menu .submenu').css('height','auto');
+
+    $('#section-menu .submenu').css('height', 'auto');
 }

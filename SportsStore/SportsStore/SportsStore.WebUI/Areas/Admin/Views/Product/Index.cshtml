@@ -42,7 +42,7 @@
 								<th>Platform(s)</th>
 								<th>Engine version</th>
 								<th>CSS grade</th>
-                                <th />
+								<th />
 							</tr>
 						</thead>
 
@@ -55,11 +55,11 @@
 									<td>@Html.ActionLink(product.Name, "Edit", new { productId = product.ProductId })</td>
 									<td>@product.CategoryId</td>
 									<td>@product.Price</td>
-                                    <td>
-                                        @Html.ActionLink("Create", "Create", new { productId = product.ProductId })
-                                        |
-                                        @Html.ActionLink("Delete", "Delete", new { productId = product.ProductId })
-                                    </td>
+									<td>
+										@Html.ActionLink("Create", "Create", new { productId = product.ProductId })
+										|
+										@Html.ActionLink("Delete", "Delete", new { productId = product.ProductId })
+									</td>
 								</tr>
 							}
 						</tbody>
@@ -87,9 +87,9 @@
 </div>
 @section scripts
 {
-	<link href="~/Content/admin/css/table/demo_page.css" rel="stylesheet" />
-	<script src="~/Content/admin/js/table/jquery.dataTables.min.js"></script>
-	<script src="~/Content/admin/js/setup.js"></script>
+	<link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+	<script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+	<script src="~/Scripts/admin/js/setup.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			setupLeftMenu();
