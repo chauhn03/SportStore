@@ -52,10 +52,14 @@
 								<tr>
 									@*<td class="column_checkbox">
 										<input type="checkbox" /></td>*@
-									<td>@product.Name</td>
+									<td>@Html.ActionLink(product.Name, "Edit", new { productId = product.ProductId })</td>
 									<td>@product.CategoryId</td>
 									<td>@product.Price</td>
-                                    <td>@Html.ActionLink("Edit", "Edit", new { productId = product.ProductId })</td>
+                                    <td>
+                                        @Html.ActionLink("Create", "Create", new { productId = product.ProductId })
+                                        |
+                                        @Html.ActionLink("Delete", "Delete", new { productId = product.ProductId })
+                                    </td>
 								</tr>
 							}
 						</tbody>
@@ -79,9 +83,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="clear">
-	</div>
+	</div>	
 </div>
 @section scripts
 {

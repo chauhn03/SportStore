@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using SportsStore.Domain.Entities;
 using SportsStore.Service.Abstract;
 using SportsStore.WebUI.Models;
+using SportsStore.Service.EntityService;
+using SportsStore.Repository.Fake;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
@@ -43,7 +45,9 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         public ViewResult Edit(int productId)
         {
-            Product product = this.service.GetById(productId);
+            Product product = this.service.GetById(productId);            
+            ICategoryService categoryService = new CategoryService(new FakeUnitOfWork());
+            ViewData["Categories"] = categoryService.GetAll();
             return this.View(product);
         }
 
@@ -76,7 +80,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
-            return this.View("Edit", new Product());
+            return this.View("Create", new Product());
         }
 
         [HttpPost]

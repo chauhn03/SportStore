@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
-    @Styles.Render("~/Content/bluewhale-admin/css")    
+    @Styles.Render("~/Content/bluewhale-admin/css")
     @*<link href="~/Content/bluewhale-admin/css/table/demo_page.css" rel="stylesheet" type="text/css" />*@
 
     @*Admin scripts*@
@@ -13,7 +13,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
-   @* <script src="~/Content/admin/js/jquery-ui/jquery.ui.core.min.js"></script>
+    @* <script src="~/Content/admin/js/jquery-ui/jquery.ui.core.min.js"></script>
     <script src="~/Content/admin/js/jquery-ui/jquery.ui.widget.min.js"></script>
     <script src="~/Content/admin/js/jquery-ui/jquery.ui.accordion.min.js"></script>
 
@@ -75,8 +75,8 @@
         </div>
         <div class="clear">
         </div>
-        <div>
-            @RenderBody()
+        @RenderBody()
+        <div class="clear">
         </div>
     </div>
     <div class="clear">
@@ -87,7 +87,7 @@
         </p>
     </div>
 
-@*    @Scripts.Render("~/bundles/bluewhale_admin_jquery")
-    @Scripts.Render("~/bundles/bluewhale_admin_jquery_ui")*@    
+    @*    @Scripts.Render("~/bundles/bluewhale_admin_jquery")
+    @Scripts.Render("~/bundles/bluewhale_admin_jquery_ui")*@
 </body>
 </html>
