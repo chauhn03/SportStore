@@ -51,29 +51,29 @@ namespace SportsStore.WebUI
                 ));
 
             #region Admin
-            bundles.Add(new StyleBundle("~/Scripts/bluewhale-admin/css").Include(
-                      "~/Scripts/admin/css/reset.css",
-                      "~/Scripts/admin/css/text.css",
-                      "~/Scripts/admin/css/grid.css",
-                      "~/Scripts/admin/css/layout.css",
-                      "~/Scripts/admin/css/nav.css",
-                      "~/Scripts/admin/css/css/table/demo_page.css",
-                      "~/Scripts/admin/css/css/table/demo_table.css",
-                      "~/Scripts/admin/css/css/table/demo_table_jui.css"
+            bundles.Add(new StyleBundle("~/Content/bluewhale-admin/css").Include(
+                      "~/Content/admin/css/reset.css",
+                      "~/Content/admin/css/text.css",
+                      "~/Content/admin/css/grid.css",
+                      "~/Content/admin/css/layout.css",
+                      "~/Content/admin/css/nav.css",
+                      "~/Content/admin/css/css/table/demo_page.css",
+                      "~/Content/admin/css/css/table/demo_table.css",
+                      "~/Content/admin/css/css/table/demo_table_jui.css"
                       ));
 
-            bundles.Add(new StyleBundle("~/bundles/bluewhale_admin_jquery").Include(
-                      "~/Content/admin/js/jquery-1.6.4.min.js"));
+            //bundles.Add(new StyleBundle("~/bundles/bluewhale_admin_jquery").Include(
+            //          "~/Content/admin/js/jquery-1.6.4.min.js"));
 
-            bundles.Add(new StyleBundle("~/bundles/bluewhale_admin_jquery_ui").Include(
-                      "~/Content/admin/js/jquery-ui/jquery.ui.core.min.js",
-                      "~/Content/admin/js/jquery-ui/jquery.ui.widget.min.js",
-                      "~/Content/admin/js/jquery-ui/jquery.ui.accordion.min.js",
-                      "~/Content/admin/js/jquery-ui/jquery.effects.core.min.js",
-                      "~/Content/admin/js/jquery-ui/jquery.effects.slide.min.js",
-                      "~/Content/admin/js/jquery-ui/jquery.ui.mouse.min.js",
-                      "~/Content/admin/js/jquery-ui/jquery.ui.sortable.min.js"
-                      ));
+            //bundles.Add(new StyleBundle("~/bundles/bluewhale_admin_jquery_ui").Include(
+            //          "~/Content/admin/js/jquery-ui/jquery.ui.core.min.js",
+            //          "~/Content/admin/js/jquery-ui/jquery.ui.widget.min.js",
+            //          "~/Content/admin/js/jquery-ui/jquery.ui.accordion.min.js",
+            //          "~/Content/admin/js/jquery-ui/jquery.effects.core.min.js",
+            //          "~/Content/admin/js/jquery-ui/jquery.effects.slide.min.js",
+            //          "~/Content/admin/js/jquery-ui/jquery.ui.mouse.min.js",
+            //          "~/Content/admin/js/jquery-ui/jquery.ui.sortable.min.js"
+            //          ));
             #endregion
         }
     }

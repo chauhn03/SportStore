@@ -471,10 +471,22 @@ function setDatePicker(containerElement) {
     var datePicker = $('#' + containerElement);
     datePicker.datepicker({
         showOn: "button",
-        buttonImage: "img/calendar.gif",
+        buttonImage: "/Content/admin/img/calendar.gif",
         buttonImageOnly: true
     });
 }
+
+function setSpinnerCurrency(containerElement, minValue, maxValue, step, startValue) {
+    var spinner = $('#' + containerElement);
+    spinner.spinner({
+            min: minValue,
+            max: maxValue,
+            step: step,
+            start: startValue,
+            numberFormat: "C"
+    });
+}
+
 //setup progressbar
 function setupProgressbar(containerElement) {
     $("#" + containerElement).progressbar({

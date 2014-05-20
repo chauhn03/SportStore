@@ -80,7 +80,7 @@ button.ui-combobox-button.ui-button-icon-only
 
 .custom-combobox-toggle {
     position: relative;
-    top: -2px;
+    top: 0;
     bottom: 0;
     margin-left: -1px;
     padding: 0;     

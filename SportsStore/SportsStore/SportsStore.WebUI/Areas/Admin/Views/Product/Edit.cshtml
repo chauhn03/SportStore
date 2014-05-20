@@ -50,7 +50,7 @@
                         </td>
                         <td>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Price, new { @class = "medium" })
+                                @Html.TextBoxFor(model => model.Price, new { id = "spinner" })
                                 @Html.ValidationMessageFor(model => model.Price)
                             </div>
                         </td>
@@ -80,7 +80,7 @@
                             @*<div class="editor-field">*@
                             @*    @Html.EditorFor(model => model.CategoryId)
                                 @Html.ValidationMessageFor(model => model.CategoryId)*@
-                            <div>
+                            <div class="ui-widget">
                                 <select id="combobox" name="combobox">
                                     <option value="1">Value 1</option>
                                     <option value="2">Value 2</option>
@@ -153,16 +153,18 @@
     <link href="~/Content/ComboBox.css" rel="stylesheet" />
 
     <script src="~/Scripts/ComboboxWidget.js"></script>
-    @*<script src="~/Content/admin/js/tiny-mce/jquery.tinymce.js"></script>*@    
+    @*<script src="~/Content/admin/js/tiny-mce/jquery.tinymce.js"></script>*@
     <script src="~/Scripts/admin/js/tinymce/tinymce.min.js"></script>
     <script src="~/Scripts/admin/js/setup.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             //setupTinyMCE();
+
             setDatePicker('datepicker');
             setupTinyMCE_Classy();
             $("#combobox").combobox();
-            $("#datepicker").datepicker();            
+            $("#datepicker").datepicker();
+            setSpinnerCurrency('spinner', 10, 1000000, 10, 100);            
         });
     </script>
 }
