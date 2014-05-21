@@ -1,20 +1,24 @@
-﻿using System.Linq;
+﻿using SportsStore.Domain.Entities;
+using SportsStore.Repository.Fake;
+using SportsStore.Service.Abstract;
+using SportsStore.Service.EntityService;
+using SportsStore.WebUI.Infrastructure.Common;
+using SportsStore.WebUI.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SportsStore.Domain.Entities;
-using SportsStore.Service.Abstract;
-using SportsStore.WebUI.Models;
-using SportsStore.Service.EntityService;
-using SportsStore.Repository.Fake;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductService service;
-        public ProductController(IProductService productService)
+        private IProductService productService;
+        private ICategoryService categoryService;
+        public ProductController(IProductService productService, ICategoryService categoryService)
         {
-            this.service = productService;
+            this.productService = productService;
+            this.categoryService = categoryService;
             this.PageSize = 12;
         }
 
@@ -29,25 +33,16 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         public ActionResult Index(int? categoryId, int page = 1)
         {
-            IQueryable<Product> products = service.GetByCategory(categoryId);
-
-            ProductListViewModel viewModel = new ProductListViewModel()
-            {
-                PagingInfo = new PagingInfo() { CurrentPage = page, ItemPerPage = this.PageSize, TotalItems = products.Count() },
-                Products = products.OrderBy(product => product.ProductId)
-                                   .Skip((page - 1) * this.PageSize)
-                                   .Take(this.PageSize),
-                CurrentCategory = categoryId
-            };
-
+            IQueryable<Product> products = productService.GetByCategory(categoryId);
+            ProductListViewModel viewModel = this.CreateProductListViewModel(products, categoryId, page);
             return this.View(viewModel);
         }
 
         public ViewResult Edit(int productId)
         {
-            Product product = this.service.GetById(productId);            
-            ICategoryService categoryService = new CategoryService(new FakeUnitOfWork());
-            ViewData["Categories"] = categoryService.GetAll();
+            Product product = this.productService.GetById(productId);
+            IEnumerable<Category> categories = categoryService.GetAll();
+            ProductViewModel viewModel = this.CreateProductViewModel(categories, product);
             return this.View(product);
         }
 
@@ -65,7 +60,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
                 if (product.ProductId < 0)
                 {
-                    this.service.Add(product);
+                    this.productService.Add(product);
                 }
 
                 TempData["message"] = string.Format("{0} has been saved", product.Name);
@@ -86,10 +81,41 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int productId)
         {
-            Product product = this.service.GetById(productId);
-            this.service.Delete(product);
+            Product product = this.productService.GetById(productId);
+            this.productService.Delete(product);
             TempData["message"] = string.Format("{0} was deleted", product.Name);
             return this.RedirectToAction("Index");
+        }
+
+        private ProductViewModel CreateProductViewModel(IEnumerable<Category> categories, Product product)
+        {
+            return new ProductViewModel()
+            {
+                Categories = categories.ToDictionary(category => category.CategoryId, b => b.Name),
+                Product = product
+            };
+        }
+
+        private ProductListViewModel CreateProductListViewModel(IEnumerable<Product> products, int? categoryId, int page)
+        {
+            ProductListViewModel viewModel = new ProductListViewModel()
+            {
+                PagingInfo = this.CreatePagingInfo(page, this.PageSize, products.Count()),
+                Products = products.GetDataOfPage<Product>(page, this.PageSize),
+                CurrentCategory = categoryId
+            };
+
+            return viewModel;
+        }
+
+        private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
+        {
+            return new PagingInfo()
+                {
+                    CurrentPage = page,
+                    ItemPerPage = this.PageSize,
+                    TotalItems = totalItems
+                };
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model SportsStore.Domain.Entities.Product
+﻿@model SportsStore.WebUI.Models.ProductViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -7,37 +7,37 @@
 
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>Product: @Model.Name</h2>
+        <h2>Product: @Model.Product.Name</h2>
         <div class="block ">
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)          
-                @Html.HiddenFor(model => model.ProductId)
+                @Html.HiddenFor(model => model.Product.ProductId)
                                            
                 <table class="form">
                     <tr>
                         <td class="col1">
                             <div class="editor-label">
-                                @Html.LabelFor(model => model.Name)
+                                @Html.LabelFor(model => model.Product.Name)
                             </div>
                         </td>
 
                         <td class="col2">
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Name, new { @class = "medium" })
-                                @Html.ValidationMessageFor(model => model.Name)
+                                @Html.TextBoxFor(model => model.Product.Name, new { @class = "medium" })
+                                @Html.ValidationMessageFor(model => model.Product.Name)
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="editor-label">
-                                @Html.LabelFor(model => model.Description)
+                                @Html.LabelFor(model => model.Product.Description)
                             </div>
                         </td>
                         <td>
-                            @Html.TextAreaFor(model => model.Description, new { @class = "tinymce" })
+                            @Html.TextAreaFor(model => model.Product.Description, new { @class = "tinymce" })
                             @*@Html.ValidationMessageFor(model => model.Description)*@
                         </td>
                     </tr>
@@ -45,41 +45,30 @@
                     <tr>
                         <td>
                             <div class="editor-label">
-                                @Html.LabelFor(model => model.Price)
+                                @Html.LabelFor(model => model.Product.Price)
                             </div>
                         </td>
                         <td>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Price, new { id = "spinner" })
-                                @Html.ValidationMessageFor(model => model.Price)
+                                @Html.TextBoxFor(model => model.Product.Price, new { id = "spinner" })
+                                @Html.ValidationMessageFor(model => model.Product.Price)
                             </div>
                         </td>
-                    </tr>
+                    </tr>                 
 
                     <tr>
                         <td>
                             <div class="editor-label">
-                                @Html.LabelFor(model => model.Category)
-                            </div>
-                        </td>
-                        <td>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Category, new { @class = "medium" })
-                                @Html.ValidationMessageFor(model => model.Category)
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.CategoryId)
+                                @Html.LabelFor(model => model.Product.CategoryId)
                             </div>
                         </td>
                         <td>
                             @*<div class="editor-field">*@
                             @*    @Html.EditorFor(model => model.CategoryId)
                                 @Html.ValidationMessageFor(model => model.CategoryId)*@
+                            @*<div class="editor-field ui-widget">
+                                @Html.DropDownListFor(model => model.Product.CategoryId, Model.Categories);
+                            </div>*@
                             <div class="ui-widget">
                                 <select id="combobox" name="combobox">
                                     <option value="1">Value 1</option>
