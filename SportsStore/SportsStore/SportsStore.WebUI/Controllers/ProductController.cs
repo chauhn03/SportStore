@@ -30,9 +30,9 @@ namespace SportsStore.WebUI.Controllers
             ProductListViewModel viewModel = new ProductListViewModel()
             {
                 PagingInfo = new PagingInfo() { CurrentPage = page, ItemPerPage = this.PageSize, TotalItems = products.Count() },
-                Products = products.OrderBy(product => product.ProductId)
-                                   .Skip((page - 1) * this.PageSize)
-                                   .Take(this.PageSize),
+                //ProductViewModels = products.OrderBy(product => product.ProductId)
+                //                   .Skip((page - 1) * this.PageSize)
+                //                   .Take(this.PageSize),
                 CurrentCategory = categoryId
             };
 

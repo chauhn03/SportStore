@@ -15,7 +15,7 @@
         public System.Linq.IQueryable<Product> GetByCategory(int? categoryId)
         {
             return from product in this.DbSet
-                   where product.Category == null || product.CategoryId == categoryId
+                   where categoryId == null || product.CategoryId == categoryId
                    select product;
         }
     }

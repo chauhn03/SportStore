@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Models
 {
@@ -10,6 +11,8 @@ namespace SportsStore.WebUI.Models
     {
         public Product Product { get; set; }
 
-        public Dictionary<int, string> Categories { get; set; }
-    }
+        public string CategoryName { get; set; }
+
+        public SelectList Categories { get; set; }
+    }    
 }

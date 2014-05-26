@@ -5,7 +5,7 @@ namespace SportsStore.WebUI.Models
 {
     public class ProductListViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<ProductViewModel> ProductViewModels { get; set; }
 
         public PagingInfo PagingInfo { get; set; }
 

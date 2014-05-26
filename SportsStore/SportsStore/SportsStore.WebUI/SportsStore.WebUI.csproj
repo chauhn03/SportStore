@@ -273,6 +273,7 @@
     <Content Include="Content\admin\img\cog.png" />
     <Content Include="Content\admin\img\cross.png" />
     <Content Include="Content\admin\img\dark-bg.png" />
+    <Content Include="Content\admin\img\delete_16x16.png" />
     <Content Include="Content\admin\img\down.png" />
     <Content Include="Content\admin\img\fancy-button\chekbox_off.png" />
     <Content Include="Content\admin\img\fancy-button\chekbox_on.png" />

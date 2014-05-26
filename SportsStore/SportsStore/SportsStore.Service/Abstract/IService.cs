@@ -5,6 +5,6 @@ namespace SportsStore.Service.Abstract
     {
         void Add(T entity);
 
-        void Delete(T entity);
+        void Delete(T entity);        
     }
 }

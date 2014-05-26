@@ -9,7 +9,7 @@
     <div class="box round first fullpage">
         <h2>Product: @Model.Product.Name</h2>
         <div class="block ">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)          
@@ -30,6 +30,58 @@
                             </div>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Product.Price)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Product.Price, new { id = "spinner" })
+                                @Html.ValidationMessageFor(model => model.Product.Price)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Product.CategoryId)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field ui-widget">
+                                @Html.DropDownListFor(model => model.Product.CategoryId, Model.Categories, new { id = "combobox" })
+                                @Html.ValidationMessageFor(model => model.Product.CategoryId)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Product.ImageData)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @if (Model.Product.ImageData == null)
+                                {
+                                    @:None
+	    }
+                                else
+                                {
+                                    <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { Model.Product.ProductId })" />            
+                                }
+
+                                <div>
+                                    <input type="file" name="image" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>
                             <div class="editor-label">
@@ -44,90 +96,11 @@
 
                     <tr>
                         <td>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Product.Price)
-                            </div>
-                        </td>
-                        <td>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Product.Price, new { id = "spinner" })
-                                @Html.ValidationMessageFor(model => model.Product.Price)
-                            </div>
-                        </td>
-                    </tr>                 
-
-                    <tr>
-                        <td>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Product.CategoryId)
-                            </div>
-                        </td>
-                        <td>
-                            @*<div class="editor-field">*@
-                            @*    @Html.EditorFor(model => model.CategoryId)
-                                @Html.ValidationMessageFor(model => model.CategoryId)*@
-                            @*<div class="editor-field ui-widget">
-                                @Html.DropDownListFor(model => model.Product.CategoryId, Model.Categories);
-                            </div>*@
-                            <div class="ui-widget">
-                                <select id="combobox" name="combobox">
-                                    <option value="1">Value 1</option>
-                                    <option value="2">Value 2</option>
-                                    <option value="3">Value 3</option>
-                                </select>
-                            </div>
-                            @*</div>*@
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.ImageMimeType)
-                            </div>
-                        </td>
-                        <td>
-                            <div class="editor-field">
-                                @Html.EditorFor(model => model.ImageMimeType)
-                                @Html.ValidationMessageFor(model => model.ImageMimeType)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Created)
-                            </div>
-                        </td>
-                        <td>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Created, new { id = "datepicker" })
-                                @Html.ValidationMessageFor(model => model.Created)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Modified)
-                            </div>
-                        </td>
-                        <td>
-                            <div class="editor-field">
-                                @Html.EditorFor(model => model.Modified)
-                                @Html.ValidationMessageFor(model => model.Modified)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>
-                                <input type="submit" value="Save" />
-                            </p>
-                        </td>
-                        <td>
-                            <div>
-                                @Html.ActionLink("Back to List", "Index")
-                            </div>
+                            <button type="submit" class="btn btn-grey" value="Save">Save</button>
+                            <button type="submit" class="btn btn-grey" value="Save">
+                                @*@Html.ActionLink("Back to List", "Index")*@
+                                Back to List
+                            </button> 
                         </td>
                     </tr>
                 </table>  
@@ -153,7 +126,7 @@
             setupTinyMCE_Classy();
             $("#combobox").combobox();
             $("#datepicker").datepicker();
-            setSpinnerCurrency('spinner', 10, 1000000, 10, 100);            
+            setSpinnerCurrency('spinner', 10, 1000000, 10, 100);
         });
     </script>
 }

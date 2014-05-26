@@ -8,9 +8,9 @@
     ViewBag.Title = "Products";
 }
 
-@foreach (Product product in this.Model.Products)
+@foreach (ProductViewModel productViewModel in this.Model.ProductViewModels)
 {
-    Html.RenderPartial("ProductSummary", product);
+    Html.RenderPartial("ProductSummary", productViewModel.Product);
 }
 
 <div>

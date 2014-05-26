@@ -7,22 +7,25 @@ namespace SportsStore.Domain.Entities
         [HiddenInput(DisplayValue = false)]
         public int ProductId { get; set; }
 
-        [Required(ErrorMessage= "Please enter a product name")]
+        [Required(ErrorMessage = "Please enter a product name")]
         public string Name { get; set; }
 
         //[DataType(DataType.MultilineText)]
         //[Required(ErrorMessage="Please enter a description")]
+        [AllowHtml()]
         public string Description { get; set; }
 
         [Required]
-        [Range(0.01, double.MaxValue, ErrorMessage="Please enter a positive price")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
         public decimal Price { get; set; }
 
-        [Required(ErrorMessage="Please specify a category")]        
-        public string Category { get; set; }
+        //[Required(ErrorMessage="Please specify a category")]        
+        //public string Category { get; set; }
 
+        [Required(ErrorMessage = "Please specify a category")]
         public int CategoryId { get; set; }
 
+        [Display(Name = "Product Image")]
         public byte[] ImageData { get; set; }
 
         [HiddenInput(DisplayValue = false)]

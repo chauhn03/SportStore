@@ -5,102 +5,104 @@
 @model ProductListViewModel
 
 @{
-	ViewBag.Title = "Index";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div>
-	<div class="grid_2">
-		<div class="box sidemenu">
-			<div class="block" id="section-menu">
-				<ul class="section menu">
-					<li><a class="menuitem">Tác Vụ</a>
-						<ul class="submenu">
-							<li><a>Nhóm Sản Phẩm</a> </li>
-							<li><a>Tạo Nhóm</a> </li>
-							<li><a>Tạo Sản Phẩm</a> </li>
-							<li><a data-bind="click: removeProduct">Xóa Sản Phẩm</a> </li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="grid_10">
-		<div class="box round first grid">
-			<h2>Sản Phẩm</h2>
-			@*  <div class="grid_1">
+    <div class="grid_2">
+        <div class="box sidemenu">
+            <div class="block" id="section-menu">
+                <ul class="section menu">
+                    <li><a class="menuitem">Tác Vụ</a>
+                        <ul class="submenu">
+                            <li><a>Nhóm Sản Phẩm</a> </li>
+                            <li><a>Tạo Nhóm</a> </li>
+                            <li><a>Tạo Sản Phẩm</a> </li>
+                            <li><a data-bind="click: removeProduct">Xóa Sản Phẩm</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="grid_10">
+        <div class="box round first grid">
+            <h2>Sản Phẩm</h2>
+            @*  <div class="grid_1">
 				<a class="btn-mini btn-grey btn-plus" data-bind="click: removeProduct"><span></span>Add</a>
 			</div>*@
-			<div class="block">
-				<div>
-					<table class="data display datatable" id="example">
-						<thead>
-							<tr>
-								@*								<td class="column_checkbox">
+            <div class="block">
+                <div>
+                    <table class="data display datatable" id="example">
+                        <thead>
+                            <tr>
+                                @*								<td class="column_checkbox">
 									<input id="ckCheckAll" type="checkbox" /></td>*@
-								<th>Platform(s)</th>
-								<th>Engine version</th>
-								<th>CSS grade</th>
-								<th />
-							</tr>
-						</thead>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th />
+                            </tr>
+                        </thead>
 
-						<tbody data-bind="foreach: products, visible: products().length > 0">
-							@foreach (var product in Model.Products)
-							{
-								<tr>
-									@*<td class="column_checkbox">
+                        <tbody data-bind="foreach: products, visible: products().length > 0">
+                            @foreach (var productViewModel in Model.ProductViewModels)
+                            {
+                                <tr>
+                                    @*<td class="column_checkbox">
 										<input type="checkbox" /></td>*@
-									<td>@Html.ActionLink(product.Name, "Edit", new { productId = product.ProductId })</td>
-									<td>@product.CategoryId</td>
-									<td>@product.Price</td>
-									<td>
-										@Html.ActionLink("Create", "Create", new { productId = product.ProductId })
-										|
-										@Html.ActionLink("Delete", "Delete", new { productId = product.ProductId })
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
+                                    <td>@Html.ActionLink(productViewModel.Product.Name, "Edit", new { productId = productViewModel.Product.ProductId })</td>
+                                    <td>@productViewModel.CategoryName</td>
+                                    <td>@productViewModel.Product.Price</td>
+                                    <td>
+                                        @using (Html.BeginForm("Delete", "Product"))
+                                        {
+                                            @Html.Hidden("ProductId", productViewModel.Product.ProductId)                                                                                   
+                                            <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
 
-					<div>
-						@Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x, categoryId = @Model.CurrentCategory }))
-					</div>
+                    <div>
+                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x, categoryId = @Model.CurrentCategory }))
+                    </div>
 
 
-					<table class="form">
-						<tr>
-							<td class="col1">
-								<button id="bntDelete" class="btn btn-grey" title="Submit">Xóa</button>
-							</td>
-							<td class="col2">
-								<button id="bntAdd" class="btn btn-grey" title="Submit">Thêm</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>	
+                    <table class="form">
+                        <tr>
+                            <td class="col1">
+                                <button id="bntDelete" class="btn btn-grey" title="Submit">Xóa</button>
+                            </td>
+                            <td class="col2">
+                                <button id="bntAdd" class="btn btn-grey" title="Submit">Thêm</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @section scripts
 {
-	<link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
-	<script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
-	<script src="~/Scripts/admin/js/setup.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			setupLeftMenu();
+    <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+    <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
 
-			$('.datatable').dataTable(
+            $('.datatable').dataTable(
 				{
-					"bFilter": false,
-					"bPaginate": false,
-					"bInfo": false
+				    "bFilter": false,
+				    "bPaginate": false,
+				    "bInfo": false
 				});
-			setSidebarHeight();
-		});
-	</script>
+            setSidebarHeight();
+        });
+    </script>
 }
