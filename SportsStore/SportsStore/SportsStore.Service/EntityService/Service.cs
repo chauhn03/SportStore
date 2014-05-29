@@ -30,5 +30,10 @@ namespace SportsStore.Service.EntityService
         {
             return this.Repository.GetById(id);
         }
+
+        public void Update(T entity)
+        {
+            //
+        }
     }
 }

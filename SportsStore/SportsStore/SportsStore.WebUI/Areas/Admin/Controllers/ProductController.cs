@@ -44,7 +44,11 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
-            return this.View("Edit", new Product());
+            Product product = new Product();
+            IEnumerable<Category> categories = categoryService.GetAll();
+
+            ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
+            return this.View("Edit", viewModel);
         }
 
         [HttpPost]
@@ -107,13 +111,13 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         private Product CommitChanges(Product product, HttpPostedFileBase image)
         {
-            if (product.ProductId < 0)
+            if (product.ProductId <= 0)
             {
                 this.productService.Add(product);
             }
             else
             {
-                product = this.productService.GetById(product.ProductId);
+                product = this.productService.GetById(product.ProductId);                
             }
 
             if (image != null)
