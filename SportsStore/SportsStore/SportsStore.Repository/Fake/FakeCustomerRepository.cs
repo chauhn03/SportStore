@@ -10,12 +10,13 @@ namespace SportsStore.Repository.Fake
     {
         private static FakeCustomerRepository instance;
         private List<Customer> customers;
+
         private FakeCustomerRepository()
         {
             this.GenerateDummyData();
         }
 
-        public static FakeCustomerRepository Instance 
+        public static FakeCustomerRepository Instance
         {
             get
             {
@@ -26,25 +27,6 @@ namespace SportsStore.Repository.Fake
 
                 return instance;
             }
-        }
-
-        private void GenerateDummyData()
-        {
-            this.customers = new List<Customer>();
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-        }
-
-        public override Customer GetById(int id)
-        {
-            return this.customers.Single(customer => customer.CustomerId == id);
         }
 
         public override void Create(Customer entity)
@@ -62,9 +44,28 @@ namespace SportsStore.Repository.Fake
             return this.customers.AsQueryable();
         }
 
+        public override Customer GetById(int id)
+        {
+            return this.customers.Single(customer => customer.CustomerId == id);
+        }
+
         public IQueryable<Customer> GetByName(string name)
         {
             return this.customers.Where(customer => customer.Name == name).AsQueryable();
+        }
+
+        private void GenerateDummyData()
+        {
+            this.customers = new List<Customer>();
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
         }
     }
 }

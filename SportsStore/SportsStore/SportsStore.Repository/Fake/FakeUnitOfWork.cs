@@ -36,5 +36,20 @@ namespace SportsStore.Repository.Fake
         {
             throw new NotImplementedException();
         }
+
+
+        public Abstract.INewsRepository News
+        {
+            get 
+            {
+                return FakeNewsRepository.Instance;
+            }
+        }
+
+
+        public Abstract.INewsTypeRepository NewsTypes
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

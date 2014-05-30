@@ -55,8 +55,13 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\EmailSettings.cs" />
+    <Compile Include="Entities\FacebookAccount.cs" />
+    <Compile Include="Entities\News.cs" />
+    <Compile Include="Entities\NewsType.cs" />
+    <Compile Include="Entities\YahooAccount.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="EntityBase.cs" />

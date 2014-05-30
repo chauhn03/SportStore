@@ -9,38 +9,45 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
-    {
-        #region Fields
+	public class ProductController : Controller
+	{       
+		#region Fields
 
-        private ICategoryService categoryService;
-        private IProductService productService;
+		private ICategoryService categoryService;
+		private IProductService productService;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Contructors
+		#region Contructors
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
-        {
-            this.productService = productService;
-            this.categoryService = categoryService;
-            this.PageSize = 12;
-        }
+		public ProductController(IProductService productService, ICategoryService categoryService)
+		{
+			this.productService = productService;
+			this.categoryService = categoryService;
+			this.PageSize = 12;
+		}
 
-        #endregion Contructors
+		#endregion Contructors
 
-        #region Properties
+		#region Properties
 
-        public int PageSize
-        {
-            get;
-            set;
-        }
+		public int PageSize
+		{
+			get;
+			set;
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        //
-        // GET: /Admin/Product/
+		#region Public methods
+		[HttpPost]
+		public ActionResult Delete(int productId)
+		{
+			Product product = this.productService.GetById(productId);
+			this.productService.Delete(product);
+			TempData["message"] = string.Format("{0} was deleted", product.Name);
+			return this.RedirectToAction("Index");
+		}
 
         public ViewResult Create()
         {
@@ -51,64 +58,61 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             return this.View("Edit", viewModel);
         }
 
-        [HttpPost]
-        public ActionResult Delete(int productId)
-        {
-            Product product = this.productService.GetById(productId);
-            this.productService.Delete(product);
-            TempData["message"] = string.Format("{0} was deleted", product.Name);
-            return this.RedirectToAction("Index");
-        }
 
-        public ViewResult Edit(int productId)
-        {
-            Product product = this.productService.GetById(productId);
-            IEnumerable<Category> categories = categoryService.GetAll();
+		public ViewResult Edit(int productId)
+		{
+			Product product = this.productService.GetById(productId);
+			IEnumerable<Category> categories = categoryService.GetAll();
 
-            ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
-            return this.View(viewModel);
-        }
+			ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
+			return this.View(viewModel);
+		}
 
-        [HttpPost]
-        public ActionResult Edit(Product product, HttpPostedFileBase image)
-        {
-            if (ModelState.IsValid)
-            {
-                this.CommitChanges(product, image);
-                TempData["message"] = string.Format("{0} has been saved", product.Name);
-                return this.RedirectToAction("Index");
-            }
-            else
-            {
-                // there is something wrong with the data values.
-                return this.View(product);
-            }
-        }
+		[HttpPost]
+		public ActionResult Edit(Product product, HttpPostedFileBase image)
+		{
+			if (ModelState.IsValid)
+			{
+				this.CommitChanges(product, image);
+				TempData["message"] = string.Format("{0} has been saved", product.Name);
+				return this.RedirectToAction("Index");
+			}
+			else
+			{
+				// there is something wrong with the data values.
+				return this.View(product);
+			}
+		}
 
-        public FileContentResult GetImage(int productId)
-        {
-            Product product = this.productService.GetById(productId);
-            if (product != null)
-            {
-                return File(product.ImageData, product.ImageMimeType);
-            }
-            else
-            {
-                return null;
-            }
-        }
+		public FileContentResult GetImage(int productId)
+		{
+			Product product = this.productService.GetById(productId);
+			if (product != null)
+			{
+				return File(product.ImageData, product.ImageMimeType);
+			}
+			else
+			{
+				return null;
+			}
+		}
 
-        public ActionResult Index(int? categoryId, int page = 1)
-        {
-            IQueryable<ProductViewModel> productViewModels = from product in this.productService.GetByCategory(categoryId)
-                                                             join category in this.categoryService.GetAll()
-                                                             on product.CategoryId equals category.CategoryId
-                                                             select this.CreateProductViewModel(product, null, category.Name);
+		public ActionResult Index(int? categoryId, int page = 1)
+		{
+			IQueryable<ProductViewModel> productViewModels = from product in this.productService.GetByCategory(categoryId)
+															 join category in this.categoryService.GetAll()
+															 on product.CategoryId equals category.CategoryId
+															 select this.CreateProductViewModel(product, null, category.Name);
 
-            ProductListViewModel viewModel = this.CreateProductListViewModel(productViewModels, categoryId, page);
-            return this.View(viewModel);
-        }
+			ProductListViewModel viewModel = this.CreateProductListViewModel(productViewModels, categoryId, page);
+			return this.View(viewModel);
+		}
+	
+		#endregion
 
+		#region Private methods
+		//
+		// GET: /Admin/Product/
         private Product CommitChanges(Product product, HttpPostedFileBase image)
         {
             if (product.ProductId <= 0)
@@ -120,45 +124,46 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
                 product = this.productService.GetById(product.ProductId);                
             }
 
-            if (image != null)
-            {
-                product.ImageMimeType = image.ContentType;
-                product.ImageData = new byte[image.ContentLength];
-                image.InputStream.Read(product.ImageData, 0, image.ContentLength);
-            }
+			if (image != null)
+			{
+				product.ImageMimeType = image.ContentType;
+				product.ImageData = new byte[image.ContentLength];
+				image.InputStream.Read(product.ImageData, 0, image.ContentLength);
+			}
 
-            return product;
-        }
+			return product;
+		}
 
-        private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
-        {
-            return new PagingInfo()
-                {
-                    CurrentPage = page,
-                    ItemPerPage = this.PageSize,
-                    TotalItems = totalItems
-                };
-        }
+		private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
+		{
+			return new PagingInfo()
+			{
+				CurrentPage = page,
+				ItemPerPage = this.PageSize,
+				TotalItems = totalItems
+			};
+		}
 
-        private ProductListViewModel CreateProductListViewModel(IEnumerable<ProductViewModel> productViewModels, int? categoryId, int page)
-        {
-            ProductListViewModel viewModel = new ProductListViewModel()
-            {
-                PagingInfo = this.CreatePagingInfo(page, this.PageSize, productViewModels.Count()),
-                ProductViewModels = productViewModels.GetDataOfPage<ProductViewModel>(page, this.PageSize),
-                CurrentCategory = categoryId
-            };
+		private ProductListViewModel CreateProductListViewModel(IEnumerable<ProductViewModel> productViewModels, int? categoryId, int page)
+		{
+			ProductListViewModel viewModel = new ProductListViewModel()
+			{
+				PagingInfo = this.CreatePagingInfo(page, this.PageSize, productViewModels.Count()),
+				ProductViewModels = productViewModels.GetDataOfPage<ProductViewModel>(page, this.PageSize),
+				CurrentCategory = categoryId
+			};
 
-            return viewModel;
-        }
+			return viewModel;
+		}
 
-        private ProductViewModel CreateProductViewModel(Product product, IEnumerable<Category> categories = null, string categoryName = null)
-        {
-            ProductViewModel productViewModel = new ProductViewModel();
-            productViewModel.Product = product;
-            productViewModel.CategoryName = categoryName;
-            productViewModel.Categories = (categories == null) ? null : (new SelectList(categories, "CategoryId", "Name"));
-            return productViewModel;
-        }
-    }
+		private ProductViewModel CreateProductViewModel(Product product, IEnumerable<Category> categories = null, string categoryName = null)
+		{
+			ProductViewModel productViewModel = new ProductViewModel();
+			productViewModel.Product = product;
+			productViewModel.CategoryName = categoryName;
+			productViewModel.Categories = (categories == null) ? null : (new SelectList(categories, "CategoryId", "Name"));
+			return productViewModel;
+		}
+		#endregion
+	}
 }

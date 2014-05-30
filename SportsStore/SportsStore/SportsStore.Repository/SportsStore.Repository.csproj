@@ -58,12 +58,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICategoryRepository.cs" />
+    <Compile Include="Abstract\INewsRepository.cs" />
+    <Compile Include="Abstract\INewsTypeRepository.cs" />
     <Compile Include="EF\EFCategoryRepository.cs" />
     <Compile Include="EF\DataContext.cs" />
     <Compile Include="EF\DatabaseInitialiser.cs" />
     <Compile Include="DataContainer.cs" />
     <Compile Include="Fake\FakeCategoryRepository.cs" />
     <Compile Include="Fake\FakeCustomerRepository.cs" />
+    <Compile Include="Fake\FakeNewsRepository.cs" />
+    <Compile Include="Fake\FakeNewsTypeRepository.cs" />
     <Compile Include="Fake\FakeProductRepository.cs" />
     <Compile Include="Fake\FakeRepository.cs" />
     <Compile Include="Fake\FakeUnitOfWork.cs" />

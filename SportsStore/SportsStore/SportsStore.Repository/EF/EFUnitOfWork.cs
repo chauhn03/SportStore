@@ -11,24 +11,29 @@
     {
         private readonly DataContext db = new DataContext();
 
+        private ICategoryRepository catetories;
         private ICustomerRepository customers;
         private IProductRepository products;
-        private ICategoryRepository catetories;
 
-        /// <summary>
-        /// Factoring method for starting a new UOW
-        /// </summary>
-        public static IUnitOfWork Begin()
+        public ICategoryRepository Categories
         {
-            return DataContainer.Resolve<IUnitOfWork>();
+            get
+            {
+                return this.catetories ?? (this.catetories = new EFCategoryRepository(db));
+            }
         }
-        
+
         public ICustomerRepository Customers
         {
             get
             {
                 return customers ?? (customers = new EFCustomerRepository(db));
             }
+        }
+
+        public INewsRepository News
+        {
+            get { throw new System.NotImplementedException(); }
         }
 
         public IProductRepository Products
@@ -39,12 +44,12 @@
             }
         }
 
-        public ICategoryRepository Categories
+        /// <summary>
+        /// Factoring method for starting a new UOW
+        /// </summary>
+        public static IUnitOfWork Begin()
         {
-            get
-            {
-                return this.catetories ?? (this.catetories = new EFCategoryRepository(db));
-            }
+            return DataContainer.Resolve<IUnitOfWork>();
         }
 
         /// <summary>
@@ -58,6 +63,12 @@
         public void Dispose()
         {
             db.Dispose();
+        }
+
+
+        public INewsTypeRepository NewsTypes
+        {
+            get { throw new System.NotImplementedException(); }
         }
     }
 }

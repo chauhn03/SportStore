@@ -15,6 +15,10 @@
 
         ICategoryRepository Categories { get; }
 
-        void Commit();       
+        INewsRepository News { get; }
+
+        INewsTypeRepository NewsTypes { get; }
+
+        void Commit();
     }
 }
