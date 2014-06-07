@@ -61,19 +61,14 @@
                     <tr>
                         <td>
                             <div class="editor-label">
-<<<<<<< .mine
-                                @Html.LabelFor(model => model.Product.ImageMimeType)
-=======
                                 @Html.LabelFor(model => model.Product.ImageData)
->>>>>>> .r24
                             </div>
                         </td>
                         <td>
                             <div class="editor-field">
-<<<<<<< .mine
                                 @Html.EditorFor(model => model.Product.ImageMimeType)
                                 @Html.ValidationMessageFor(model => model.Product.ImageMimeType)
-=======
+
                                 @if (Model.Product.ImageData == null)
                                 {
                                     @:None
@@ -86,7 +81,6 @@
                                 <div>
                                     <input type="file" name="image" />
                                 </div>
->>>>>>> .r24
                             </div>
                         </td>
                     </tr>
@@ -94,49 +88,23 @@
                     <tr>
                         <td>
                             <div class="editor-label">
-<<<<<<< .mine
-                                @Html.LabelFor(model => model.Product.Created)
-=======
                                 @Html.LabelFor(model => model.Product.Description)
->>>>>>> .r24
                             </div>
                         </td>
                         <td>
-<<<<<<< .mine
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Product.Created, new { id = "datepicker" })
-                                @Html.ValidationMessageFor(model => model.Product.Created)
-                            </div>
-=======
                             @Html.TextAreaFor(model => model.Product.Description, new { @class = "tinymce" })
                             @*@Html.ValidationMessageFor(model => model.Description)*@
->>>>>>> .r24
                         </td>
                     </tr>
 
                     <tr>
                         <td>
-<<<<<<< .mine
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Product.Modified)
-                            </div>
-=======
                             <button type="submit" class="btn btn-grey" value="Save">Save</button>
                             <button type="submit" class="btn btn-grey" value="Save">
                                 @*@Html.ActionLink("Back to List", "Index")*@
                                 Back to List
                             </button> 
->>>>>>> .r24
                         </td>
-<<<<<<< .mine
-                        <td>
-                            <div class="editor-field">
-                                @Html.EditorFor(model => model.Product.Modified)
-                                @Html.ValidationMessageFor(model => model.Product.Modified)
-                            </div>
-                        </td>
-=======
->>>>>>> .r24
                     </tr>
                 </table>  
             }

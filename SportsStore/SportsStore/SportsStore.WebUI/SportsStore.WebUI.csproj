@@ -939,6 +939,8 @@
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Content\ComboBox.css" />
     <Content Include="Scripts\ComboboxWidget.js" />
+    <Content Include="Areas\Admin\Views\Shared\Menu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\SetupMenu.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
