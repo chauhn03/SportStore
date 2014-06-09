@@ -12,5 +12,7 @@ namespace SportsStore.Repository.Fake
         public abstract void Delete(T entity);
 
         public abstract IQueryable<T> GetAll();
+
+        public abstract void Update(T entity);
     }
 }

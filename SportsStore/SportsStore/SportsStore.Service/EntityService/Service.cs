@@ -33,7 +33,7 @@ namespace SportsStore.Service.EntityService
 
         public void Update(T entity)
         {
-            //
+            this.Repository.Update(entity);
         }
     }
 }

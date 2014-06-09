@@ -65,5 +65,12 @@ namespace SportsStore.Repository.Fake
         {
             return this.categories.AsQueryable();
         }
+
+        public override void Update(Category entity)
+        {
+            Category category = this.GetById(entity.CategoryId);
+            category.Name = entity.Name;
+            category.Modified = DateTime.Now;
+        }
     }
 }

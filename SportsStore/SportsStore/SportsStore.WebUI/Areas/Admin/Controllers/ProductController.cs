@@ -49,14 +49,14 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 			return this.RedirectToAction("Index");
 		}
 
-        public ViewResult Create()
-        {
-            Product product = new Product();
-            IEnumerable<Category> categories = categoryService.GetAll();
+		public ViewResult Create()
+		{
+			Product product = new Product();
+			IEnumerable<Category> categories = categoryService.GetAll();
 
-            ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
-            return this.View("Edit", viewModel);
-        }
+			ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
+			return this.View("Edit", viewModel);
+		}
 
 
 		public ViewResult Edit(int productId)
@@ -73,7 +73,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				this.CommitChanges(product, image);
+				this.UpdateProduct(product, image);
 				TempData["message"] = string.Format("{0} has been saved", product.Name);
 				return this.RedirectToAction("Index");
 			}
@@ -113,23 +113,23 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 		#region Private methods
 		//
 		// GET: /Admin/Product/
-        private Product CommitChanges(Product product, HttpPostedFileBase image)
-        {
+		private Product UpdateProduct(Product product, HttpPostedFileBase image)
+		{
+            if (image != null)
+            {
+                product.ImageMimeType = image.ContentType;
+                product.ImageData = new byte[image.ContentLength];
+                image.InputStream.Read(product.ImageData, 0, image.ContentLength);
+            }
+
             if (product.ProductId <= 0)
             {
                 this.productService.Add(product);
             }
             else
             {
-                product = this.productService.GetById(product.ProductId);                
+                this.productService.Update(product);
             }
-
-			if (image != null)
-			{
-				product.ImageMimeType = image.ContentType;
-				product.ImageData = new byte[image.ContentLength];
-				image.InputStream.Read(product.ImageData, 0, image.ContentLength);
-			}
 
 			return product;
 		}

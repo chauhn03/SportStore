@@ -1,23 +1,85 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using SportsStore.Domain.Entities;
+using SportsStore.Service.Abstract;
+using SportsStore.WebUI.Areas.Admin.Models;
+using SportsStore.WebUI.Infrastructure.Common;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
     public class NewsController : Controller
     {
+        private INewsService newsService;
+        private INewsTypeService newsTypeService;
 
-        #region ------------- Fields ---------------
+        public NewsController(INewsService newsService, INewsTypeService newsTypeService)
+        {
+            this.newsService = newsService;
+            this.newsTypeService = newsTypeService;
+            this.PageSize = 12;
+        }
 
-        #endregion
+        public int PageSize { get; set; }
 
-        #region --------------- Contructors ---------------
+        public ActionResult Create()
+        {
+            News news = new News();
+            IEnumerable<NewsType> newsTypes = this.newsTypeService.GetAll();
 
-        #endregion
+            AdminNewsViewModel viewModel = this.CreateNewsViewModel(news) as AdminNewsViewModel;
+            viewModel.NewsTypes = new SelectList(newsTypes, "Id", "Name");
+            return View("Edit");
+        }
 
-        #region --------------- Properties ---------------
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
 
-        #endregion
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                News news = this.newsService.GetById(id);
+                this.newsService.Delete(news);
+                TempData["message"] = string.Format("{0} was deleted", news.Title);
+                return this.RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
-        #region --------------- Public Methods ---------------
+        public ActionResult Edit(int id)
+        {
+            News news = this.newsService.GetById(id);
+            IEnumerable<NewsType> newsTypes = this.newsTypeService.GetAll();
+
+            AdminNewsViewModel viewModel = this.CreateNewsViewModel(news) as AdminNewsViewModel;
+            viewModel.NewsTypes = new SelectList(newsTypes, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(News news, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                this.newsService.Update(news);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         //
         // GET: /Admin/News/
         public ActionResult Index()
@@ -25,95 +87,33 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        //
-        // GET: /Admin/News/Details/5
-
-        public ActionResult Details(int id)
+        private NewsListViewModel CreateNewsListViewModel(IEnumerable<News> newsList, int page)
         {
-            return View();
-        }
-
-        //
-        // GET: /Admin/News/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Admin/News/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            NewsListViewModel viewModel = new NewsListViewModel()
             {
-                // TODO: Add insert logic here
+                PagingInfo = this.CreatePagingInfo(page, this.PageSize, newsList.Count()),
+                NewsList = newsList.GetDataOfPage<News>(page, this.PageSize),
+            };
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return viewModel;
         }
 
-        //
-        // GET: /Admin/News/Edit/5
-
-        public ActionResult Edit(int id)
+        private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
         {
-            return View();
+            return new PagingInfo()
+            {
+                CurrentPage = page,
+                ItemPerPage = pageSize,
+                TotalItems = totalItems
+            };
         }
 
-        //
-        // POST: /Admin/News/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        private NewsViewModel CreateNewsViewModel(News news, string newsType = null)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Admin/News/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Admin/News/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        #endregion
-
-        #region --------------- Private Methods ---------------
-
-        #endregion            
+            NewsViewModel newsViewProduct = new NewsViewModel();
+            newsViewProduct.News = news;
+            newsViewProduct.NewsType = newsType;
+            return newsViewProduct;
+        }        
     }
 }

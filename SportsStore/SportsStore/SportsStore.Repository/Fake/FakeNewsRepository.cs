@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SportsStore.Domain.Entities;
 using SportsStore.Repository.Abstract;
@@ -46,6 +47,15 @@ namespace SportsStore.Repository.Fake
         public override News GetById(int id)
         {
             return this.news.Single(news => news.Id == id);
+        }
+
+        public override void Update(News entity)
+        {
+            News news = this.GetById(entity.Id);
+            news.Title = entity.Title;
+            news.TypeId = entity.TypeId;
+            news.Content = entity.Content;
+            news.Modified = DateTime.Now;
         }
 
         private void GenerateDummyData()

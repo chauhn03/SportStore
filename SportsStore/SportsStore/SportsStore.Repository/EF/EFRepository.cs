@@ -29,10 +29,14 @@ namespace SportsStore.Repository.EF
             DbSet.Add(entity);
         }
 
+        public void Update(T entity)
+        {
+            this.DbSet.Attach(entity);
+        }
+
         public void Delete(T entity)
         {
             DbSet.Remove(entity);
-        }
-
+        }        
     }
 }

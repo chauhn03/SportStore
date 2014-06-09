@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SportsStore.Domain.Entities;
 using SportsStore.Repository.Abstract;
@@ -42,6 +43,13 @@ namespace SportsStore.Repository.Fake
             this.newsTypes.Add(new NewsType { Id = 3, Name = "NewsType 3" });
             this.newsTypes.Add(new NewsType { Id = 4, Name = "NewsType 4" });
             this.newsTypes.Add(new NewsType { Id = 5, Name = "NewsType 5" });
+        }
+
+        public override void Update(NewsType entity)
+        {
+            NewsType newsType = this.GetById(entity.Id);
+            newsType.Name = entity.Name;
+            newsType.Modified = DateTime.Now;
         }
     }
 }

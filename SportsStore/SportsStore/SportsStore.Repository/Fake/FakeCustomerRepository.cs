@@ -54,6 +54,14 @@ namespace SportsStore.Repository.Fake
             return this.customers.Where(customer => customer.Name == name).AsQueryable();
         }
 
+        public override void Update(Customer entity)
+        {
+            Customer customer = this.GetById(entity.CustomerId);
+            customer.Name = entity.Name;
+            customer.Age = entity.Age;
+            customer.Modified = DateTime.Now;
+        }
+
         private void GenerateDummyData()
         {
             this.customers = new List<Customer>();

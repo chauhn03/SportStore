@@ -28,6 +28,45 @@ namespace SportsStore.Repository.Fake
             }
         }
 
+        public override void Create(Product entity)
+        {
+            int maxId = this.products.Max(product => product.ProductId);
+            entity.ProductId = maxId + 1;
+            this.products.Add(entity);
+        }
+
+        public override void Delete(Product entity)
+        {
+            this.products.Remove(entity);
+        }
+
+        public override IQueryable<Product> GetAll()
+        {
+            return this.products.AsQueryable();
+        }
+
+        public IQueryable<Product> GetByCategory(int? categoryId)
+        {
+            return this.products.Where(product => !categoryId.HasValue || product.CategoryId == categoryId).AsQueryable();
+        }
+
+        public override Product GetById(int id)
+        {
+            return this.products.Single(product => product.ProductId == id);
+        }
+
+        public override void Update(Product entity)
+        {
+            Product product = this.GetById(entity.ProductId);
+            product.CategoryId = entity.CategoryId;
+            product.Description = entity.Description;
+            product.ImageData = entity.ImageData;
+            product.ImageMimeType = entity.ImageMimeType;
+            product.Modified = DateTime.Now;
+            product.Name = entity.Name;
+            product.Price = entity.Price;
+        }
+
         private void GenerateDummyData()
         {
             this.products = new List<Product>();
@@ -99,33 +138,6 @@ namespace SportsStore.Repository.Fake
             this.products.Add(new Product() { ProductId = 58, CategoryId = 8, Created = DateTime.Now, Description = "Description 58", Modified = DateTime.Now, Name = "Product 58", Price = 275 });
             this.products.Add(new Product() { ProductId = 59, CategoryId = 10, Created = DateTime.Now, Description = "Description 59", Modified = DateTime.Now, Name = "Product 59", Price = 350 });
             this.products.Add(new Product() { ProductId = 60, CategoryId = 9, Created = DateTime.Now, Description = "Description 60", Modified = DateTime.Now, Name = "Product 60", Price = 335 });
-        }
-
-        public override Product GetById(int id)
-        {
-            return this.products.Single(product => product.ProductId == id);
-        }
-
-        public override void Create(Product entity)
-        {
-            int maxId = this.products.Max(product => product.ProductId);
-            entity.ProductId = maxId + 1;
-            this.products.Add(entity);
-        }
-
-        public override void Delete(Product entity)
-        {
-            this.products.Remove(entity);
-        }
-
-        public override IQueryable<Product> GetAll()
-        {
-            return this.products.AsQueryable();
-        }
-
-        public IQueryable<Product> GetByCategory(int? categoryId)
-        {
-            return this.products.Where(product => !categoryId.HasValue || product.CategoryId == categoryId).AsQueryable();
         }
     }
 }

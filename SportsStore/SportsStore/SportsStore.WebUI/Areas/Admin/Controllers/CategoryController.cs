@@ -77,12 +77,12 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Category category, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-
+                this.categoryService.Update(category);
                 return RedirectToAction("Index");
             }
             catch
