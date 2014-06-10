@@ -66,14 +66,15 @@ namespace SportsStore.Repository.Fake
         {
             this.customers = new List<Customer>();
             this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
-            this.customers.Add(new Customer { CustomerId = 1, Name = "Customer 1", Age = 18, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 2, Name = "Customer 2", Age = 20, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 3, Name = "Customer 3", Age = 21, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 4, Name = "Customer 4", Age = 25, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 5, Name = "Customer 5", Age = 23, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 6, Name = "Customer 6", Age = 26, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 7, Name = "Customer 7", Age = 30, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 8, Name = "Customer 8", Age = 22, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 9, Name = "Customer 9", Age = 19, Created = DateTime.Now, Modified = DateTime.Now });
+            this.customers.Add(new Customer { CustomerId = 10, Name = "Customer 10", Age = 27, Created = DateTime.Now, Modified = DateTime.Now });
         }
     }
 }

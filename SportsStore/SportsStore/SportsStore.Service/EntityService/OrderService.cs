@@ -1,10 +1,10 @@
 ﻿namespace SportsStore.Service.EntityService
 {
-    using SportsStore.Domain.Entities;
-    using SportsStore.Service.Abstract;
     using System.Net;
     using System.Net.Mail;
     using System.Text;
+    using SportsStore.Domain.Entities;
+    using SportsStore.Service.Abstract;
 
     public class OrderService : IOrderService
     {
@@ -16,6 +16,12 @@
         }
 
         public void ProcessOrder(Cart cart, ShippingDetails shippingDetails)
+        {
+
+            SendEmailForNewOrder(cart, shippingDetails);
+        }
+
+        private void SendEmailForNewOrder(Cart cart, ShippingDetails shippingDetails)
         {
             using (SmtpClient smtpClient = new SmtpClient())
             {
