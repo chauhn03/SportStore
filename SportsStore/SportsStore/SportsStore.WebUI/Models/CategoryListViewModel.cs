@@ -8,5 +8,7 @@ namespace SportsStore.WebUI.Models
         public IEnumerable<Category> Categories { get; set; }
 
         public PagingInfo PagingInfo { get; set; }
+
+        public int? CurrentCategory { get; set; }
     }
 }

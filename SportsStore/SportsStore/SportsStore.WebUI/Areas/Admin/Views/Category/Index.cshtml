@@ -1,0 +1,55 @@
+﻿@using SportsStore.WebUI.Models;
+@using SportsStore.WebUI.HtmlHelpers;
+@using SportsStore.Domain.Entities;
+
+@model CategoryListViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="grid_12">
+        <div class="box round first grid">
+            <h2>Index</h2>
+            <div class="block">
+                <div>
+                    <table class="data display datatable" id="example">
+                        <thead>
+                            <tr>
+                                @*								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>*@
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th />
+                            </tr>
+                        </thead>
+
+                        <tbody data-bind="foreach: products, visible: products().length > 0">
+                            @foreach (var categoryViewModel in Model.Categories)
+                            {
+                                <tr>
+                                    @*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+                                    <td>@Html.ActionLink(categoryViewModel.Name, "Edit", new { productId = categoryViewModel.CategoryId })</td>                                    
+                                    <td>
+                                        @using (Html.BeginForm("Delete", "Product"))
+                                        {
+                                            @Html.Hidden("CategoryId", categoryViewModel.CategoryId)                                                                                   
+                                            <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div>
+                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x, categoryId = @Model.CurrentCategory }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

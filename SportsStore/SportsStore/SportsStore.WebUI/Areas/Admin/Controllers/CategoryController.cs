@@ -16,6 +16,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         public CategoryController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
+            this.pageSize = 12;
         }
 
         //
@@ -57,7 +58,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int categoryId, FormCollection collection)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Index(int page)
+        public ActionResult Index(int page = 1)
         {
             IQueryable<Category> categories = this.categoryService.GetAll();
             CategoryListViewModel viewModel = this.CreateCategoryListViewModel(categories, page);
