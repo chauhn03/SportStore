@@ -19,10 +19,8 @@
                             <tr>
                                 @*								<td class="column_checkbox">
 									<input id="ckCheckAll" type="checkbox" /></td>*@
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th />
+                                <th>Name</th>                                
+                                <th style="width:30px"/>
                             </tr>
                         </thead>
 
@@ -34,7 +32,7 @@
 										<input type="checkbox" /></td>*@
                                     <td>@Html.ActionLink(categoryViewModel.Name, "Edit", new { productId = categoryViewModel.CategoryId })</td>                                    
                                     <td>
-                                        @using (Html.BeginForm("Delete", "Product"))
+                                        @using (Html.BeginForm("Delete", "Category"))
                                         {
                                             @Html.Hidden("CategoryId", categoryViewModel.CategoryId)                                                                                   
                                             <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                

@@ -13,6 +13,7 @@ namespace SportsStore.Service.EntityService
         public CategoryService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+            this.Repository = unitOfWork.Categories;
         }
 
         public IQueryable<Category> GetAll()

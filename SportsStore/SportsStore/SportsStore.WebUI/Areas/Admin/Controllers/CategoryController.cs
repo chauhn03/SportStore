@@ -63,8 +63,10 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                Category category = this.categoryService.GetById(categoryId);
+                this.categoryService.Delete(category);
+                TempData["message"] = string.Format("{0} was deleted", category.Name);
+                return this.RedirectToAction("Index");                
             }
             catch
             {
