@@ -17,7 +17,7 @@
 
         INewsRepository News { get; }
 
-        INewsTypeRepository NewsTypes { get; }
+        ITopicRepository Topics { get; }
 
         void Commit();
     }

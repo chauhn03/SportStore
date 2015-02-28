@@ -12,12 +12,12 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
     public class NewsController : Controller
     {
         private INewsService newsService;
-        private INewsTypeService newsTypeService;
+        private ITopicService topicService;
 
-        public NewsController(INewsService newsService, INewsTypeService newsTypeService)
+        public NewsController(INewsService newsService, ITopicService topicService)
         {
             this.newsService = newsService;
-            this.newsTypeService = newsTypeService;
+            this.topicService = topicService;
             this.PageSize = 12;
         }
 
@@ -26,7 +26,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         public ActionResult Create()
         {
             News news = new News();
-            IEnumerable<NewsType> newsTypes = this.newsTypeService.GetAll();
+            IEnumerable<Topic> newsTypes = this.topicService.GetAll();
 
             AdminNewsViewModel viewModel = this.CreateNewsViewModel(news) as AdminNewsViewModel;
             viewModel.NewsTypes = new SelectList(newsTypes, "Id", "Name");
@@ -57,7 +57,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             News news = this.newsService.GetById(id);
-            IEnumerable<NewsType> newsTypes = this.newsTypeService.GetAll();
+            IEnumerable<Topic> newsTypes = this.topicService.GetAll();
 
             AdminNewsViewModel viewModel = this.CreateNewsViewModel(news) as AdminNewsViewModel;
             viewModel.NewsTypes = new SelectList(newsTypes, "Id", "Name");

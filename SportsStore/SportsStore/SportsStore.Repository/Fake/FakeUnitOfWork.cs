@@ -47,7 +47,7 @@ namespace SportsStore.Repository.Fake
         }
 
 
-        public Abstract.INewsTypeRepository NewsTypes
+        public Abstract.ITopicRepository Topics
         {
             get { throw new NotImplementedException(); }
         }

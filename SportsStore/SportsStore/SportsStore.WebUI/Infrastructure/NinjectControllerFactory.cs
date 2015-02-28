@@ -39,6 +39,8 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IOrderService>().To<OrderService>().WithConstructorArgument("emailSettings", emailSettings);;
             kernel.Bind<ICategoryService>().To<CategoryService>();
+            kernel.Bind<INewsService>().To<NewsService>();
+            kernel.Bind<ITopicService>().To<TopicService>();
 
             
 

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using SportsStore.Domain.Entities;
+﻿using SportsStore.Domain.Entities;
 using SportsStore.Service.Abstract;
 using SportsStore.WebUI.Infrastructure.Common;
 using SportsStore.WebUI.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
@@ -26,7 +26,9 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         // GET: /Admin/Category/Create
         public ActionResult Create()
         {
-            return View();
+            Category category = new Category();
+            CategoryViewModel viewModel = this.CreateCategoryViewModel(category);
+            return this.View("Edit", viewModel);
         }
 
         //
@@ -66,7 +68,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
                 Category category = this.categoryService.GetById(categoryId);
                 this.categoryService.Delete(category);
                 TempData["message"] = string.Format("{0} was deleted", category.Name);
-                return this.RedirectToAction("Index");                
+                return this.RedirectToAction("Index");
             }
             catch
             {
@@ -76,22 +78,34 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            Category category = this.categoryService.GetById(id);
+            IEnumerable<Category> categories = categoryService.GetAll();
+
+            CategoryViewModel viewModel = this.CreateCategoryViewModel(category);
+            return this.View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(Category category, FormCollection collection)
+        public ActionResult Edit(Category category, string submitButton, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-                this.categoryService.Update(category);
-                return RedirectToAction("Index");
+                switch (submitButton)
+                {
+                    case "Save":
+                        // TODO: Add update logic here
+                        this.categoryService.Update(category);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch
             {
                 return View();
             }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Index(int page = 1)
@@ -120,6 +134,11 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             return viewModel;
         }
 
+        private CategoryViewModel CreateCategoryViewModel(Category category)
+        {
+            CategoryViewModel viewmodel = new CategoryViewModel { Category = category };
+            return viewmodel;
+        }
         private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
         {
             return new PagingInfo()

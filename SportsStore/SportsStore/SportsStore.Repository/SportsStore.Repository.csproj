@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Abstract\ICategoryRepository.cs" />
     <Compile Include="Abstract\INewsRepository.cs" />
-    <Compile Include="Abstract\INewsTypeRepository.cs" />
+    <Compile Include="Abstract\ITopicRepository.cs" />
     <Compile Include="Abstract\IOrderDetailRepository.cs" />
     <Compile Include="Abstract\IOrderRepository.cs" />
     <Compile Include="EF\EFCategoryRepository.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="Fake\FakeCategoryRepository.cs" />
     <Compile Include="Fake\FakeCustomerRepository.cs" />
     <Compile Include="Fake\FakeNewsRepository.cs" />
-    <Compile Include="Fake\FakeNewsTypeRepository.cs" />
+    <Compile Include="Fake\FakeTopicRepository.cs" />
     <Compile Include="Fake\FakeOrderDetailRepository.cs" />
     <Compile Include="Fake\FakeOrderRepository.cs" />
     <Compile Include="Fake\FakeProductRepository.cs" />

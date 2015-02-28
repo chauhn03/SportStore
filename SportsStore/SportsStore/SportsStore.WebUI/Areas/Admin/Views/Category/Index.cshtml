@@ -24,13 +24,13 @@
                             </tr>
                         </thead>
 
-                        <tbody data-bind="foreach: products, visible: products().length > 0">
+                        <tbody>
                             @foreach (var categoryViewModel in Model.Categories)
                             {
                                 <tr>
                                     @*<td class="column_checkbox">
 										<input type="checkbox" /></td>*@
-                                    <td>@Html.ActionLink(categoryViewModel.Name, "Edit", new { productId = categoryViewModel.CategoryId })</td>                                    
+                                    <td>@Html.ActionLink(categoryViewModel.Name, "Edit", new { id = categoryViewModel.CategoryId })</td>                                    
                                     <td>
                                         @using (Html.BeginForm("Delete", "Category"))
                                         {
@@ -51,3 +51,23 @@
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+    <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+
+            $('.datatable').dataTable(
+				{
+				    "bFilter": false,
+				    "bPaginate": false,
+				    "bInfo": false
+				});
+            setSidebarHeight();
+        });
+    </script>
+}

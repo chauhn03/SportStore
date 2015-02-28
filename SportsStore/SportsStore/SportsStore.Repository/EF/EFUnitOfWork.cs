@@ -66,7 +66,7 @@
         }
 
 
-        public INewsTypeRepository NewsTypes
+        public ITopicRepository Topics
         {
             get { throw new System.NotImplementedException(); }
         }

@@ -2,7 +2,7 @@
 
 namespace SportsStore.Repository.Abstract
 {
-    public interface INewsTypeRepository : IRepository<NewsType>
+    public interface ITopicRepository : IRepository<Topic>
     {
     }
 }

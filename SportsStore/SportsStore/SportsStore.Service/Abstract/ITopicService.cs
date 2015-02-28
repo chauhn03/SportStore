@@ -2,7 +2,7 @@
 
 namespace SportsStore.Service.Abstract
 {
-    public interface INewsTypeService : IService<NewsType>
+    public interface ITopicService : IService<Topic>
     {
     }
 }

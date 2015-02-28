@@ -14,11 +14,6 @@ namespace SportsStore.Service.EntityService
         {
             this.unitOfWork = unitOfWork;
             this.Repository = unitOfWork.Categories;
-        }
-
-        public IQueryable<Category> GetAll()
-        {
-            return this.unitOfWork.Categories.GetAll();
-        }
+        }        
     }
 }

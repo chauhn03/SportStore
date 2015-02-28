@@ -11,9 +11,11 @@
             if (result)
             {
                 FormsAuthentication.SetAuthCookie(userName, false);
-            }
+            }            
 
             return result;
         }
     }
+
+    
 }

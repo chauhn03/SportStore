@@ -1,14 +1,14 @@
 ﻿@model SportsStore.WebUI.Models.ProductViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = @Model.Product.ProductId > 0? "Edit" : "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="grid_12">
     <div class="box round first fullpage">
         <h2>Product: @Model.Product.Name</h2>
-        <div class="block ">
+        <div class="block">
             @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()

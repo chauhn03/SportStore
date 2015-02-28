@@ -1,7 +1,7 @@
 ﻿
 namespace SportsStore.Domain.Entities
 {
-    public class NewsType : Entity
+    public class Topic : Entity
     {
         public int Id { get; set; }
 
