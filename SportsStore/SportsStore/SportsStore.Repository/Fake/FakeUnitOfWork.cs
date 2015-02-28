@@ -3,10 +3,10 @@
 namespace SportsStore.Repository.Fake
 {
     public class FakeUnitOfWork : IUnitOfWork
-    {    
+    {
         public Abstract.ICustomerRepository Customers
         {
-            get 
+            get
             {
                 return FakeCustomerRepository.Instance;
             }
@@ -22,7 +22,7 @@ namespace SportsStore.Repository.Fake
 
         public Abstract.ICategoryRepository Categories
         {
-            get 
+            get
             {
                 return FakeCategoryRepository.Instance;
             }
@@ -40,7 +40,7 @@ namespace SportsStore.Repository.Fake
 
         public Abstract.INewsRepository News
         {
-            get 
+            get
             {
                 return FakeNewsRepository.Instance;
             }
@@ -49,7 +49,10 @@ namespace SportsStore.Repository.Fake
 
         public Abstract.ITopicRepository Topics
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return FakeTopicRepository.Instance;
+            }
         }
     }
 }

@@ -1,16 +1,91 @@
-﻿@{
+﻿@using SportsStore.WebUI.Models;
+@using SportsStore.WebUI.HtmlHelpers;
+@using SportsStore.Domain.Entities;
+
+@model NewsListViewModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div>
-    <div class="grid_12">
+     <div class="grid_2">
+        <div class="box sidemenu">
+            <div class="block" id="section-menu">
+                <ul class="section menu">
+                    <li><a class="menuitem">Tác Vụ</a>
+                        <ul class="submenu">
+                            @foreach (var  topic in this.Model.Topics)
+                            {
+                                @*<li><a>Nhóm Sản Phẩm</a> </li>*@
+                                <li>@Html.ActionLink(topic.Name, "Index", new { topicId = topic.Id })</li>
+                            }                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid_10">
         <div class="box round first grid">
             <h2>Index</h2>
             <div class="block">
-                <div>      
+                <div>
+                    <table class="data display datatable" id="example">
+                        <thead>
+                            <tr>
+                                @*								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>*@
+                                <th>Name</th>
+                                <th />
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var newsViewModel in Model.NewsList)
+                            {
+                                <tr>
+                                    @*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+                                    <td>@Html.ActionLink(newsViewModel.News.Title, "Edit", new { id = newsViewModel.News.Id })</td>
+                                    <td>
+                                        @using (Html.BeginForm("Delete", "Category"))
+                                        {
+                                            @Html.Hidden("Id", newsViewModel.News.Id)                                                                                   
+                                            <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div>
+                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+    <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+
+            $('.datatable').dataTable(
+				{
+				    "bFilter": false,
+				    "bPaginate": false,
+				    "bInfo": false
+				});
+            setSidebarHeight();
+        });
+    </script>
+}

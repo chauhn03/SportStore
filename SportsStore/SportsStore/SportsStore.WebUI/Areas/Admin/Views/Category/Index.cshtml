@@ -20,7 +20,7 @@
                                 @*								<td class="column_checkbox">
 									<input id="ckCheckAll" type="checkbox" /></td>*@
                                 <th>Name</th>                                
-                                <th style="width:30px"/>
+                                <th/>
                             </tr>
                         </thead>
 
@@ -44,7 +44,7 @@
                     </table>
 
                     <div>
-                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x, categoryId = @Model.CurrentCategory }))
+                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x }))
                     </div>
                 </div>
             </div>

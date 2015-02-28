@@ -1,0 +1,94 @@
+﻿@model SportsStore.WebUI.Models.NewsViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid_12">
+    <div class="box round first fullpage">
+        <h2>News: @Model.News.Title</h2>
+        <div class="block">
+            @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)  
+                @Html.HiddenFor(model => model.News.Id)
+                                           
+                <table class="form">
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.News.Title)
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.News.Title, new { @class = "medium" })
+                                @Html.ValidationMessageFor(model => model.News.Title)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.News.TypeId)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field ui-widget">
+                                @Html.DropDownListFor(model => model.News.TypeId, Model.Topics, new { id = "combobox" })
+                                @Html.ValidationMessageFor(model => model.News.TypeId)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.News.Content)
+                            </div>
+                        </td>
+                        <td>
+                            @Html.TextAreaFor(model => model.News.Content, new { @class = "tinymce" })
+                            @*@Html.ValidationMessageFor(model => model.Description)*@
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Cancel">
+                                Trở Về
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/themes/ui-lightness/css")
+    <link href="~/Content/ComboBox.css" rel="stylesheet" />
+
+    <script src="~/Scripts/ComboboxWidget.js"></script>
+    @*<script src="~/Content/admin/js/tiny-mce/jquery.tinymce.js"></script>*@
+    <script src="~/Scripts/admin/js/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //setupTinyMCE();
+
+            //setDatePicker('datepicker');
+            setupTinyMCE_Classy();
+            $("#combobox").combobox();
+            //$("#datepicker").datepicker();
+            //setSpinnerCurrency('spinner', 10, 1000000, 10, 100);
+        });
+    </script>
+}

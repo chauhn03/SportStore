@@ -18,6 +18,12 @@ namespace SportsStore.Service.EntityService
         {
             this.unitOfWork = unitOfWork;
             this.Repository = unitOfWork.News;
-        }        
+        }
+
+        public IQueryable<News> GetByTopic(int topicId)
+        {
+            return this.Repository.GetAll().Where(news => news.TypeId == topicId);
+
+        }
     }
 }

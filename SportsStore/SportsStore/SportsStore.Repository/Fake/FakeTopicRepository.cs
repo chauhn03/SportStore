@@ -52,11 +52,11 @@ namespace SportsStore.Repository.Fake
         private void GenerateDummyData()
         {
             this.topics = new List<Topic>();
-            this.topics.Add(new Topic { Id = 1, Name = "NewsType 1" });
-            this.topics.Add(new Topic { Id = 2, Name = "NewsType 2" });
-            this.topics.Add(new Topic { Id = 3, Name = "NewsType 3" });
-            this.topics.Add(new Topic { Id = 4, Name = "NewsType 4" });
-            this.topics.Add(new Topic { Id = 5, Name = "NewsType 5" });
+            this.topics.Add(new Topic { Id = 1, Name = "Topic 1" });
+            this.topics.Add(new Topic { Id = 2, Name = "Topic 2" });
+            this.topics.Add(new Topic { Id = 3, Name = "Topic 3" });
+            this.topics.Add(new Topic { Id = 4, Name = "Topic 4" });
+            this.topics.Add(new Topic { Id = 5, Name = "Topic 5" });
         }
 
         public override void Update(Topic entity)

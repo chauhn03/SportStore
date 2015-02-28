@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using SportsStore.Domain.Entities;
+﻿using SportsStore.Domain.Entities;
 using SportsStore.Service.Abstract;
 using SportsStore.WebUI.Areas.Admin.Models;
 using SportsStore.WebUI.Infrastructure.Common;
 using SportsStore.WebUI.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
@@ -57,45 +57,70 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             News news = this.newsService.GetById(id);
-            IEnumerable<Topic> newsTypes = this.topicService.GetAll();
+            IEnumerable<Topic> topics = this.topicService.GetAll();
 
-            AdminNewsViewModel viewModel = this.CreateNewsViewModel(news) as AdminNewsViewModel;
-            viewModel.NewsTypes = new SelectList(newsTypes, "Id", "Name");
-            return View();
+            var viewModel = this.CreateNewsViewModel(news);
+            viewModel.Topics = new SelectList(topics, "Id", "Name");
+            return View(viewModel);
         }
 
-        [HttpPost]
-        public ActionResult Edit(News news, FormCollection collection)
+        [HttpPost,ValidateInput(false)]
+        public ActionResult Edit(News news, string submitButton, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
-                this.newsService.Update(news);
-                return RedirectToAction("Index");
+                switch (submitButton)
+                {
+                    case "Save":
+                        // TODO: Add update logic here
+                        this.newsService.Update(news);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch
             {
                 return View();
             }
+
+            return RedirectToAction("Index");
         }
 
         //
         // GET: /Admin/News/
-        public ActionResult Index()
+        public ActionResult Index(int? topicId, int page = 1)
         {
-            return View();
+            var newsList = topicId.HasValue ? this.newsService.GetByTopic(topicId.Value) : this.newsService.GetAll();
+            IQueryable<NewsViewModel> newsViewModels = from news in newsList
+                                                       join topic in this.topicService.GetAll()
+                                                       on news.TypeId equals topic.Id
+                                                       select this.CreateViewModel(news, topic.Name);
+
+            NewsListViewModel viewModel = this.CreateNewsListViewModel(newsViewModels, page);
+            return View(viewModel);
         }
 
-        private NewsListViewModel CreateNewsListViewModel(IEnumerable<News> newsList, int page)
+        private NewsListViewModel CreateNewsListViewModel(IEnumerable<NewsViewModel> newsList, int page)
         {
+            var topics = this.topicService.GetAll();
+
             NewsListViewModel viewModel = new NewsListViewModel()
             {
                 PagingInfo = this.CreatePagingInfo(page, this.PageSize, newsList.Count()),
-                NewsList = newsList.GetDataOfPage<News>(page, this.PageSize),
+                NewsList = newsList.GetDataOfPage<NewsViewModel>(page, this.PageSize),
+                Topics = topics
             };
 
             return viewModel;
+        }
+
+        private NewsViewModel CreateNewsViewModel(News news, string newsType = null)
+        {
+            NewsViewModel newsViewProduct = new NewsViewModel();
+            newsViewProduct.News = news;
+            newsViewProduct.TopicName = newsType;
+            return newsViewProduct;
         }
 
         private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
@@ -108,12 +133,12 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             };
         }
 
-        private NewsViewModel CreateNewsViewModel(News news, string newsType = null)
+        private NewsViewModel CreateViewModel(News news, string categoryName = null)
         {
-            NewsViewModel newsViewProduct = new NewsViewModel();
-            newsViewProduct.News = news;
-            newsViewProduct.NewsType = newsType;
-            return newsViewProduct;
-        }        
+            NewsViewModel viewModel = new NewsViewModel();
+            viewModel.News = news;
+            viewModel.TopicName = categoryName;
+            return viewModel;
+        }
     }
 }
