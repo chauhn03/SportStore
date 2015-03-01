@@ -4,7 +4,7 @@
 
 @model NewsListViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tin Tức";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,7 +13,7 @@
         <div class="box sidemenu">
             <div class="block" id="section-menu">
                 <ul class="section menu">
-                    <li><a class="menuitem">Tác Vụ</a>
+                    <li><a class="menuitem">Chủ Đề</a>
                         <ul class="submenu">
                             @foreach (var  topic in this.Model.Topics)
                             {

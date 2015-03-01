@@ -91,7 +91,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         // GET: /Admin/News/
         public ActionResult Index(int? topicId, int page = 1)
         {
-            var newsList = topicId.HasValue ? this.newsService.GetByTopic(topicId.Value) : this.newsService.GetAll();
+            var newsList = topicId.GetValueOrDefault(0) > 0 ? this.newsService.GetByTopic(topicId.Value) : this.newsService.GetAll();
             IQueryable<NewsViewModel> newsViewModels = from news in newsList
                                                        join topic in this.topicService.GetAll()
                                                        on news.TypeId equals topic.Id
@@ -103,7 +103,8 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         private NewsListViewModel CreateNewsListViewModel(IEnumerable<NewsViewModel> newsList, int page)
         {
-            var topics = this.topicService.GetAll();
+            var topics = this.topicService.GetAll().ToList();
+            topics.Insert(0, new Topic { Id = -1, Name = "All" });
 
             NewsListViewModel viewModel = new NewsListViewModel()
             {
