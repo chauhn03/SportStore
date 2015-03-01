@@ -10,5 +10,7 @@ namespace SportsStore.WebUI.Models
         public IEnumerable<Topic> Topics { get; set; }
 
         public PagingInfo PagingInfo { get; set; }
+
+        public int CurrentTopic { get; set; }
     }
 }

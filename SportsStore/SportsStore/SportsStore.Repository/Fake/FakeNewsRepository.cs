@@ -31,6 +31,8 @@ namespace SportsStore.Repository.Fake
 
         public override void Create(News entity)
         {
+            int maxId = this.news.Max(news => news.Id);
+            entity.Id = maxId + 1;
             this.news.Add(entity);
         }
 

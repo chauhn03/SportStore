@@ -40,25 +40,23 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 		#endregion Properties
 
 		#region Public methods
-		[HttpPost]
-		public ActionResult Delete(int productId)
+        public ViewResult Create()
+        {
+            Product product = new Product();
+            IEnumerable<Category> categories = categoryService.GetAll();
+
+            ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
+            return this.View("Edit", viewModel);
+        }
+
+        [HttpPost]
+		public ActionResult Delete(int productId, int? categoryId)
 		{
 			Product product = this.productService.GetById(productId);
 			this.productService.Delete(product);
 			TempData["message"] = string.Format("{0} was deleted", product.Name);
-			return this.RedirectToAction("Index");
+            return this.RedirectToAction("Index", new { categoryId = categoryId });
 		}
-
-		public ViewResult Create()
-		{
-			Product product = new Product();
-			IEnumerable<Category> categories = categoryService.GetAll();
-
-			ProductViewModel viewModel = this.CreateProductViewModel(product, categories);
-			return this.View("Edit", viewModel);
-		}
-
-
 		public ViewResult Edit(int productId)
 		{
 			Product product = this.productService.GetById(productId);
@@ -99,7 +97,8 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
 		public ActionResult Index(int? categoryId, int page = 1)
 		{
-			IQueryable<ProductViewModel> productViewModels = from product in this.productService.GetByCategory(categoryId)
+            var products = categoryId.GetValueOrDefault(0) > 0 ? this.productService.GetByCategory(categoryId.Value) : this.productService.GetAll();
+            IQueryable<ProductViewModel> productViewModels = from product in products
 															 join category in this.categoryService.GetAll()
 															 on product.CategoryId equals category.CategoryId
 															 select this.CreateProductViewModel(product, null, category.Name);
@@ -111,7 +110,42 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 		#endregion
 
 		#region Private methods
-		//
+        private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
+        {
+            return new PagingInfo()
+            {
+                CurrentPage = page,
+                ItemPerPage = this.PageSize,
+                TotalItems = totalItems
+            };
+        }
+
+        private ProductListViewModel CreateProductListViewModel(IEnumerable<ProductViewModel> productViewModels, int? categoryId, int page)
+        {
+            var categoryList = this.categoryService.GetAll().ToList();
+            categoryList.Insert(0, new Category { CategoryId = -1, Name = "All" });
+
+            ProductListViewModel viewModel = new ProductListViewModel()
+            {
+                PagingInfo = this.CreatePagingInfo(page, this.PageSize, productViewModels.Count()),
+                ProductViewModels = productViewModels.GetDataOfPage<ProductViewModel>(page, this.PageSize),
+                CurrentCategory = categoryId,
+                Categories = categoryList
+            };
+
+            return viewModel;
+        }
+
+        private ProductViewModel CreateProductViewModel(Product product, IEnumerable<Category> categories = null, string categoryName = null)
+        {
+            ProductViewModel productViewModel = new ProductViewModel();
+            productViewModel.Product = product;
+            productViewModel.CategoryName = categoryName;
+            productViewModel.Categories = (categories == null) ? null : (new SelectList(categories, "CategoryId", "Name"));
+            return productViewModel;
+        }
+
+        //
 		// GET: /Admin/Product/
 		private Product UpdateProduct(Product product, HttpPostedFileBase image)
 		{
@@ -132,37 +166,6 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             }
 
 			return product;
-		}
-
-		private PagingInfo CreatePagingInfo(int page, int pageSize, int totalItems)
-		{
-			return new PagingInfo()
-			{
-				CurrentPage = page,
-				ItemPerPage = this.PageSize,
-				TotalItems = totalItems
-			};
-		}
-
-		private ProductListViewModel CreateProductListViewModel(IEnumerable<ProductViewModel> productViewModels, int? categoryId, int page)
-		{
-			ProductListViewModel viewModel = new ProductListViewModel()
-			{
-				PagingInfo = this.CreatePagingInfo(page, this.PageSize, productViewModels.Count()),
-				ProductViewModels = productViewModels.GetDataOfPage<ProductViewModel>(page, this.PageSize),
-				CurrentCategory = categoryId
-			};
-
-			return viewModel;
-		}
-
-		private ProductViewModel CreateProductViewModel(Product product, IEnumerable<Category> categories = null, string categoryName = null)
-		{
-			ProductViewModel productViewModel = new ProductViewModel();
-			productViewModel.Product = product;
-			productViewModel.CategoryName = categoryName;
-			productViewModel.Categories = (categories == null) ? null : (new SelectList(categories, "CategoryId", "Name"));
-			return productViewModel;
 		}
 		#endregion
 	}

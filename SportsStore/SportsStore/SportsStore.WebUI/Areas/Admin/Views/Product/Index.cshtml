@@ -9,17 +9,18 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <div class="grid_2">
+<div>    
+    <div class="grid_2">        
         <div class="box sidemenu">
             <div class="block" id="section-menu">
                 <ul class="section menu">
-                    <li><a class="menuitem">Tác Vụ</a>
-                        <ul class="submenu">
-                            <li><a>Nhóm Sản Phẩm</a> </li>
-                            <li><a>Tạo Nhóm</a> </li>
-                            <li><a>Tạo Sản Phẩm</a> </li>
-                            <li><a data-bind="click: removeProduct">Xóa Sản Phẩm</a> </li>
+                    <li><a class="menuitem">Nhóm Sản Phẩm</a>
+                         <ul class="submenu">
+                            @foreach (var category in this.Model.Categories)
+                            {
+                                @*<li><a>Nhóm Sản Phẩm</a> </li>*@
+                                <li>@Html.ActionLink(category.Name, "Index", new { categoryId = category.CategoryId })</li>
+                            }                            
                         </ul>
                     </li>
                 </ul>
@@ -57,31 +58,20 @@
                                     <td>@productViewModel.Product.Price</td>
                                     <td>
                                         @using (Html.BeginForm("Delete", "Product"))
-                                        {
+                                        {                                            
                                             @Html.Hidden("ProductId", productViewModel.Product.ProductId)                                                                                   
+                                            @Html.Hidden("CategoryId", this.Model.CurrentCategory)   
                                             <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
                                         }
                                     </td>
                                 </tr>
-                            }
+                            }                            
                         </tbody>
                     </table>
 
                     <div>
                         @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x, categoryId = @Model.CurrentCategory }))
                     </div>
-
-
-                    <table class="form">
-                        <tr>
-                            <td class="col1">
-                                <button id="bntDelete" class="btn btn-grey" title="Submit">Xóa</button>
-                            </td>
-                            <td class="col2">
-                                <button id="bntAdd" class="btn btn-grey" title="Submit">Thêm</button>
-                            </td>
-                        </tr>
-                    </table>
                 </div>
             </div>
         </div>

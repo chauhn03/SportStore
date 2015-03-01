@@ -1,38 +1,38 @@
 ﻿@{
-    ViewBag.Title = @Model.Category.CategoryId > 0 ? "Edit" : "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@model SportsStore.WebUI.Models.CategoryViewModel
+@model SportsStore.WebUI.Models.TopicViewModel
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>Nhóm Sản Phẩm: @Model.Category.Name</h2>
+        <h2>Nhóm Sản Phẩm: @Model.Topic.Name</h2>
         <div class="block">
-            @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Edit", "Topic", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                @Html.HiddenFor(model => model.Category.CategoryId)
+                @Html.HiddenFor(model => model.Topic.Id)
                 <table class="form">
                     <tr>
                         <td class="col1">
                             <div class="editor-label">
-                                @Html.LabelFor(model => model.Category.Name)
+                                @Html.LabelFor(model => model.Topic.Name)
                             </div>
                         </td>
 
                         <td class="col2">
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Category.Name, new { @class = "medium" })
-                                @Html.ValidationMessageFor(model => model.Category.Name)
+                                @Html.TextBoxFor(model => model.Topic.Name, new { @class = "medium" })
+                                @Html.ValidationMessageFor(model => model.Topic.Name)
                             </div>
                         </td>
                     </tr>
 
-                      <tr>
+                    <tr>
                         <td>
                             <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>
-                            <button type="submit" name="submitButton" class="btn btn-grey" value="Cancel">                                                            
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Cancel">
                                 Trở Về
-                            </button> 
+                            </button>
                         </td>
                     </tr>
                 </table>
@@ -40,3 +40,4 @@
         </div>
     </div>
 </div>
+

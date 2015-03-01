@@ -11,26 +11,32 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
     public class NewsController : Controller
     {
+        #region Fields
         private INewsService newsService;
         private ITopicService topicService;
+        #endregion
 
+        #region Constructors
         public NewsController(INewsService newsService, ITopicService topicService)
         {
             this.newsService = newsService;
             this.topicService = topicService;
             this.PageSize = 12;
         }
+        #endregion
 
+        #region Properties
         public int PageSize { get; set; }
+        #endregion
 
         public ActionResult Create()
         {
             News news = new News();
             IEnumerable<Topic> newsTypes = this.topicService.GetAll();
 
-            AdminNewsViewModel viewModel = this.CreateNewsViewModel(news) as AdminNewsViewModel;
-            viewModel.NewsTypes = new SelectList(newsTypes, "Id", "Name");
-            return View("Edit");
+            NewsViewModel viewModel = this.CreateNewsViewModel(news);
+            viewModel.Topics = new SelectList(newsTypes, "Id", "Name");
+            return View("Edit", viewModel);
         }
 
         public ActionResult Delete(int id)
@@ -73,7 +79,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
                 {
                     case "Save":
                         // TODO: Add update logic here
-                        this.newsService.Update(news);
+                        this.UpdateNews(news);
                         break;
                     default:
                         break;
@@ -97,11 +103,11 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
                                                        on news.TypeId equals topic.Id
                                                        select this.CreateViewModel(news, topic.Name);
 
-            NewsListViewModel viewModel = this.CreateNewsListViewModel(newsViewModels, page);
+            NewsListViewModel viewModel = this.CreateNewsListViewModel(newsViewModels, page, topicId);
             return View(viewModel);
         }
 
-        private NewsListViewModel CreateNewsListViewModel(IEnumerable<NewsViewModel> newsList, int page)
+        private NewsListViewModel CreateNewsListViewModel(IEnumerable<NewsViewModel> newsList, int page, int? topicId)
         {
             var topics = this.topicService.GetAll().ToList();
             topics.Insert(0, new Topic { Id = -1, Name = "All" });
@@ -110,7 +116,8 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             {
                 PagingInfo = this.CreatePagingInfo(page, this.PageSize, newsList.Count()),
                 NewsList = newsList.GetDataOfPage<NewsViewModel>(page, this.PageSize),
-                Topics = topics
+                Topics = topics,
+                CurrentTopic = topicId.GetValueOrDefault(-1)
             };
 
             return viewModel;
@@ -140,6 +147,18 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             viewModel.News = news;
             viewModel.TopicName = categoryName;
             return viewModel;
+        }
+
+        private void UpdateNews(News news)
+        {
+            if (news.Id > 0)
+            {
+                this.newsService.Update(news);
+            }
+            else
+            {
+                this.newsService.Add(news);
+            }
         }
     }
 }
