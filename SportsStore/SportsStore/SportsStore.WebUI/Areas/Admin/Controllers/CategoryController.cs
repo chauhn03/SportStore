@@ -1,10 +1,10 @@
-﻿using SportsStore.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using SportsStore.Domain.Entities;
 using SportsStore.Service.Abstract;
 using SportsStore.WebUI.Infrastructure.Common;
 using SportsStore.WebUI.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
@@ -88,13 +88,25 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Category category, string submitButton, FormCollection collection)
         {
+            CategoryViewModel viewModel = this.CreateCategoryViewModel(category);
+            if (!ModelState.IsValid)
+                return View(viewModel);
+
             try
             {
                 switch (submitButton)
                 {
                     case "Save":
-                        // TODO: Add update logic here
-                        this.categoryService.Update(category);
+                        if (category.CategoryId > 0)
+                        {
+                            // TODO: Add update logic here
+                            this.categoryService.Update(category);
+                        }
+                        else
+                        {
+                            this.categoryService.Add(category);
+                        }
+
                         break;
                     default:
                         break;
@@ -102,7 +114,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             }
             catch
             {
-                return View();
+                return View(viewModel);
             }
 
             return RedirectToAction("Index");
