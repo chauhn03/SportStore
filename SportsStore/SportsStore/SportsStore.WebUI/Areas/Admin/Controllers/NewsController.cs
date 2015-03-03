@@ -1,11 +1,10 @@
-﻿using SportsStore.Domain.Entities;
-using SportsStore.Service.Abstract;
-using SportsStore.WebUI.Areas.Admin.Models;
-using SportsStore.WebUI.Infrastructure.Common;
-using SportsStore.WebUI.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using SportsStore.Domain.Entities;
+using SportsStore.Service.Abstract;
+using SportsStore.WebUI.Infrastructure.Common;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
@@ -70,24 +69,25 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             return View(viewModel);
         }
 
-        [HttpPost,ValidateInput(false)]
-        public ActionResult Edit(News news, string submitButton, FormCollection collection)
+        [HttpPost]
+        public ActionResult Edit(NewsViewModel newsViewModel, string submitButton, FormCollection collection)
         {
+            if (!this.ModelState.IsValid)
+                return this.View(newsViewModel);
+
+            if (submitButton != "Save")
+            {
+                return RedirectToAction("Index");
+            }
+
             try
             {
-                switch (submitButton)
-                {
-                    case "Save":
-                        // TODO: Add update logic here
-                        this.UpdateNews(news);
-                        break;
-                    default:
-                        break;
-                }
+
+                this.UpdateNews(newsViewModel.News);
             }
             catch
             {
-                return View();
+                return View(newsViewModel);
             }
 
             return RedirectToAction("Index");
