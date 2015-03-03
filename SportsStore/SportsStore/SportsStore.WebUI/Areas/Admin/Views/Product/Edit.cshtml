@@ -1,13 +1,22 @@
 ﻿@model SportsStore.WebUI.Models.ProductViewModel
 
 @{
-    ViewBag.Title = @Model.Product.ProductId > 0? "Edit" : "Create";
+    ViewBag.Title = @Model.Product.ProductId > 0 ? "Cập Nhật Sản Phẩm" : "Tạo Mới Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>Product: @Model.Product.Name</h2>
+        @{
+            if (this.Model.Product.ProductId > 0)
+            {
+            <h2>Product: @Model.Product.Name</h2>
+            }
+            else
+            {
+            <h2>Tạo Mới</h2>
+            }
+        }
         <div class="block">
             @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
@@ -72,7 +81,7 @@
                                 @if (Model.Product.ImageData == null)
                                 {
                                     @:None
-	    }
+	                            }
                                 else
                                 {
                                     <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { Model.Product.ProductId })" />            
@@ -103,7 +112,7 @@
                             <button type="submit" class="btn btn-grey" value="Save">
                                 @*@Html.ActionLink("Back to List", "Index")*@
                                 Back to List
-                            </button> 
+                            </button>
                         </td>
                     </tr>
                 </table>  

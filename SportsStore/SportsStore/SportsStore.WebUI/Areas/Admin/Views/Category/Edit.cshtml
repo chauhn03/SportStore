@@ -1,12 +1,22 @@
 ﻿@{
-    ViewBag.Title = @Model.Category.CategoryId > 0 ? "Edit" : "Create";
+    ViewBag.Title = @Model.Category.CategoryId > 0 ? "Cập Nhật Nhóm Sản Phẩm" : "Tạo Mới Nhóm Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @model SportsStore.WebUI.Models.CategoryViewModel
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>Nhóm Sản Phẩm: @Model.Category.Name</h2>
+        @{
+            if (this.Model.Category.CategoryId > 0)
+            {
+                <h2>Nhóm Sản Phẩm: @Model.Category.Name</h2>        
+            }
+            else
+            { 
+                <h2>Tạo Mới</h2>        
+            }            
+        }
+        
         <div class="block">
             @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
@@ -27,12 +37,12 @@
                         </td>
                     </tr>
 
-                      <tr>
+                    <tr>
                         <td>
                             <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>
-                            <button type="submit" name="submitButton" class="btn btn-grey" value="Cancel">                                                            
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Cancel">
                                 Trở Về
-                            </button> 
+                            </button>
                         </td>
                     </tr>
                 </table>
