@@ -1,16 +1,72 @@
-﻿@{
+﻿@using SportsStore.WebUI.Models;
+@using SportsStore.WebUI.HtmlHelpers;
+@using SportsStore.Domain.Entities;
+
+@model TopicListViewModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <div>
     <div class="grid_12">
         <div class="box round first grid">
-            <h2>Index</h2>
+            <h2>Chủ Đề</h2>
             <div class="block">
-                <div>      
+                <div>
+                    <table class="data display datatable" id="example">
+                        <thead>
+                            <tr>
+                                @*								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>*@
+                                <th>Chủ Đề</th>
+                                <th />
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var topicViewModel in Model.Topics)
+                            {
+                                <tr>
+                                    @*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+                                    <td>@Html.ActionLink(topicViewModel.Topic.Name, "Edit", new { id = topicViewModel.Topic.Id })</td>
+                                    <td>
+                                        @using (Html.BeginForm("Delete", "Topic"))
+                                        {
+                                            @Html.Hidden("Id", topicViewModel.Topic.Id)                                                                                   
+                                            <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div>
+                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+    <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+
+            $('.datatable').dataTable(
+				{
+				    "bFilter": false,
+				    "bPaginate": false,
+				    "bInfo": false
+				});
+            setSidebarHeight();
+        });
+    </script>
+}

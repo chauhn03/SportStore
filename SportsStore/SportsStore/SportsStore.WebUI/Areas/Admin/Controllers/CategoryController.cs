@@ -78,9 +78,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            Category category = this.categoryService.GetById(id);
-            IEnumerable<Category> categories = categoryService.GetAll();
-
+            Category category = this.categoryService.GetById(id);            
             CategoryViewModel viewModel = this.CreateCategoryViewModel(category);
             return this.View(viewModel);
         }
