@@ -1,13 +1,23 @@
 ﻿@model SportsStore.WebUI.Models.NewsViewModel
 
 @{
-    ViewBag.Title = @Model.News.Id > 0 ? "Cập nhật" : "Tạo Mới";
+    ViewBag.Title = @Model.News.Id > 0 ? "Cập Nhật Tin Tức" : "Tạo Mới Tin Tức";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>Tin Tức: @Model.News.Title</h2>
+        @{
+            if (this.Model.News.Id > 0)
+            {
+            <h2>Tin Tức: @Model.News.Title</h2>
+            }
+            else
+            {
+            <h2>Tạo Mới</h2>
+            }
+        }
+
         <div class="block">
             @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {

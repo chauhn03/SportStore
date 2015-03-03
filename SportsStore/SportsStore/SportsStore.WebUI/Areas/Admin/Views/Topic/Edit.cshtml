@@ -1,12 +1,22 @@
 ﻿@{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = @Model.Topic.Id > 0 ? "Cập Nhật Chủ Đề" : "Tạo Mới Chủ Đề";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @model SportsStore.WebUI.Models.TopicViewModel
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>Nhóm Sản Phẩm: @Model.Topic.Name</h2>
+        @{
+            if (this.Model.Topic.Id > 0)
+            {
+              <h2>Nhóm Sản Phẩm: @Model.Topic.Name</h2>
+            }
+            else
+            {
+                <h2>Tạo Mới</h2>
+            }
+        }
+
         <div class="block">
             @using (Html.BeginForm("Edit", "Topic", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
