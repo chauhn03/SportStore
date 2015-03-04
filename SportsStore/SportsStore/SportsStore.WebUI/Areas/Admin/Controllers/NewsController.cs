@@ -70,7 +70,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(NewsViewModel newsViewModel, string submitButton, FormCollection collection)
+        public ActionResult Edit(NewsViewModel newsViewModel, string submitButton)
         {
             if (!this.ModelState.IsValid)
                 return this.View(newsViewModel);

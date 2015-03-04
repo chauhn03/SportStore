@@ -10,9 +10,10 @@ namespace SportsStore.Domain.Entities
         [Required(ErrorMessage = "Please enter a title")]
         public string Title { get; set; }
 
-        public int TypeId { get; set; }
-
         [AllowHtml()]
+        [Required(ErrorMessage = "Please enter a content")]
         public string Content { get; set; }
+
+        public int TypeId { get; set; }        
     }
 }
