@@ -2,7 +2,7 @@
 
 namespace SportsStore.Service.Abstract
 {
-    public interface IOrderService   
+    public interface IOrderService : IService<Order>
     {
         void ProcessOrder(Cart cart, ShippingDetails shippingDetails);
     }

@@ -140,6 +140,54 @@ namespace SportsStore.Repository.Fake
                 Phone = "09029985124",
                 Total = 52000
             });
+
+            this.orders.Add(new Order
+            {
+                OrderId = 9,
+                OrderNo = "Order 9",
+                Address = "26 Nguyễn Bỉnh Khiêm",
+                CustomerName = "Lê Thị N",
+                Email = "lethiN@gmail.com",
+                OrderDate = DateTime.Now,
+                Phone = "0903457214",
+                Total = 33000
+            });
+
+            this.orders.Add(new Order
+            {
+                OrderId = 10,
+                OrderNo = "Order 10",
+                Address = "153 Lê Lai",
+                CustomerName = "Trương Thị Mỹ M",
+                Email = "truongthimym@gmail.com",
+                OrderDate = DateTime.Now,
+                Phone = "0903400005",
+                Total = 22000
+            });
+
+            this.orders.Add(new Order
+            {
+                OrderId = 11,
+                OrderNo = "Order 11",
+                Address = "64 Trần Hưng Đạo",
+                CustomerName = "Nguyền Hoàng T",
+                Email = "nguyenhoangt@gmail.com",
+                OrderDate = DateTime.Now,
+                Phone = "0903400005",
+                Total = 31000
+            });
+
+            this.orders.Add(new Order
+            {
+                OrderId = 12,
+                OrderNo = "Order 12",
+                Address = "98 Nguyễn Xí",
+                CustomerName = "Võ Trung C",
+                Email = "votrungc@gmail.com",
+                OrderDate = DateTime.Now,
+                Phone = "0903547814",
+                Total = 12000
+            });
         }
     }
 }

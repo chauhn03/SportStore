@@ -4,9 +4,10 @@
     using System.Net.Mail;
     using System.Text;
     using SportsStore.Domain.Entities;
+    using SportsStore.Repository.Abstract;
     using SportsStore.Service.Abstract;
 
-    public class OrderService : IOrderService
+    public class OrderService : Service<Order, IOrderRepository>, IOrderService
     {
         private EmailSettings emailSettings;
 
@@ -50,6 +51,7 @@
                     line.Product.Name,
                     subtotal);
                 }
+
                 body.AppendFormat("Total order value: {0:c}", cart.ComputeTotalValue())
                 .AppendLine("---")
                 .AppendLine("Ship to:")

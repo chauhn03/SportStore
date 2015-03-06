@@ -9,7 +9,7 @@ namespace SportsStore.Domain.Entities
         Done
     }
 
-    public class Order
+    public class Order : Entity
     {
         public Order()
         {
