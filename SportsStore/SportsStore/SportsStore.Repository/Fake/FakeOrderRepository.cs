@@ -1,22 +1,32 @@
-﻿using System;
+﻿using SportsStore.Domain.Entities;
+using SportsStore.Repository.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SportsStore.Domain.Entities;
-using SportsStore.Repository.Abstract;
 
 namespace SportsStore.Repository.Fake
 {
     public class FakeOrderRepository : FakeRepository<Order>, IOrderRepository
     {
+        private static FakeOrderRepository instance;
         private List<Order> orders;
         public FakeOrderRepository()
         {
             this.orders = new List<Order>();
+            this.GenerateDummyData();
         }
 
-        public override Order GetById(int id)
+        public static FakeOrderRepository Instance
         {
-            return this.orders.Single(order => order.OrderId == id);
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new FakeOrderRepository();
+                }
+
+                return instance;
+            }
         }
 
         public override void Create(Order entity)
@@ -34,6 +44,10 @@ namespace SportsStore.Repository.Fake
             return this.orders.AsQueryable();
         }
 
+        public override Order GetById(int id)
+        {
+            return this.orders.Single(order => order.OrderId == id);
+        }
         public override void Update(Order entity)
         {
             Order order = this.GetById(entity.OrderId);
@@ -48,7 +62,7 @@ namespace SportsStore.Repository.Fake
             {
                 OrderId = 1,
                 OrderNo = "Order 1",
-                Address = "123 Lê Thánh Tôn",                
+                Address = "123 Lê Thánh Tôn",
                 CustomerName = "Nguyễn Văn A",
                 Email = "nguyenvana@gmail.com",
                 OrderDate = DateTime.Now,
@@ -67,7 +81,6 @@ namespace SportsStore.Repository.Fake
                 Phone = "0903911228",
                 Total = 36000
             });
-
 
             this.orders.Add(new Order
             {

@@ -1,0 +1,21 @@
+﻿@model SportsStore.WebUI.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid_12">
+    <div class="box round first fullpage">
+        @{
+            if (this.Model.Order.OrderId > 0)
+            {
+            <h2>Đơn Hàng: @Model.Order.OrderNo</h2>
+            }
+            else
+            {
+            <h2>Tạo Mới</h2>
+            }
+        }
+    </div>
+</div>

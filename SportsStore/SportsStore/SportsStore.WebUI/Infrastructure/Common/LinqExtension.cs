@@ -7,8 +7,10 @@ namespace SportsStore.WebUI.Infrastructure.Common
     {
         public static IEnumerable<T> GetDataOfPage<T>(this IEnumerable<T> data, int page, int pageSize)
         {
-            return data.Skip((page - 1) * pageSize)
-                           .Take(pageSize);
+            var result = data.Skip((page - 1) * pageSize)
+                           .Take(pageSize);            
+
+            return result;
         }
     }
 }

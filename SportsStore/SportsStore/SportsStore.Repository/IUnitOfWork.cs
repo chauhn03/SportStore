@@ -19,6 +19,10 @@
 
         ITopicRepository Topics { get; }
 
+        IOrderRepository Orders { get; }
+
+        IOrderDetailRepository OrderDetails { get; }
+
         void Commit();
     }
 }

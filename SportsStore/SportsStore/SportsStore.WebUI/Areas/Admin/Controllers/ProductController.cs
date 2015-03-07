@@ -50,12 +50,13 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-		public ActionResult Delete(int productId, int? categoryId)
+		public ActionResult Delete(int productId, int? categoryId, int page)
 		{
 			Product product = this.productService.GetById(productId);
 			this.productService.Delete(product);
+            
 			TempData["message"] = string.Format("{0} was deleted", product.Name);
-            return this.RedirectToAction("Index", new { categoryId = categoryId });
+            return this.RedirectToAction("Index", new { categoryId = categoryId, page = page });
 		}
 		public ViewResult Edit(int productId)
 		{
@@ -123,7 +124,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         private ProductListViewModel CreateProductListViewModel(IEnumerable<ProductViewModel> productViewModels, int? categoryId, int page)
         {
             var categoryList = this.categoryService.GetAll().ToList();
-            categoryList.Insert(0, new Category { CategoryId = -1, Name = "All" });
+            categoryList.Insert(0, new Category { CategoryId = -1, Name = "All" });             
 
             ProductListViewModel viewModel = new ProductListViewModel()
             {

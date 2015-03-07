@@ -1,7 +1,7 @@
 ﻿
 namespace SportsStore.Domain.Entities
 {
-    public class OrderDetail
+    public class OrderDetail : Entity
     {
         public int OrderDetailId { get; set; }
 

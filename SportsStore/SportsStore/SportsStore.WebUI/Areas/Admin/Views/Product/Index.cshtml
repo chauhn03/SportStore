@@ -61,6 +61,7 @@
                                         {                                            
                                             @Html.Hidden("ProductId", productViewModel.Product.ProductId)                                                                                   
                                             @Html.Hidden("CategoryId", this.Model.CurrentCategory)   
+                                            @Html.Hidden("Page", this.Model.PagingInfo.CurrentPage)   
                                             <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
                                         }
                                     </td>

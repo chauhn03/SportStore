@@ -8,9 +8,23 @@ namespace SportsStore.Repository.Fake
     public class FakeOrderDetailRepository : FakeRepository<OrderDetail>, IOrderDetailRepository
     {
         private List<OrderDetail> orderDetails;
+        private static FakeOrderDetailRepository instance;
         public FakeOrderDetailRepository()
         {
             this.GenerateDummyData();
+        }
+
+        public static FakeOrderDetailRepository Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new FakeOrderDetailRepository();
+                }
+
+                return instance;
+            }
         }
 
         public override void Create(OrderDetail entity)
@@ -50,6 +64,11 @@ namespace SportsStore.Repository.Fake
         private void GenerateDummyData()
         {
             this.orderDetails = new List<OrderDetail>();           
+        }
+
+        public IQueryable<OrderDetail> GetByOrder(int orderId)
+        {
+            return this.orderDetails.Where(orderDetail => orderDetail.OrderId == orderId).AsQueryable();
         }
     }
 }

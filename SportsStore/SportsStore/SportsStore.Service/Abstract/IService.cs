@@ -6,7 +6,7 @@ namespace SportsStore.Service.Abstract
     {
         IQueryable<T> GetAll();
 
-        T GetById(int productId);
+        T GetById(int id);
 
         void Add(T entity);
 

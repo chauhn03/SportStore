@@ -6,15 +6,19 @@
     using SportsStore.Domain.Entities;
     using SportsStore.Repository.Abstract;
     using SportsStore.Service.Abstract;
+    using SportsStore.Repository;
 
     public class OrderService : Service<Order, IOrderRepository>, IOrderService
     {
         private EmailSettings emailSettings;
+        private IUnitOfWork unitOfWork;
 
-        public OrderService(EmailSettings emailSettings)
+        public OrderService(EmailSettings emailSettings, IUnitOfWork unitOfWork)
         {
             this.emailSettings = emailSettings;
-        }
+            this.unitOfWork = unitOfWork;
+            this.Repository = unitOfWork.Orders;
+        }        
 
         public void ProcessOrder(Cart cart, ShippingDetails shippingDetails)
         {

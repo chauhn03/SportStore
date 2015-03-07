@@ -1,6 +1,112 @@
-﻿@{
+﻿@using SportsStore.WebUI.Models;
+@using SportsStore.WebUI.HtmlHelpers;
+@using SportsStore.Domain.Entities;
+
+@model OrderListViewModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div>
+    <div class="grid_12">
+        <div class="box round first grid">
+            <h2>Đơn Hàng</h2>
+            <div class="block">
+                <div>
+                    <table class="data display datatable" id="example">
+                        <thead>
+                            <tr>
+                                @*								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>*@
+                                <th>Số Hóa Đơn</th>
+                                <th>Ngày</th>
+                                <th>Khách Hàng</th>
+                                <th>Điện Thoại</th>
+                                <th>Tổng Tiền</th>
+                                <th>Trạng Thái</th>
+                                <th />
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var orderViewModel in Model.Orders)
+                            {
+                                <tr>
+                                    @*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+                                    <td>@Html.ActionLink(orderViewModel.Order.OrderNo, "Edit", new { id = orderViewModel.Order.OrderId })</td>
+                                    <td>@orderViewModel.Order.OrderDate</td>
+                                    <td>@orderViewModel.Order.CustomerName</td>
+                                    <td>@orderViewModel.Order.Phone</td>
+                                    <td>@orderViewModel.Order.Total.ToString("N0")</td>
+                                    <td>@orderViewModel.Order.Status</td>
+                                    <td>
+                                        @using (Html.BeginForm("Delete", "Order"))
+                                        {
+                                            @Html.Hidden("OrderId", orderViewModel.Order.OrderId)  
+                                            @Html.Hidden("Page", @Model.PagingInfo.CurrentPage)
+                                            <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />                                                
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div>
+                        @Html.PageLinks(@Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+                    </div>
+                    <div style="font-weight: bold;">
+                        <table style="width:100%;text-align:right">
+                            <tr>
+                                <td style="width:75%"/>
+                                <td>
+                                    Đơn Hàng: 
+                                </td>
+                                <td >
+                                    @Model.Count 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:auto" />
+                                <td >
+                                    Tổng Tiền:
+                                </td>
+                                <td >
+                                    @Model.Total.ToString("N0") VND
+                                </td>
+                            </tr>
+                        </table>
+                        @*<section>
+                            Đơn Hàng: @Model.Total
+                        </section>
+                        <section>
+                            Tổng Tiền: @Model.Total.ToString("N0") VND
+                        </section>*@
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+    <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+
+            $('.datatable').dataTable(
+				{
+				    "bFilter": false,
+				    "bPaginate": false,
+				    "bInfo": false
+				});
+            setSidebarHeight();
+        });
+    </script>
+}

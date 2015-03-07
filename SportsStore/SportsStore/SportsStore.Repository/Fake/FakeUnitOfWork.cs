@@ -54,5 +54,23 @@ namespace SportsStore.Repository.Fake
                 return FakeTopicRepository.Instance;
             }
         }
+
+
+        public Abstract.IOrderRepository Orders
+        {
+            get
+            {
+                return FakeOrderRepository.Instance;
+            }
+        }
+
+
+        public Abstract.IOrderDetailRepository OrderDetails
+        {
+            get
+            {
+                return FakeOrderDetailRepository.Instance;
+            }
+        }
     }
 }

@@ -70,5 +70,17 @@
         {
             get { throw new System.NotImplementedException(); }
         }
+
+
+        public IOrderRepository Orders
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+
+        public IOrderDetailRepository OrderDetails
+        {
+            get { throw new System.NotImplementedException(); }
+        }
     }
 }
