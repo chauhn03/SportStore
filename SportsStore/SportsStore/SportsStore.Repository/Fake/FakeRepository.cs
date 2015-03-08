@@ -7,7 +7,7 @@ namespace SportsStore.Repository.Fake
     {
         public abstract T GetById(int id);
 
-        public abstract void Create(T entity);
+        public abstract int Create(T entity);
         
         public abstract void Delete(T entity);
 

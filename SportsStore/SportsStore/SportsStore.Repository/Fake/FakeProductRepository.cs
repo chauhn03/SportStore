@@ -28,11 +28,12 @@ namespace SportsStore.Repository.Fake
             }
         }
 
-        public override void Create(Product entity)
+        public override int Create(Product entity)
         {
             int maxId = this.products.Max(product => product.ProductId);
             entity.ProductId = maxId + 1;
             this.products.Add(entity);
+            return 1;
         }
 
         public override void Delete(Product entity)

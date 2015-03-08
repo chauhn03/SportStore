@@ -13,10 +13,12 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         private IOrderService orderService;
         private int pageSize;
         private IOrderDetailService orderDetailService;
-        public OrderController(IOrderService orderService, IOrderDetailService orderDetailService)
+        private IProductService productService;
+        public OrderController(IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService)
         {
             this.orderService = orderService;
             this.orderDetailService = orderDetailService;
+            this.productService = productService;
             this.pageSize = 10;
 
         }
@@ -59,8 +61,17 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         {
             OrderViewModel orderViewModel = new OrderViewModel();
             orderViewModel.Order = order;
-            orderViewModel.OrderDetails = orderDetails;
+            orderViewModel.OrderDetails = (from orderDetail in this.orderDetailService.GetByOrder(order.OrderId)
+                                          select this.CreateDetailViewModel(orderDetail)).ToList();
             return orderViewModel;
+        }
+
+
+        private OrderDetailViewModel CreateDetailViewModel(OrderDetail orderDetail)
+        {
+            Product product = this.productService.GetById(orderDetail.ProductId);
+            var viewModel = new OrderDetailViewModel { OrderDetail = orderDetail, ProductName = product.Name };
+            return viewModel;
         }
 
         //
@@ -106,7 +117,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         // POST: /Admin/Order/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(OrderViewModel orderViewModel, string addProduct, FormCollection collection)
         {
             try
             {
@@ -118,6 +129,13 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult AddOrderDetail(int orderId, FormCollection collection)
+        {            
+            //IEnumerable<OrderDetail> orderDetails = this.orderDetailService.GetByOrder(orderDetailViewModel.OrderDetail.OrderId);
+            //OrderViewModel viewModel = this.CreateOrderViewModel(order, orderDetails);
+            return this.View("Index");
         }
 
         //

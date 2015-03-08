@@ -29,9 +29,12 @@ namespace SportsStore.Repository.Fake
             }
         }
 
-        public override void Create(Order entity)
+        public override int Create(Order entity)
         {
+            int maxOrderId = this.orders.Max(o => o.OrderId);
+            entity.OrderId = maxOrderId + 1;
             this.orders.Add(entity);
+            return entity.OrderId;
         }
 
         public override void Delete(Order entity)

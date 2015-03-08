@@ -17,5 +17,226 @@
             <h2>Tạo Mới</h2>
             }
         }
+
+        <div class="block">
+            @using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)          
+                @Html.HiddenFor(model => model.Order.OrderId)
+                                                           
+                <table class="form">
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.OrderNo)
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.OrderNo, new { @class = "medium" })
+                                @Html.ValidationMessageFor(model => model.Order.OrderNo)
+                            </div>
+                        </td>
+
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.OrderDate)
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.OrderDate, "{0:d}", new { @class = "medium", id = "dtpOrderDate" })
+                                @Html.ValidationMessageFor(model => model.Order.OrderDate)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4">
+                            <hr />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.CustomerName)
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.CustomerName, new { @class = "large" })
+                                @Html.ValidationMessageFor(model => model.Order.CustomerName)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.Phone)
+                            </div>
+                        </td>
+
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.Phone, new { @class = "large" })
+                                @Html.ValidationMessageFor(model => model.Order.Phone)
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.Email)
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.Email, new { @class = "large" })
+                                @Html.ValidationMessageFor(model => model.Order.Email)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.Address)
+                            </div>
+                        </td>
+
+                        <td class="col2" colspan="2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.Address, new { @class = "large" })
+                                @Html.ValidationMessageFor(model => model.Order.Address)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col1">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Order.Comment)
+                            </div>
+                        </td>
+
+                        <td class="col2" colspan="2">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Order.Comment, new { @class = "large" })
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                
+                <hr />
+                <div>
+                    <button class="btn-mini btn-grey btn-plus" name="addProduct" title="Thêm sản phẩm" value="addProduct"><span></span></button>
+                </div>
+                <div>
+                    <table class="data display datatable" id="example">
+                        <thead>
+                            <tr>
+                                @*								<td class="column_checkbox">
+									<input id="ckCheckAll" type="checkbox" /></td>*@
+                                <th>Mã Sản Phẩm</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Giá</th>
+                                <th>Thành Tiền</th>
+                                <th />
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var orderDetailViewModel in Model.OrderDetails)
+                            {
+                                <tr>
+                                    @*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+                                    <td style="width: 25%">@orderDetailViewModel.ProductNo</td>
+                                    <td style="width: 25%">@orderDetailViewModel.ProductName</td>
+                                    <td style="width: 16%">
+                                        <input type="text"
+                                        value="@orderDetailViewModel.OrderDetail.Quantity.ToString("N0")" />
+                                    </td>
+                                    <td style="width: 16%">@orderDetailViewModel.OrderDetail.Price.ToString("N0")</td>
+                                    <td style="width: 16%">@orderDetailViewModel.OrderDetail.Total.ToString("N0")</td>
+                                    <td style="width: auto">
+                                        @*@using (Html.BeginForm("Delete", "Order"))
+                                        {
+                                            @Html.Hidden("OrderId", orderViewModel.Order.OrderId)  
+                                            @Html.Hidden("Page", @Model.PagingInfo.CurrentPage)
+                                            *@<input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />
+                                        @*}*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <hr />
+                    <div style="font-weight: bold;">
+                        <table style="width: 100%; text-align: right">
+                            <tr>
+                                <td style="width: auto" />
+                                <td>Tổng Tiền:
+                                </td>
+                                <td>
+                                    @Model.Order.Total.ToString("N0")
+                                </td>
+                            </tr>
+                        </table>
+                        @*<section>
+                            Đơn Hàng: @Model.Total
+                        </section>
+                        <section>
+                            Tổng Tiền: @Model.Total.ToString("N0") VND
+                        </section>*@
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="submit" class="btn btn-grey" value="Save">Save</button>
+                                <button type="submit" class="btn btn-grey" value="Save">
+                                    @*@Html.ActionLink("Back to List", "Index")*@
+                                    Back to List
+                                </button>
+                            </td>
+                            <td style="width: auto" />
+                        </tr>
+                    </table>
+                </div>
+            }
+        </div>
     </div>
 </div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/themes/ui-lightness/css")
+    <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
+    <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/admin/js/setup.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+
+            $('.datatable').dataTable(
+				{
+				    "bFilter": false,
+				    "bPaginate": false,
+				    "bInfo": false
+				});
+            setSidebarHeight();
+
+            $("#dtpOrderDate").datepicker();
+        });
+    </script>
+}

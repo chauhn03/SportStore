@@ -24,9 +24,10 @@ namespace SportsStore.Repository.EF
             return DbSet.AsQueryable();
         }
 
-        public void Create(T entity)
+        public int Create(T entity)
         {
             DbSet.Add(entity);
+            return 1;
         }
 
         public void Update(T entity)

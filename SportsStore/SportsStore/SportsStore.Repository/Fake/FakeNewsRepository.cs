@@ -29,11 +29,12 @@ namespace SportsStore.Repository.Fake
             }
         }
 
-        public override void Create(News entity)
+        public override int Create(News entity)
         {
             int maxId = this.news.Max(news => news.Id);
             entity.Id = maxId + 1;
             this.news.Add(entity);
+            return entity.Id;
         }
 
         public override void Delete(News entity)

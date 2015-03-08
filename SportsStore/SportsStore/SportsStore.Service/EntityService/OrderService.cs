@@ -1,5 +1,6 @@
 ﻿namespace SportsStore.Service.EntityService
 {
+    using System.Linq;
     using System.Net;
     using System.Net.Mail;
     using System.Text;
@@ -7,6 +8,8 @@
     using SportsStore.Repository.Abstract;
     using SportsStore.Service.Abstract;
     using SportsStore.Repository;
+    using System;
+    using System.Collections.Generic;
 
     public class OrderService : Service<Order, IOrderRepository>, IOrderService
     {
@@ -18,12 +21,12 @@
             this.emailSettings = emailSettings;
             this.unitOfWork = unitOfWork;
             this.Repository = unitOfWork.Orders;
-        }        
+        }
 
         public void ProcessOrder(Cart cart, ShippingDetails shippingDetails)
         {
-
-            SendEmailForNewOrder(cart, shippingDetails);
+            //SendEmailForNewOrder(cart, shippingDetails);
+            this.CreateNewOrder(cart, shippingDetails);
         }
 
         private void SendEmailForNewOrder(Cart cart, ShippingDetails shippingDetails)
@@ -81,6 +84,40 @@
                 }
                 smtpClient.Send(mailMessage);
             }
+        }
+
+        private void CreateNewOrder(Cart cart, ShippingDetails shippingDetails)
+        {
+            Order order = new Order
+            {
+                Address = shippingDetails.Line1,
+                Comment = shippingDetails.GiftWrap ? "Gift Wrap" : string.Empty,
+                CustomerName = shippingDetails.Name,
+                Email = string.Empty,
+                OrderDate = DateTime.Now,
+                OrderNo = Guid.NewGuid().ToString(),
+                Status = (int)OrderStatus.New
+            };
+
+            int orderId = this.Repository.Create(order);
+
+            IList<OrderDetail> orderDetails = new List<OrderDetail>();
+            foreach (var cartLine in cart.GetItems())
+            {
+                OrderDetail detail = new OrderDetail
+                {
+                    OrderId = orderId,
+                    Price = cartLine.Product.Price,
+                    ProductId = cartLine.Product.ProductId,
+                    Quantity = cartLine.Quantity,
+                    Total = cartLine.Product.Price * cartLine.Quantity
+                };
+
+                this.unitOfWork.OrderDetails.Create(detail);
+                orderDetails.Add(detail);
+            }
+
+            order.Total = orderDetails.Sum(detail => detail.Total);
         }
     }
 }

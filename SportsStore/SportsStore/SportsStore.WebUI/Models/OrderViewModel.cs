@@ -7,6 +7,6 @@ namespace SportsStore.WebUI.Models
     {
         public Order Order { get; set; }
 
-        public IEnumerable<OrderDetail> OrderDetails { get; set; }
+        public IList<OrderDetailViewModel> OrderDetails { get; set; }
     }
 }

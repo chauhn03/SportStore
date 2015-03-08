@@ -29,9 +29,10 @@ namespace SportsStore.Repository.Fake
             }
         }
 
-        public override void Create(Customer entity)
+        public override int Create(Customer entity)
         {
             this.customers.Add(entity);
+            return 1;
         }
 
         public override void Delete(Customer entity)

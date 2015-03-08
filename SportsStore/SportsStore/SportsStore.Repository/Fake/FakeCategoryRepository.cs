@@ -49,11 +49,12 @@ namespace SportsStore.Repository.Fake
             return this.categories.SingleOrDefault(category => category.CategoryId == id);
         }
 
-        public override void Create(Category entity)
+        public override int Create(Category entity)
         {
             int maxId = this.categories.Max(category => category.CategoryId);
             entity.CategoryId = maxId + 1;
             this.categories.Add(entity);
+            return entity.CategoryId;
         }
 
         public override void Delete(Category entity)

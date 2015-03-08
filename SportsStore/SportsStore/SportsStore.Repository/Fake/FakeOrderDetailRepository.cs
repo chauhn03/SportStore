@@ -27,9 +27,10 @@ namespace SportsStore.Repository.Fake
             }
         }
 
-        public override void Create(OrderDetail entity)
+        public override int Create(OrderDetail entity)
         {
             this.orderDetails.Add(entity);
+            return 1;
         }
 
         public override void Delete(OrderDetail entity)
@@ -63,7 +64,26 @@ namespace SportsStore.Repository.Fake
 
         private void GenerateDummyData()
         {
-            this.orderDetails = new List<OrderDetail>();           
+            this.orderDetails = new List<OrderDetail>();
+            this.orderDetails.Add(new OrderDetail
+            {
+                OrderDetailId = 1,
+                OrderId = 1,
+                Price = 12000,
+                ProductId = 1,
+                Quantity = 1,
+                Total = 12000
+            });
+
+            this.orderDetails.Add(new OrderDetail
+            {
+                OrderDetailId = 1,
+                OrderId = 1,
+                Price = 2000,
+                ProductId = 2,
+                Quantity = 2,
+                Total = 4000
+            });
         }
 
         public IQueryable<OrderDetail> GetByOrder(int orderId)

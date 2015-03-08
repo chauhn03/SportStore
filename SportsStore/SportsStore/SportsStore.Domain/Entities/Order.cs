@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace SportsStore.Domain.Entities
 {
     public enum OrderStatus
@@ -31,10 +32,12 @@ namespace SportsStore.Domain.Entities
 
         public string Phone { get; set; }
 
+        public string Comment { get; set; }
+
         public List<OrderDetail> OrderDetails { get; set; }
 
         public decimal Total { get; set; }
-
+        
         public DateTime OrderDate { get; set; }
 
         public int Status { get; set; }
