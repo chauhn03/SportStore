@@ -155,28 +155,10 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var orderDetailViewModel in Model.OrderDetails)
+
+                            @for (int i = 0; i < this.Model.OrderDetails.Count; i++)
                             {
-                                <tr>
-                                    @*<td class="column_checkbox">
-										<input type="checkbox" /></td>*@
-                                    <td style="width: 25%">@orderDetailViewModel.ProductNo</td>
-                                    <td style="width: 25%">@orderDetailViewModel.ProductName</td>
-                                    <td style="width: 16%">
-                                        <input type="text"
-                                        value="@orderDetailViewModel.OrderDetail.Quantity.ToString("N0")" />
-                                    </td>
-                                    <td style="width: 16%">@orderDetailViewModel.OrderDetail.Price.ToString("N0")</td>
-                                    <td style="width: 16%">@orderDetailViewModel.OrderDetail.Total.ToString("N0")</td>
-                                    <td style="width: auto">
-                                        @*@using (Html.BeginForm("Delete", "Order"))
-                                        {
-                                            @Html.Hidden("OrderId", orderViewModel.Order.OrderId)  
-                                            @Html.Hidden("Page", @Model.PagingInfo.CurrentPage)
-                                            *@<input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />
-                                        @*}*@
-                                    </td>
-                                </tr>
+                                @Html.EditorFor(model => model.OrderDetails[i]);                                
                             }
                         </tbody>
                     </table>

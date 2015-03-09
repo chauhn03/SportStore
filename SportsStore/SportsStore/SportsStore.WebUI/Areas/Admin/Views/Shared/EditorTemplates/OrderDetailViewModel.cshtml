@@ -1,0 +1,29 @@
+﻿@using SportsStore.WebUI.HtmlHelpers
+@model SportsStore.WebUI.Models.OrderDetailViewModel
+
+<tr>
+    @*<td class="column_checkbox">
+										<input type="checkbox" /></td>*@
+    @*@Html.HiddenIndexerInputForModel(model => model.OrderDetail.OrderDetailId)*@    
+    <td style="width: 25%">        
+        @Html.HiddenFor(model => model.OrderDetail.OrderDetailId)
+        @Html.HiddenFor(model => model.OrderDetail.ProductId)
+        @Html.HiddenFor(model => model.OrderDetail.OrderId)
+        @Html.TextBoxFor(model => model.ProductNo)
+    </td>
+    <td style="width: 25%">
+        @Html.TextBoxFor(model => model.ProductName)
+    </td>
+    <td style="width: 16%">
+        @Html.TextBoxFor(model => model.OrderDetail.Quantity)
+    </td>
+    <td style="width: 16%">
+        @Html.TextBoxFor(model => model.OrderDetail.Price)
+    </td>
+    <td style="width: 16%">
+        @Html.TextBoxFor(model => model.OrderDetail.Total)
+    </td>
+    <td style="width: auto">
+        <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />
+    </td>
+</tr>
