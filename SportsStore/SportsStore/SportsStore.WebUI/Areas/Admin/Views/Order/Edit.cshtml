@@ -5,6 +5,25 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+<div id="dialog-form" title="Create new user">
+    <p class="validateTips">All form fields are required.</p>
+
+    <form>
+        <fieldset>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
+        </fieldset>
+    </form>
+</div>
+
+
 <div class="grid_12">
     <div class="box round first fullpage">
         @{
@@ -137,7 +156,7 @@
                 
                 <hr />
                 <div>
-                    <button class="btn-mini btn-grey btn-plus" name="addProduct" title="Thêm sản phẩm" value="addProduct"><span></span></button>
+                    <button class="btn-mini btn-grey btn-plus" name="addProduct" id="create-user" title="Thêm sản phẩm" value="addProduct"><span></span></button>
                 </div>
                 <div>
                     <table class="data display datatable" id="example">
@@ -158,7 +177,7 @@
 
                             @for (int i = 0; i < this.Model.OrderDetails.Count; i++)
                             {
-                                @Html.EditorFor(model => model.OrderDetails[i]);                                
+                                @Html.EditorFor(model => model.OrderDetails[i]);
                             }
                         </tbody>
                     </table>
@@ -185,7 +204,7 @@
                     <table>
                         <tr>
                             <td>
-                                <button type="submit" class="btn btn-grey" value="Save">Save</button>
+                                <button type="submit" class="btn btn-grey" value="Save" >Save</button>
                                 <button type="submit" class="btn btn-grey" value="Save">
                                     @*@Html.ActionLink("Back to List", "Index")*@
                                     Back to List
@@ -219,6 +238,58 @@
             setSidebarHeight();
 
             $("#dtpOrderDate").datepicker();
+
+            function addUser() {
+                var valid = true;
+                alert('456');
+                //allFields.removeClass("ui-state-error");
+
+                //valid = valid && checkLength(name, "username", 3, 16);
+                //valid = valid && checkLength(email, "email", 6, 80);
+                //valid = valid && checkLength(password, "password", 5, 16);
+
+                //valid = valid && checkRegexp(name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
+                //valid = valid && checkRegexp(email, emailRegex, "eg. ui@jquery.com");
+                //valid = valid && checkRegexp(password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9");
+
+                if (valid) {
+                    //$("#users tbody").append("<tr>" +
+                    //  "<td>" + name.val() + "</td>" +
+                    //  "<td>" + email.val() + "</td>" +
+                    //  "<td>" + password.val() + "</td>" +
+                    //"</tr>");
+                    dialog.dialog("close");
+                }
+                return valid;
+            }
+
+            dialog = $("#dialog-form").dialog({
+                autoOpen: false,
+                height: 300,
+                width: 350,
+                modal: false,
+                buttons: {
+                    "Create an account": addUser,
+                    "Thoát": function () {
+                        dialog.dialog("close");
+                    }
+                },
+                close: function () {
+                    form[0].reset();
+                    //allFields.removeClass("ui-state-error");
+                }
+            });
+
+            form = dialog.find("form").on("submit", function (event) {
+                //event.preventDefault();
+                //addUser();
+                alert('ABC');                
+            });
+
+            $("#create-user").on("click", function (event) {
+                event.preventDefault();
+                dialog.dialog("open");
+            });
         });
     </script>
 }

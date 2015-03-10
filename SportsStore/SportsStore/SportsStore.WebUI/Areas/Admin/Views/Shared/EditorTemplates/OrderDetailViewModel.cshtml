@@ -9,21 +9,22 @@
         @Html.HiddenFor(model => model.OrderDetail.OrderDetailId)
         @Html.HiddenFor(model => model.OrderDetail.ProductId)
         @Html.HiddenFor(model => model.OrderDetail.OrderId)
-        @Html.TextBoxFor(model => model.ProductNo)
+        @Html.DisplayFor(model => model.ProductNo)
     </td>
     <td style="width: 25%">
-        @Html.TextBoxFor(model => model.ProductName)
+        @Html.DisplayFor(model => model.ProductName)
     </td>
-    <td style="width: 16%">
-        @Html.TextBoxFor(model => model.OrderDetail.Quantity)
+    <td style="width: 14%">
+        @Html.DisplayFor(model => model.OrderDetail.Quantity)
     </td>
-    <td style="width: 16%">
-        @Html.TextBoxFor(model => model.OrderDetail.Price)
+    <td style="width: 14%">
+        @Html.DisplayFor(model => model.OrderDetail.Price)
     </td>
-    <td style="width: 16%">
-        @Html.TextBoxFor(model => model.OrderDetail.Total)
+    <td style="width: 15%">
+        @Html.DisplayFor(model => model.OrderDetail.Total)
     </td>
-    <td style="width: auto">
+    <td style="width: 50px">
+        <input type="image" src="~/Content/admin/img/icon-form-style.png" value="Edit" />
         <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />
     </td>
 </tr>

@@ -1,0 +1,19 @@
+﻿@model SportsStore.WebUI.Models.OrderDetailViewModel
+<div>
+    <table class="form">
+        <tr>
+            <td class="col1">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Order.OrderNo)
+                </div>
+            </td>
+
+            <td class="col2">
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Order.OrderNo, new { @class = "medium" })
+                    @Html.ValidationMessageFor(model => model.Order.OrderNo)
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

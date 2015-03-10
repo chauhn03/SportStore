@@ -964,6 +964,7 @@
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModel.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModelEdit.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
