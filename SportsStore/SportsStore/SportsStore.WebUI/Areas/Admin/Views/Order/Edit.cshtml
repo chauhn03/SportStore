@@ -5,88 +5,63 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div id="dialog-form" title="Thêm Sản Phẩm">
-    <div class="block">
-        <table class="form">
-            <tr>
-                <td class="col1" style="width: 200px">
-                    <div class="editor-label">
-                        <label>
-                            Sản Phẩm
-                        </label>
-                    </div>
-                </td>
+<div id="dialog-form">
+    <table class="form">
+        <tr>
+            <td class="col1">
+                <div class="editor-label">
+                    <input type="hidden" id="dialog-OrderDetailId" />
+                    <label>
+                        Số Lượng
+                    </label>
+                </div>
+            </td>
 
-                <td class="col2">
-                    <div class="editor-field">
-                        <input type="text" style="background-color:lightgrey" class = "large" disabled value="@Model.Order.OrderNo"/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col1">
-                    <div class="editor-label">
-                        <label>
-                            Tên Sản Phẩm
-                        </label>
-                    </div>
-                </td>
+            <td class="col2">
+                <div class="editor-field">
+                    <input type="text" class="large"
+                           id="dialog-quantity" onchange="calculateTotalOfDetail()"
+                           value="@Model.Order.OrderNo" />
+                </div>
+            </td>
+        </tr>
 
-                <td class="col2">
-                    <div class="editor-field">
-                        <input type="text" style="background-color:lightgrey" class = "large" disabled value="@Model.Order.OrderNo"/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col1">
-                    <div class="editor-label">
-                        <label>
-                            Số Lượng
-                        </label>
-                    </div>
-                </td>
+        <tr>
+            <td class="col1">
+                <div class="editor-label">
+                    <label>
+                        Giá
+                    </label>
+                </div>
+            </td>
 
-                <td class="col2">
-                    <div class="editor-field">
-                        <input type="text" class = "large" value="@Model.Order.OrderNo"/>
-                    </div>
-                </td>
-            </tr>
+            <td class="col2">
+                <div class="editor-field">
+                    <input type="text" style="background-color:lightgrey" class="large"
+                           id="dialog-price"
+                           disabled value="@Model.Order.OrderNo" />
+                </div>
+            </td>
+        </tr>
 
-            <tr>
-                <td class="col1">
-                    <div class="editor-label">
-                        <label>
-                            Giá
-                        </label>
-                    </div>
-                </td>
+        <tr>
+            <td class="col1">
+                <div class="editor-label">
+                    <label>
+                        Thành Tiền
+                    </label>
+                </div>
+            </td>
 
-                <td class="col2">
-                    <div class="editor-field">
-                        <input type="text" style="background-color:lightgrey" class = "large" disabled value="@Model.Order.OrderNo"/>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col1">
-                    <div class="editor-label">
-                        <label>
-                            Thành Tiền
-                        </label>
-                    </div>
-                </td>
-
-                <td class="col2">
-                    <div class="editor-field">
-                        <input type="text" style="background-color:lightgrey" class = "large" disabled value="@Model.Order.OrderNo"/>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+            <td class="col2">
+                <div class="editor-field">
+                    <input type="text" style="background-color:lightgrey" class="large"
+                           id="dialog-total"
+                           disabled value="@Model.Order.OrderNo" />
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 
@@ -95,11 +70,11 @@
         @{
             if (this.Model.Order.OrderId > 0)
             {
-            <h2>Đơn Hàng: @Model.Order.OrderNo</h2>
+                <h2>Đơn Hàng: @Model.Order.OrderNo</h2>
             }
             else
             {
-            <h2>Tạo Mới</h2>
+                <h2>Tạo Mới</h2>
             }
         }
 
@@ -107,9 +82,9 @@
             @using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)          
+                @Html.ValidationSummary(true)
                 @Html.HiddenFor(model => model.Order.OrderId)
-                                                           
+
                 <table class="form">
                     <tr>
                         <td class="col1">
@@ -133,7 +108,8 @@
 
                         <td class="col2">
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Order.OrderDate, "{0:d}", new { @class = "medium", id = "dtpOrderDate" })
+                                <input type="text" value='@this.Model.Order.OrderDate.ToString("MM/dd/yyyy")' class="medium" id="dtpOrderDate" />
+                                @*@Html.TextBoxFor(model => model.Order.OrderDate, "{0:d}", new { @class = "medium", id = "dtpOrderDate" })*@
                                 @Html.ValidationMessageFor(model => model.Order.OrderDate)
                             </div>
                         </td>
@@ -219,17 +195,17 @@
                         </td>
                     </tr>
                 </table>
-                
+
                 <hr />
                 <div>
-                    <button class="btn-mini btn-grey btn-plus" name="addProduct" id="create-user" title="Thêm sản phẩm" value="addProduct"><span></span></button>
+                    <button class="btn-mini btn-grey btn-plus" name="addProduct" title="Thêm sản phẩm" value="addProduct"><span></span></button>
                 </div>
                 <div>
                     <table class="data display datatable" id="example">
                         <thead>
                             <tr>
                                 @*								<td class="column_checkbox">
-									<input id="ckCheckAll" type="checkbox" /></td>*@
+                                    <input id="ckCheckAll" type="checkbox" /></td>*@
                                 <th>Mã Sản Phẩm</th>
                                 <th>Tên Sản Phẩm</th>
                                 <th>Số Lượng</th>
@@ -253,26 +229,22 @@
                         <table style="width: 100%; text-align: right">
                             <tr>
                                 <td style="width: auto" />
-                                <td>Tổng Tiền:
+                                <td>
+                                    Tổng Tiền:
                                 </td>
                                 <td>
-                                    @Model.Order.Total.ToString("N0")
+                                    <label id="labelOrderTotalBill">
+                                        @Model.Order.Total.ToString("N0")
+                                    </label>
                                 </td>
                             </tr>
                         </table>
-                        @*<section>
-                            Đơn Hàng: @Model.Total
-                        </section>
-                        <section>
-                            Tổng Tiền: @Model.Total.ToString("N0") VND
-                        </section>*@
                     </div>
                     <table>
                         <tr>
                             <td>
                                 <button type="submit" class="btn btn-grey" value="Save">Save</button>
                                 <button type="submit" class="btn btn-grey" value="Save">
-                                    @*@Html.ActionLink("Back to List", "Index")*@
                                     Back to List
                                 </button>
                             </td>
@@ -291,71 +263,24 @@
     <link href="~/Scripts/admin/css/table/demo_page.css" rel="stylesheet" />
     <script src="~/Scripts/admin/js/table/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/admin/js/setup.js"></script>
+    <script src="~/Scripts/admin/order/OrderDetail.js"></script>
+    <script src="~/Scripts/admin/order/showDialog.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             setupLeftMenu();
 
             $('.datatable').dataTable(
-				{
-				    "bFilter": false,
-				    "bPaginate": false,
-				    "bInfo": false
-				});
+                {
+                    "bFilter": false,
+                    "bPaginate": false,
+                    "bInfo": false
+                });
             setSidebarHeight();
 
             $("#dtpOrderDate").datepicker();
 
-            function addUser() {
-                var valid = true;
-                alert('456');
-                //allFields.removeClass("ui-state-error");
-
-                //valid = valid && checkLength(name, "username", 3, 16);
-                //valid = valid && checkLength(email, "email", 6, 80);
-                //valid = valid && checkLength(password, "password", 5, 16);
-
-                //valid = valid && checkRegexp(name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
-                //valid = valid && checkRegexp(email, emailRegex, "eg. ui@jquery.com");
-                //valid = valid && checkRegexp(password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9");
-
-                if (valid) {
-                    //$("#users tbody").append("<tr>" +
-                    //  "<td>" + name.val() + "</td>" +
-                    //  "<td>" + email.val() + "</td>" +
-                    //  "<td>" + password.val() + "</td>" +
-                    //"</tr>");
-                    dialog.dialog("close");
-                }
-                return valid;
-            }
-
-            dialog = $("#dialog-form").dialog({
-                autoOpen: false,
-                height: 310,
-                width: 450,
-                modal: false,
-                buttons: {
-                    "Thêm": addUser,
-                    "Thoát": function () {
-                        dialog.dialog("close");
-                    }
-                },
-                close: function () {
-                    form[0].reset();
-                    //allFields.removeClass("ui-state-error");
-                }
-            });
-
-            form = dialog.find("form").on("submit", function (event) {
-                //event.preventDefault();
-                //addUser();
-                alert('ABC');
-            });
-
-            $("#create-user").on("click", function (event) {
-                event.preventDefault();
-                dialog.dialog("open");
-            });
+            setUpDialog($("#dialog-form"));
+            setSpinnerCurrency('dialog-quantity', 10, 1000000, 10, 100);
         });
     </script>
 }

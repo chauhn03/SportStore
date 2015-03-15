@@ -3,28 +3,44 @@
 
 <tr>
     @*<td class="column_checkbox">
-										<input type="checkbox" /></td>*@
-    @*@Html.HiddenIndexerInputForModel(model => model.OrderDetail.OrderDetailId)*@    
-    <td style="width: 25%">        
+        <input type="checkbox" /></td>*@
+    @*@Html.HiddenIndexerInputForModel(model => model.OrderDetail.OrderDetailId)*@
+    <td style="width: 25%">
         @Html.HiddenFor(model => model.OrderDetail.OrderDetailId)
         @Html.HiddenFor(model => model.OrderDetail.ProductId)
         @Html.HiddenFor(model => model.OrderDetail.OrderId)
-        @Html.DisplayFor(model => model.ProductNo)
+        @Html.HiddenFor(model => model.OrderDetail.Quantity, new { id = "hiddenInputQuantity" + "[" + this.Model.OrderDetail.OrderDetailId + "]" })
+        @Html.HiddenFor(model => model.OrderDetail.Price, new { id = "hiddenInputPrice" + "[" + this.Model.OrderDetail.OrderDetailId + "]" })
+        @Html.HiddenFor(model => model.OrderDetail.Total, new { id = "hiddenInputTotal" + "[" + this.Model.OrderDetail.OrderDetailId + "]" })
+        <label id="labelProductNo[@this.Model.OrderDetail.OrderDetailId]">
+            @this.Model.ProductNo
+        </label>
+
     </td>
     <td style="width: 25%">
-        @Html.DisplayFor(model => model.ProductName)
+        <label id="labelProductName[@this.Model.OrderDetail.OrderDetailId]">
+            @this.Model.ProductName
+        </label>
     </td>
     <td style="width: 14%">
-        @Html.DisplayFor(model => model.OrderDetail.Quantity)
+        <label id="labelQuantity[@this.Model.OrderDetail.OrderDetailId]">
+            @this.Model.OrderDetail.Quantity.ToString("N0")
+        </label>
     </td>
     <td style="width: 14%">
-        @Html.DisplayFor(model => model.OrderDetail.Price)
+        <label id="labelPrice[@this.Model.OrderDetail.OrderDetailId]">
+            @this.Model.OrderDetail.Price.ToString("N0")
+        </label>
     </td>
     <td style="width: 15%">
-        @Html.DisplayFor(model => model.OrderDetail.Total)
+        <label id="labelTotal[@this.Model.OrderDetail.OrderDetailId]">
+            @this.Model.OrderDetail.Total.ToString("N0")
+        </label>
     </td>
     <td style="width: 50px">
-        <input type="image" src="~/Content/admin/img/icon-form-style.png" value="Edit" />
+        <input type="image"
+               onclick='showDetailDialog(event, @this.Model.OrderDetail.OrderDetailId, "@string.Format("{0} - {1}", this.Model.ProductNo, this.Model.ProductName)")'
+               src="~/Content/admin/img/icon-form-style.png" value="Edit" />
         <input type="image" src="~/Content/admin/img/delete_16x16.png" value="Delete" />
     </td>
 </tr>
