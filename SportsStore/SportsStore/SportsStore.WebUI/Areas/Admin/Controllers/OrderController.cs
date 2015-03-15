@@ -117,12 +117,11 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         // POST: /Admin/Order/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(OrderViewModel orderViewModel, string addProduct, FormCollection collection)
+        public ActionResult Edit(OrderViewModel orderViewModel, string bntSubmit, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                // TODO: Add update logic here                                
                 return RedirectToAction("Index");
             }
             catch

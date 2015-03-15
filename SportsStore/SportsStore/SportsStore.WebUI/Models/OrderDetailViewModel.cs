@@ -13,5 +13,7 @@ namespace SportsStore.WebUI.Models
         public string ProductName { get; set; }
 
         public string ProductNo { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

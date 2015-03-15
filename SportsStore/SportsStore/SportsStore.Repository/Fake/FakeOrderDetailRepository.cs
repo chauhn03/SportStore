@@ -77,7 +77,7 @@ namespace SportsStore.Repository.Fake
 
             this.orderDetails.Add(new OrderDetail
             {
-                OrderDetailId = 1,
+                OrderDetailId = 2,
                 OrderId = 1,
                 Price = 2000,
                 ProductId = 2,

@@ -35,6 +35,26 @@ function updateOrderDetail() {
     return valid;
 }
 
+function removeOrderDetail(event: MouseEvent, orderDetailId: number) {
+    event.preventDefault();
+    var name = "hiddenInputOrderDetailId" + "[" + orderDetailId + "]";    
+    var input = <HTMLInputElement>document.getElementById(name);
+    var row = findParent(input.parentElement);    
+    var table = <HTMLTableElement>document.getElementById("example");    
+    table.deleteRow(row.rowIndex);
+
+    var hiddenFieldOrderDetailId = <HTMLInputElement>document.getElementById("hiddenInputDeleted");
+    // Set OrderDetailId = -1 for order detail was deleted
+    hiddenFieldOrderDetailId.value = "true";
+}
+
+function findParent<T>(element: HTMLElement): HTMLTableRowElement {
+    if (element instanceof HTMLTableRowElement)
+        return element;
+
+    return findParent(element.parentElement);
+}
+
 function showDetailDialog(event: MouseEvent, orderDetailId: number, title: string) {
     event.preventDefault();
     var orderDetail = getOrderDetailFromParentForm(orderDetailId);

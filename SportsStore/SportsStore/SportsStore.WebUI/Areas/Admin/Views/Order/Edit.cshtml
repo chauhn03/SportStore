@@ -198,7 +198,7 @@
 
                 <hr />
                 <div>
-                    <button class="btn-mini btn-grey btn-plus" name="addProduct" title="Thêm sản phẩm" value="addProduct"><span></span></button>
+                    <button class="btn-mini btn-grey btn-plus" name="bntSubmit" title="Thêm sản phẩm" value="addProduct"><span></span></button>
                 </div>
                 <div>
                     <table class="data display datatable" id="example">
@@ -234,7 +234,7 @@
                                 </td>
                                 <td>
                                     <label id="labelOrderTotalBill">
-                                        @Model.Order.Total.ToString("N0")
+                                        @Model.Order.Total.ToString("N0") VND
                                     </label>
                                 </td>
                             </tr>
@@ -243,8 +243,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button type="submit" class="btn btn-grey" value="Save">Save</button>
-                                <button type="submit" class="btn btn-grey" value="Save">
+                                <button type="submit" class="btn btn-grey" value="Save" name="btnSubmit">Save</button>
+                                <button type="submit" class="btn btn-grey" value="Cancel" name="btnSubmit">
                                     Back to List
                                 </button>
                             </td>
