@@ -64,52 +64,6 @@
     </table>
 </div>
 
-
-<div id="dialog-form-add-product">
-    <table class="form">
-        <tr>
-            <td class="col1">
-                <div class="editor-label">
-                    <input type="hidden" id="dialog-ProductId" />
-                    <label>
-                        Tìm Kiếm:
-                    </label>
-                </div>
-            </td>
-
-            <td class="col2">
-                <input type="search" class="large" />
-            </td>
-            <td>
-                <button id="btnSearchProduct">
-                    Tìm kiếm
-                </button>
-            </td>
-        </tr>
-    </table>
-
-    <table class="data display datatable" id="example">
-        <thead>
-            <tr>
-                @*								<td class="column_checkbox">
-                    <input id="ckCheckAll" type="checkbox" /></td>*@
-                <th>Mã Sản Phẩm</th>
-                <th>Tên Sản Phẩm</th>                
-                <th>Giá</th>                                
-            </tr>
-        </thead>
-
-        <tbody>
-
-            @*@for (int i = 0; i < this.Model.OrderDetails.Count; i++)
-            {
-                @Html.EditorFor(model => model.OrderDetails[i]);
-            }*@
-        </tbody>
-    </table>
-
-</div>
-
 <div class="grid_12">
     <div class="box round first fullpage">
         @{
@@ -242,13 +196,7 @@
                 </table>
 
                 <hr />
-                <div>
-                    <button class="btn-mini btn-grey btn-plus" name="bntSubmit"
-                            onclick='showAddProductDialogDialog(event)'
-                            title="Thêm sản phẩm" value="addProduct">
-                        <span></span>
-                    </button>
-                </div>
+              
                 <div>
                     <table class="data display datatable" id="example">
                         <thead>
