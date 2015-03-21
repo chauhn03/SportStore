@@ -40,9 +40,10 @@
                             <tr>
                                 @*								<td class="column_checkbox">
 									<input id="ckCheckAll" type="checkbox" /></td>*@
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
+                                <th>Mã Sản Phẩm</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Nhóm Sản Phẩm</th>
+                                <th>Giá</th>
                                 <th />
                             </tr>
                         </thead>
@@ -53,9 +54,10 @@
                                 <tr>
                                     @*<td class="column_checkbox">
 										<input type="checkbox" /></td>*@
-                                    <td>@Html.ActionLink(productViewModel.Product.Name, "Edit", new { productId = productViewModel.Product.ProductId })</td>
+                                    <td>@Html.ActionLink(productViewModel.Product.ProductNo, "Edit", new { productId = productViewModel.Product.ProductId })</td>
+                                    <td>@productViewModel.Product.Name</td>
                                     <td>@productViewModel.CategoryName</td>
-                                    <td>@productViewModel.Product.Price</td>
+                                    <td>@productViewModel.Product.Price.ToString("N0")</td>
                                     <td>
                                         @using (Html.BeginForm("Delete", "Product"))
                                         {                                            

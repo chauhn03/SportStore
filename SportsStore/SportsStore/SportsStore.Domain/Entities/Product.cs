@@ -7,6 +7,8 @@ namespace SportsStore.Domain.Entities
         [HiddenInput(DisplayValue = false)]
         public int ProductId { get; set; }
 
+        public string ProductNo { get; set; }
+
         [Required(ErrorMessage = "Please enter a product name")]
         public string Name { get; set; }
 

@@ -509,6 +509,7 @@
     <Content Include="Content\admin\img\textarea-tl.png" />
     <Content Include="Content\admin\img\textarea-tr.png" />
     <Content Include="Content\admin\img\vertical.jpg" />
+    <Content Include="index.html" />
     <Content Include="Scripts\admin\js\fancy-button\fancy-button.js" />
     <Content Include="Scripts\admin\js\jqPlot\excanvas.min.js" />
     <Content Include="Scripts\admin\js\jqPlot\jquery.jqplot.min.js" />
@@ -1205,6 +1206,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\admin\controllers\order-controller.ts" />
+    <TypeScriptCompile Include="Scripts\admin\order\AddProductDialog.ts" />
     <TypeScriptCompile Include="Scripts\admin\order\OrderDetail.ts" />
     <TypeScriptCompile Include="Scripts\admin\order\showDialog.ts" />
     <TypeScriptCompile Include="Scripts\models\Order.ts" />
