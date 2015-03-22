@@ -23,6 +23,8 @@
 
         IOrderDetailRepository OrderDetails { get; }
 
+        ISystemSettingRepository SystemSettings { get; }
+
         void Commit();
     }
 }

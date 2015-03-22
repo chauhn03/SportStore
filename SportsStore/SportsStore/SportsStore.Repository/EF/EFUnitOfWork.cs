@@ -82,5 +82,11 @@
         {
             get { throw new System.NotImplementedException(); }
         }
+
+
+        public ISystemSettingRepository SystemSettings
+        {
+            get { throw new System.NotImplementedException(); }
+        }
     }
 }

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Abstract\ICategoryRepository.cs" />
     <Compile Include="Abstract\INewsRepository.cs" />
+    <Compile Include="Abstract\ISystemSettingRepository.cs" />
     <Compile Include="Abstract\ITopicRepository.cs" />
     <Compile Include="Abstract\IOrderDetailRepository.cs" />
     <Compile Include="Abstract\IOrderRepository.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Fake\FakeProductRepository.cs" />
     <Compile Include="Fake\FakeRepository.cs" />
     <Compile Include="Fake\FakeUnitOfWork.cs" />
+    <Compile Include="Fake\FakeSystemSettingRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="EF\EFCustomerRepository.cs" />
     <Compile Include="Abstract\ICustomerRepository.cs" />

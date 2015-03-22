@@ -60,6 +60,7 @@
     <Compile Include="Entities\EmailSettings.cs" />
     <Compile Include="Entities\FacebookAccount.cs" />
     <Compile Include="Entities\News.cs" />
+    <Compile Include="Entities\SystemSetting.cs" />
     <Compile Include="Entities\Topic.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />

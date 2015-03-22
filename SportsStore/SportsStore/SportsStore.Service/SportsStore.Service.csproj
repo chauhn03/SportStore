@@ -43,6 +43,7 @@
     <Compile Include="Abstract\ICategoryService.cs" />
     <Compile Include="Abstract\INewsService.cs" />
     <Compile Include="Abstract\IOrderDetailService.cs" />
+    <Compile Include="Abstract\ISystemSettingService.cs" />
     <Compile Include="Abstract\ITopicService.cs" />
     <Compile Include="Abstract\IOrderService.cs" />
     <Compile Include="Abstract\IProductService.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="EntityService\CategoryService.cs" />
     <Compile Include="EntityService\OrderDetailService.cs" />
+    <Compile Include="EntityService\SystemSettingService.cs" />
     <Compile Include="EntityService\TopicService.cs" />
     <Compile Include="EntityService\NewsService.cs" />
     <Compile Include="EntityService\OrderService.cs" />

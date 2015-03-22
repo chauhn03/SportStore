@@ -72,5 +72,14 @@ namespace SportsStore.Repository.Fake
                 return FakeOrderDetailRepository.Instance;
             }
         }
+
+
+        public Abstract.ISystemSettingRepository SystemSettings
+        {
+            get 
+            {
+                return FakeSystemSettingRepository.Instance;
+            }
+        }
     }
 }

@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "SEO";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model SportsStore.WebUI.Models.SystemSettingViewModel
+<div class="grid_12">
+    <div class="box round first fullpage">
+        <h2>SEO Website</h2>
+        <div class="block">
+            @using (Html.BeginForm("Edit", "SystemSetting", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.SystemSetting.Id)
+                <table class="form">
+                    <tr>
+                        <td colspan="2">
+                            @if (TempData["message"] != null)
+                            {
+                                <div class="message success">
+                                    <h5>@TempData["message"].ToString()!</h5>
+                                    <p>
+                                        @TempData["message"].ToString()
+                                    </p>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 col-content-top">
+                            <div class="editor-label">
+                                <label>
+                                    Google Analytics
+                                </label>
+                            </div>
+                        </td>
+
+                        <td class="col2">
+                            <div class="editor-field">
+                                @Html.TextAreaFor(model => model.SystemSetting.Value, new { @class = "textarea-medium" })
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>                            
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>

@@ -150,6 +150,7 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SystemSettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Models\AdminNewsViewModel.cs">
       <SubType>Code</SubType>
@@ -180,6 +181,7 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\SystemSettingViewModel.cs" />
     <Compile Include="Models\TopicListViewModel.cs" />
     <Compile Include="Models\TopicViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -968,6 +970,7 @@
     <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModel.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModelEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemSetting\SEO.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

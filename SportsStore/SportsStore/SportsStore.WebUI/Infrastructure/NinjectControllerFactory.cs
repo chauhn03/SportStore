@@ -42,6 +42,7 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind<INewsService>().To<NewsService>();
             kernel.Bind<ITopicService>().To<TopicService>();
             kernel.Bind<IOrderDetailService>().To<OrderDetailService>();
+            kernel.Bind<ISystemSettingService>().To<SystemSettingService>();
 
             
 

@@ -303,7 +303,7 @@ table.form label {
 	font-weight:bold;
 }
 
-table.form .col1{width:20%;}
+table.form .col1{width:15%;}
 table.form .col2{}
 table.form input, table.form select{
 
@@ -322,6 +322,11 @@ input.mini{width: 30%;	}
 input.medium
 {
 	width: 55%;	
+}
+
+input.large
+{
+	width: 85%;	
 }
 
 input.large
@@ -1133,3 +1138,16 @@ td.details {
 }
 
 .gallery-sand .sorting{background-color:white !important;}
+
+/*Chau: Add some custom css*/
+table.form .col-content-top
+{
+	vertical-align:top;
+    
+}
+
+textarea.textarea-medium
+{
+	width: 50%;	
+    height: 120px;	
+}
