@@ -8,12 +8,15 @@ namespace SportsStore.Domain.Entities
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a title")]
+        [Display(Name = "Tiêu đề")]
         public string Title { get; set; }
 
         [AllowHtml()]
         [Required(ErrorMessage = "Please enter a content")]
+        [Display(Name = "Nội dung")]
         public string Content { get; set; }
 
+        [Display(Name = "Chủ đề")]
         public int TypeId { get; set; }        
     }
 }

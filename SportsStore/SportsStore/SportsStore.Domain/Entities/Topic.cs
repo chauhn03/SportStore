@@ -7,6 +7,7 @@ namespace SportsStore.Domain.Entities
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a name")]
+        [Display(Name = "Nhóm tin tức")]
         public string Name { get; set; }
     }
 }
