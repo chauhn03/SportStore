@@ -13,6 +13,8 @@ namespace SportsStore.Domain.Entities
 
         public string Name { get; set; }
 
+        public string DisplayName { get; set; }
+
         public string Group { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập giá trị")]

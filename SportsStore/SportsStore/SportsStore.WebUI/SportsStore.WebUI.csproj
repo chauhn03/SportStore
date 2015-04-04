@@ -181,6 +181,7 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\SystemSettingListViewModel.cs" />
     <Compile Include="Models\SystemSettingViewModel.cs" />
     <Compile Include="Models\TopicListViewModel.cs" />
     <Compile Include="Models\TopicViewModel.cs" />
@@ -971,6 +972,7 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModel.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModelEdit.cshtml" />
     <Content Include="Areas\Admin\Views\SystemSetting\SEO.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemSetting\OnlineSupport.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

@@ -36,13 +36,13 @@ namespace SportsStore.Repository.Fake
         {
             this.systemSettings = new List<SystemSetting>();
             this.systemSettings.Add(new SystemSetting { Id = 1, Group = "SEO", Name = "GoogleEngine" });
-            this.systemSettings.Add(new SystemSetting { Id = 2, Group = "OnlineSupport", Name = "YahooAccount1" });
-            this.systemSettings.Add(new SystemSetting { Id = 3, Group = "OnlineSupport", Name = "YahooAccount2" });
-            this.systemSettings.Add(new SystemSetting { Id = 4, Group = "OnlineSupport", Name = "YahooAccount3" });
+            this.systemSettings.Add(new SystemSetting { Id = 2, Group = "OnlineSupport", DisplayName = "Nick yahoo 1", Name = "YahooAccount1" });
+            this.systemSettings.Add(new SystemSetting { Id = 3, Group = "OnlineSupport", DisplayName = "Nick yahoo 2", Name = "YahooAccount2" });
+            this.systemSettings.Add(new SystemSetting { Id = 4, Group = "OnlineSupport", DisplayName = "Nick yahoo 3", Name = "YahooAccount3" });
 
-            this.systemSettings.Add(new SystemSetting { Id = 5, Group = "OnlineSupport", Name = "Skype1" });
-            this.systemSettings.Add(new SystemSetting { Id = 6, Group = "OnlineSupport", Name = "Skype2" });
-            this.systemSettings.Add(new SystemSetting { Id = 7, Group = "OnlineSupport", Name = "Skype3" });
+            this.systemSettings.Add(new SystemSetting { Id = 5, Group = "OnlineSupport", DisplayName = "Nick skype 1", Name = "Skype1" });
+            this.systemSettings.Add(new SystemSetting { Id = 6, Group = "OnlineSupport", DisplayName = "Nick skype 2", Name = "Skype2" });
+            this.systemSettings.Add(new SystemSetting { Id = 7, Group = "OnlineSupport", DisplayName = "Nick skype 3", Name = "Skype3" });
             this.systemSettings.Add(new SystemSetting { Id = 8, Group = "OnlinePayment", Name = "Paypal" });
             this.systemSettings.Add(new SystemSetting { Id = 9, Group = "OnlinePayment", Name = "NganLuong" });
             this.systemSettings.Add(new SystemSetting { Id = 10, Group = "OnlinePayment", Name = "BaoKim" });

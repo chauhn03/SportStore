@@ -11,6 +11,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
     public class SystemSettingController : Controller
     {
+        private string systemSettingOnlineSupportGroup = "OnlineSupport";
         private ISystemSettingService systemSettingService;
 
         public SystemSettingController(ISystemSettingService systemSettingService)
@@ -23,6 +24,23 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             SystemSetting systemSetting = this.systemSettingService.GetById(1);
             SystemSettingViewModel viewModel = this.CreateViewModel(systemSetting);
             return this.View(viewModel);
+        }
+
+        public ActionResult OnlineSupport()
+        {
+            IQueryable<SystemSettingViewModel> viewModels = from systemSetting in this.systemSettingService.GetByGroup(this.systemSettingOnlineSupportGroup)
+                                                                             select this.CreateViewModel(systemSetting);
+            SystemSettingListViewModel viewModel = this.CreateListViewModel(viewModels);
+            return this.View(viewModel);
+        }
+
+        private SystemSettingListViewModel CreateListViewModel(IEnumerable<SystemSettingViewModel> viewModels)
+        {
+            return new SystemSettingListViewModel
+            {
+                Id = 1,
+                SystemSettingViewModels = viewModels.ToList()
+            };
         }
 
         private SystemSettingViewModel CreateViewModel(SystemSetting systemSetting)
@@ -54,6 +72,23 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             }
 
             return this.RedirectToAction("SEO");
+
+        }
+
+        [HttpPost]
+        public ActionResult EditListViewModel(SystemSettingListViewModel systemSettingListViewModel)
+        {
+            if (this.ModelState.IsValid)
+            {
+                foreach (var systemSettingViewModel in systemSettingListViewModel.SystemSettingViewModels)
+                {
+                    this.systemSettingService.Update(systemSettingViewModel.SystemSetting);    
+                }
+                
+                TempData["message"] = string.Format("Cập nhật thành công");
+            }
+
+            return this.RedirectToAction("OnlineSupport");
 
         }
     }

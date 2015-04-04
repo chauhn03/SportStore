@@ -1,0 +1,58 @@
+﻿@model SportsStore.WebUI.Models.SystemSettingListViewModel
+
+@{
+    ViewBag.Title = "OnlineSupport";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid_12">
+    <div class="box round first fullpage">
+        <h2>SEO Website</h2>
+        <div class="block">
+            @using (Html.BeginForm("EditListViewModel", "SystemSetting", FormMethod.Post))
+            {
+                <table class="form">
+                    <tr>
+                        <td colspan="2">
+                            @if (TempData["message"] != null)
+                            {
+                                <div class="message success">
+                                    <h5>@TempData["message"].ToString()!</h5>
+                                    <p>
+                                        @TempData["message"].ToString()
+                                    </p>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+
+                    @for (int index = 0; index < this.Model.SystemSettingViewModels.Count; index++)
+                    {
+                        <tr>
+                            <td class="col1 col-content-top">
+                                <div class="editor-label">
+                                    @Html.HiddenFor(model => model.SystemSettingViewModels[index].SystemSetting.Id)
+                                    <label>
+                                        @this.Model.SystemSettingViewModels[index].SystemSetting.DisplayName
+                                    </label>
+                                </div>
+                            </td>
+
+                            <td class="col2">
+                                <div class="editor-field">
+                                    <input type="text" class="medium" name="SystemSettingViewModels[@index].SystemSetting.Value" value="@this.Model.SystemSettingViewModels[index].SystemSetting.Value">                                                                            
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
