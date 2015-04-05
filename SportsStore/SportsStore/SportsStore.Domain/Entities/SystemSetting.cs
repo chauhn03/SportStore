@@ -9,6 +9,11 @@ namespace SportsStore.Domain.Entities
 {
     public class SystemSetting : Entity
     {
+        public SystemSetting()
+        {
+            this.Value = string.Empty;
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
