@@ -5,6 +5,8 @@
     private quantity: number;
     private price: number;
     private total: number;
+    private deleted: boolean = false;
+    
 
     get OrderDetailId(): number {
         return this.orderDetailId;
@@ -52,5 +54,13 @@
 
     set Total(total: number) {
         this.total = total;
+    }
+
+    get Delete(): boolean {
+        return this.deleted;
+    }
+
+    set Delete(deleted: boolean) {
+        this.deleted = deleted;
     }
 } 

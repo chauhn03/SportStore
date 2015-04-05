@@ -62,7 +62,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             OrderViewModel orderViewModel = new OrderViewModel();
             orderViewModel.Order = order;
             orderViewModel.OrderDetails = (from orderDetail in this.orderDetailService.GetByOrder(order.OrderId)
-                                          select this.CreateDetailViewModel(orderDetail)).ToList();
+                                           select this.CreateDetailViewModel(orderDetail)).ToList();
             return orderViewModel;
         }
 
@@ -116,11 +116,29 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         //
         // POST: /Admin/Order/Edit/5
 
+        private void UpdateOrderDetail(OrderDetailViewModel orderDetailViewModel)
+        {
+            if (orderDetailViewModel.Deleted)
+            {
+                this.orderDetailService.Delete(orderDetailViewModel.OrderDetail);
+            }
+            else
+            {
+                this.orderDetailService.Update(orderDetailViewModel.OrderDetail);
+            }
+        }
+
         [HttpPost]
         public ActionResult Edit(OrderViewModel orderViewModel, string bntSubmit, FormCollection collection)
         {
             try
             {
+                foreach (var orderDetail in orderViewModel.OrderDetails)
+                {
+                    this.UpdateOrderDetail(orderDetail);
+                }
+
+                this.orderService.Update(orderViewModel.Order);
                 // TODO: Add update logic here                                
                 return RedirectToAction("Index");
             }
@@ -131,7 +149,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         public ActionResult AddOrderDetail(int orderId, FormCollection collection)
-        {            
+        {
             //IEnumerable<OrderDetail> orderDetails = this.orderDetailService.GetByOrder(orderDetailViewModel.OrderDetail.OrderId);
             //OrderViewModel viewModel = this.CreateOrderViewModel(order, orderDetails);
             return this.View("Index");

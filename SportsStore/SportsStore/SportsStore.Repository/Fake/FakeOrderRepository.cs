@@ -70,7 +70,7 @@ namespace SportsStore.Repository.Fake
                 Email = "nguyenvana@gmail.com",
                 OrderDate = DateTime.Now,
                 Phone = "09332345678",
-                Total = 12000
+                Total = 16000
             });
 
             this.orders.Add(new Order

@@ -40,12 +40,15 @@ function removeOrderDetail(event: MouseEvent, orderDetailId: number) {
     var name = "hiddenInputOrderDetailId" + "[" + orderDetailId + "]";    
     var input = <HTMLInputElement>document.getElementById(name);
     var row = findParent(input.parentElement);    
-    var table = <HTMLTableElement>document.getElementById("example");    
-    table.deleteRow(row.rowIndex);
-
-    var hiddenFieldOrderDetailId = <HTMLInputElement>document.getElementById("hiddenInputDeleted");
-    // Set OrderDetailId = -1 for order detail was deleted
-    hiddenFieldOrderDetailId.value = "true";
+    var table = <HTMLTableElement>document.getElementById("example");        
+        
+    var orderDetail = getOrderDetailFromParentForm(orderDetailId);
+    currentTotal = orderDetail.Total;
+    orderDetail.Delete = true;
+    setHiddenInputOrderDetail(orderDetail);
+    calculateTotalOrderBill(0);
+    row.style.visibility = "hidden";
+    //table.deleteRow(row.rowIndex);
 }
 
 function findParent<T>(element: HTMLElement): HTMLTableRowElement {
@@ -193,6 +196,10 @@ function setHiddenInputOrderDetail(orderDetail: OrderDetail): void {
     name = "hiddenInputTotal" + "[" + orderDetail.OrderDetailId + "]";
     hiddenField = <HTMLInputElement>document.getElementById(name);
     hiddenField.value = orderDetail.Total.toString();
+
+    name = "hiddenInputDeleted" + "[" + orderDetail.OrderDetailId + "]";
+    hiddenField = <HTMLInputElement>document.getElementById(name);
+    hiddenField.value = orderDetail.Delete.toString();
 }
 
 function calculateTotalOrderBill(total: number) {
