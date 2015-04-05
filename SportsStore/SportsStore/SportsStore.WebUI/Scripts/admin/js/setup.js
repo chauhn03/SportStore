@@ -435,6 +435,7 @@ function setupTinyMCE() {
 function setupTinyMCE_Classy() {
     tinymce.init({
         //script_url: 'js/tinymce/tinymce.js',
+        height : 300,
         selector: "textarea",
         plugins: [
                 "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
