@@ -1,4 +1,4 @@
-﻿@model SportsStore.WebUI.Models.SystemSettingListViewModel
+﻿@model SportsStore.WebUI.Models.SystemSettingOnlineSupportAccountListViewModel
 
 @{
     ViewBag.Title = "OnlineSupport";
@@ -7,70 +7,131 @@
 
 <div class="grid_12">
     <div class="box round first fullpage">
-        <h2>SEO Website</h2>
+        <h2>Yahoo</h2>
         <div class="block">
-            @using (Html.BeginForm("EditListViewModel", "SystemSetting", FormMethod.Post))
-{
-    <table class="form" id="tableForm">
-        <tr>
-            <td colspan="2">
-                @if (TempData["message"] != null)
-                {
-                    <div class="message success">
-                        <h5>@TempData["message"].ToString()!</h5>
-                        <p>
-                            @TempData["message"].ToString()
-                        </p>
-                    </div>
-                }
-            </td>
-        </tr>
+            @using (Html.BeginForm("EditSystemSettingOnlineSupportAccountListViewModel", "SystemSetting", FormMethod.Post))
+            {
 
-        @for (int index = 0; index < this.Model.SystemSettingViewModels.Count; index++)
-        {
-            <tr>
-                <td class="col1 col-content-top">
-                    <div class="editor-label">
-                        @Html.HiddenFor(model => model.SystemSettingViewModels[index].SystemSetting.Id)
-                        <label>
-                            @this.Model.SystemSettingViewModels[index].SystemSetting.DisplayName
-                        </label>
-                    </div>
-                </td>
+                <table class="form" id="tableForm">
+                    <tr>
+                        <td colspan="2">                            
+                            @if (TempData["message"] != null)
+                            {
+                                <div class="message success">
+                                    <h5>@TempData["systemSettingUpdateMessage"].ToString()!</h5>
+                                    <p>
+                                        @TempData["systemSettingUpdateMessage"].ToString()
+                                    </p>
+                                </div>
+                            }
+                        </td>
+                    </tr>
 
-                <td class="col2">
-                    <div class="editor-field">
-                        @*@Html.TextAreaFor(model => model.SystemSettingViewModels[index].SystemSetting.Value, new { @class = "textarea-medium" })*@
-                        <textarea class="textarea-medium" name="SystemSettingViewModels[@index].SystemSetting.Value">
-                            @this.Model.SystemSettingViewModels[index].SystemSetting.Value"
-                        </textarea>
-                    </div>
-                </td>
-            </tr>
+                    @for (int index = 0; index < this.Model.YahooAccounts.Count; index++)
+                    {
+                        <tr>
+                            <td class="col1 col-content-top">
+                                <div class="editor-label">
+                                    @Html.HiddenFor(model => model.YahooAccounts[index].SystemSetting.Id)
+                                    <label>
+                                        <a href="" title="Tên tài khoản">
+                                            <u>
+                                                @this.Model.YahooAccounts[index].SystemSetting.DisplayName
+                                            </u>
+                                        </a>
+                                    </label>
+                                </div>
+                            </td>
 
-            <tr>
-                <td class="col1" />
-                <td class="col2">
-                    <button class="btn-mini btn-grey btn-plus"
-                            onclick='AddOnlineSupport(event, "Yahoo", @index)'>
-                        <span></span>
-                    </button>
-                    <button class="btn-mini btn-grey btn-minus">
-                        <span></span>
-                    </button>
-                </td>
-            </tr>
+                            <td class="col2">
+                                <div class="editor-field">
+                                    @*@Html.TextAreaFor(model => model.SystemSettingViewModels[index].SystemSetting.Value, new { @class = "textarea-medium" })*@
+                                    <textarea class="textarea-medium" name="YahooAccounts[@index].SystemSetting.Value">
+                                        @this.Model.YahooAccounts[index].SystemSetting.Value
+                                    </textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    }
 
-        }
+                    <tr>
+                        <td class="col1" />
+                        <td class="col2">
+                            <button class="btn-mini btn-grey btn-plus"
+                                    onclick='AddOnlineSupport(event, "YahooAccount")'>
+                                <span></span>
+                            </button>
+                            <button class="btn-mini btn-grey btn-minus" id="btnRemoveYahoo"                                    
+                                    onclick='RemoveOnlineSupport(event, "YahooAccount")'>
+                                <span></span>
+                            </button>
+                        </td>
+                    </tr>                   
 
-        <tr>
-            <td colspan="2">
-                <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>
-            </td>
-        </tr>
-    </table>
-}
+                    <tr>
+                        <td colspan="2">
+                            <br/>
+                            <h2>Skype</h2>
+                        </td>
+                    </tr>
+                    @for (int index = 0; index < this.Model.SkypeAccounts.Count; index++)
+                    {
+                        <tr>
+                            <td class="col1 col-content-top">
+                                <div class="editor-label">
+                                    @Html.HiddenFor(model => model.SkypeAccounts[index].SystemSetting.Id)
+                                    <label>
+                                        <a href="" title="Tên tài khoản">
+                                            <u>
+                                                @this.Model.SkypeAccounts[index].SystemSetting.DisplayName
+                                            </u>
+                                        </a>
+
+
+                                    </label>
+                                </div>
+                            </td>
+
+                            <td class="col2">
+                                <div class="editor-field">
+                                    @*@Html.TextAreaFor(model => model.SystemSettingViewModels[index].SystemSetting.Value, new { @class = "textarea-medium" })*@
+                                    <textarea class="textarea-medium" name="SkypeAccounts[@index].SystemSetting.Value">
+                                        @this.Model.SkypeAccounts[index].SystemSetting.Value
+                                    </textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td class="col1" />
+                        <td class="col2">
+                            <button class="btn-mini btn-grey btn-plus"
+                                    onclick='AddOnlineSupport(event, "SkypeAccount")'>
+                                <span></span>
+                            </button>
+                            <button class="btn-mini btn-grey btn-minus" id="btnRemoveSkype"
+                                    onclick='RemoveOnlineSupport(event, "SkypeAccount")'>
+                                <span></span>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <hr />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" name="submitButton" class="btn btn-grey" value="Save">Lưu</button>
+                        </td>
+                    </tr>
+                </table>
+            }
         </div>
+
+
     </div>
 </div>
 @section scripts
@@ -81,6 +142,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             ClearTextArea();
+            SetYahooAccountDefaultCount(@Model.YahooAccounts.Count);
+            SetSkypeAccountDefaultCount(@Model.SkypeAccounts.Count);
         });
     </script>
 }

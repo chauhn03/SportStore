@@ -31,7 +31,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         {
             IQueryable<SystemSettingViewModel> viewModels = from systemSetting in this.systemSettingService.GetByGroup(this.systemSettingOnlineSupportGroup)
                                                                              select this.CreateViewModel(systemSetting);
-            SystemSettingListViewModel viewModel = this.CreateListViewModel(viewModels);
+            SystemSettingOnlineSupportAccountListViewModel viewModel = this.CreateSystemSettingOnlineSupportAccountListViewModel(viewModels);
             return this.View(viewModel);
         }
 
@@ -49,6 +49,16 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             {
                 Id = 1,
                 SystemSettingViewModels = viewModels.ToList()
+            };
+        }
+
+        private SystemSettingOnlineSupportAccountListViewModel CreateSystemSettingOnlineSupportAccountListViewModel(IEnumerable<SystemSettingViewModel> viewModels)
+        {
+            return new SystemSettingOnlineSupportAccountListViewModel
+            {
+                Id = 1,
+                SkypeAccounts = viewModels.Where(account => account.SystemSetting.Name.Contains("Skype") ).ToList(),
+                YahooAccounts = viewModels.Where(account => account.SystemSetting.Name.Contains("Yahoo") ).ToList()
             };
         }
 
@@ -77,7 +87,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
             if (this.ModelState.IsValid)
             {
                 this.systemSettingService.Update(systemSettingViewModel.SystemSetting);
-                TempData["message"] = string.Format("Cập nhật thành công");
+                TempData["systemSettingUpdateMessage"] = string.Format("Cập nhật thành công");
             }
 
             return this.RedirectToAction("SEO");
@@ -85,20 +95,74 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditListViewModel(SystemSettingListViewModel systemSettingListViewModel)
+        public ActionResult EditSystemSettingOnlineSupportAccountListViewModel(SystemSettingOnlineSupportAccountListViewModel systemSettingListViewModel)
         {
             if (this.ModelState.IsValid)
             {
-                foreach (var systemSettingViewModel in systemSettingListViewModel.SystemSettingViewModels)
+                this.DeleteYahooOnlineSupport(systemSettingListViewModel);
+                this.DeleteSkypeOnlineSupport(systemSettingListViewModel);
+                foreach (var systemSettingViewModel in systemSettingListViewModel.YahooAccounts)
                 {
-                    this.systemSettingService.Update(systemSettingViewModel.SystemSetting);    
+                    systemSettingViewModel.SystemSetting.Group = this.systemSettingOnlineSupportGroup;
+                    systemSettingViewModel.SystemSetting.Name = "Yahoo";
+                    this.UpdateSystemSetting(systemSettingViewModel);    
+                }
+
+                foreach (var systemSettingViewModel in systemSettingListViewModel.SkypeAccounts)
+                {
+                    systemSettingViewModel.SystemSetting.Group = this.systemSettingOnlineSupportGroup;
+                    systemSettingViewModel.SystemSetting.Name = "Skype";
+                    this.UpdateSystemSetting(systemSettingViewModel);    
                 }
                 
                 TempData["message"] = string.Format("Cập nhật thành công");
             }
 
             return this.RedirectToAction("OnlineSupport");
+        }
 
+        private void DeleteYahooOnlineSupport(SystemSettingOnlineSupportAccountListViewModel systemSettingListViewModel)
+        {
+            var removedOnlineSupports = (from onlineSupport in this.systemSettingService.GetByGroup(this.systemSettingOnlineSupportGroup)
+                                        join systemSetting in systemSettingListViewModel.YahooAccounts
+                                        on onlineSupport.Id equals systemSetting.SystemSetting.Id
+                                        into gsysetSetting
+                                        from systemSetting in gsysetSetting.DefaultIfEmpty()
+                                        where systemSetting == null && onlineSupport.Name.Contains("Yahoo")
+                                        select onlineSupport).ToList();
+
+            foreach (var item in removedOnlineSupports)
+            {
+                this.systemSettingService.Delete(item);
+            }
+        }
+
+        private void DeleteSkypeOnlineSupport(SystemSettingOnlineSupportAccountListViewModel systemSettingListViewModel)
+        {
+            var removedOnlineSupports = (from onlineSupport in this.systemSettingService.GetByGroup(this.systemSettingOnlineSupportGroup)
+                                        join systemSetting in systemSettingListViewModel.SkypeAccounts
+                                        on onlineSupport.Id equals systemSetting.SystemSetting.Id
+                                        into gsysetSetting
+                                        from systemSetting in gsysetSetting.DefaultIfEmpty()
+                                        where systemSetting == null && onlineSupport.Name.Contains("Skype")
+                                        select onlineSupport).ToList();
+
+            foreach (var item in removedOnlineSupports)
+            {
+                this.systemSettingService.Delete(item);
+            }
+        }
+
+        private void UpdateSystemSetting(SystemSettingViewModel systemSettingViewModel)
+        {
+            if (systemSettingViewModel.SystemSetting.Id > 0)
+            {
+                this.systemSettingService.Update(systemSettingViewModel.SystemSetting);
+            }
+            else
+            {
+                this.systemSettingService.Add(systemSettingViewModel.SystemSetting);
+            }
         }
     }
 }

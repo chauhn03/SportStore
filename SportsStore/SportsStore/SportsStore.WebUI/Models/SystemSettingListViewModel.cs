@@ -7,8 +7,8 @@ namespace SportsStore.WebUI.Models
 {
     public class SystemSettingListViewModel
     {
-        public IList<SystemSettingViewModel> SystemSettingViewModels { get; set; }
-
         public int Id { get; set; }
+
+        public IList<SystemSettingViewModel> SystemSettingViewModels { get; set; }
     }
 }

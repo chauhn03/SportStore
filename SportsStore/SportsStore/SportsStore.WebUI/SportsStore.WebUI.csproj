@@ -172,6 +172,7 @@
     <Compile Include="Models\CartIndexViewModel.cs" />
     <Compile Include="Models\CategoryListViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\SystemSettingListViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\NewsListViewModel.cs" />
     <Compile Include="Models\NewsViewModel.cs" />
@@ -181,7 +182,7 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
-    <Compile Include="Models\SystemSettingListViewModel.cs" />
+    <Compile Include="Models\SystemSettingOnlineSupportAccountListViewModel.cs" />
     <Compile Include="Models\SystemSettingViewModel.cs" />
     <Compile Include="Models\TopicListViewModel.cs" />
     <Compile Include="Models\TopicViewModel.cs" />

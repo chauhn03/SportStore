@@ -36,11 +36,11 @@ namespace SportsStore.Repository.Fake
         {
             this.systemSettings = new List<SystemSetting>();
             this.systemSettings.Add(new SystemSetting { Id = 1, Group = "SEO", Name = "GoogleEngine" });
-            this.systemSettings.Add(new SystemSetting { Id = 2, Group = "OnlineSupport", DisplayName = "Nick yahoo 1", Name = "YahooAccount1" });
+            this.systemSettings.Add(new SystemSetting { Id = 2, Group = "OnlineSupport", DisplayName = "Nick yahoo 1", Name = "YahooAccount" });
             //this.systemSettings.Add(new SystemSetting { Id = 3, Group = "OnlineSupport", DisplayName = "Nick yahoo 2", Name = "YahooAccount2" });
             //this.systemSettings.Add(new SystemSetting { Id = 4, Group = "OnlineSupport", DisplayName = "Nick yahoo 3", Name = "YahooAccount3" });
 
-            this.systemSettings.Add(new SystemSetting { Id = 5, Group = "OnlineSupport", DisplayName = "Nick skype 1", Name = "Skype1" });
+            this.systemSettings.Add(new SystemSetting { Id = 5, Group = "OnlineSupport", DisplayName = "Nick skype 1", Name = "SkypeAccount" });
             //this.systemSettings.Add(new SystemSetting { Id = 6, Group = "OnlineSupport", DisplayName = "Nick skype 2", Name = "Skype2" });
             //this.systemSettings.Add(new SystemSetting { Id = 7, Group = "OnlineSupport", DisplayName = "Nick skype 3", Name = "Skype3" });
             
@@ -69,12 +69,15 @@ namespace SportsStore.Repository.Fake
 
         public override int Create(SystemSetting entity)
         {
-            throw new NotImplementedException();
+            int maxId = this.systemSettings.Max(systemSetting => systemSetting.Id);
+            entity.Id = maxId + 1;
+            this.systemSettings.Add(entity);
+            return entity.Id;
         }
 
         public override void Delete(SystemSetting entity)
         {
-            throw new NotImplementedException();
+            this.systemSettings.Remove(entity);
         }
 
         public override IQueryable<SystemSetting> GetAll()
