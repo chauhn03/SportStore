@@ -36,6 +36,9 @@
 
                         <td class="col2">
                             <div class="editor-field">
+                                @*<textarea >
+                                        @Model.SystemSetting.Value
+                                </textarea>*@
                                 @Html.TextAreaFor(model => model.SystemSetting.Value, new { @class = "textarea-medium" })
                             </div>
                         </td>

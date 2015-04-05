@@ -4,7 +4,7 @@ var dialog;
 function setUpDialog(div: any) {
     dialog = div.dialog({
         autoOpen: false,
-        height: 250,
+        height: 230,
         width: 400,
         modal: false,
         buttons: {

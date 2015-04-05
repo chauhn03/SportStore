@@ -12,6 +12,7 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
     public class SystemSettingController : Controller
     {
         private string systemSettingOnlineSupportGroup = "OnlineSupport";
+        private string systemSettingSocialNetworkGroup = "SocialNetwork";
         private ISystemSettingService systemSettingService;
 
         public SystemSettingController(ISystemSettingService systemSettingService)
@@ -30,6 +31,14 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         {
             IQueryable<SystemSettingViewModel> viewModels = from systemSetting in this.systemSettingService.GetByGroup(this.systemSettingOnlineSupportGroup)
                                                                              select this.CreateViewModel(systemSetting);
+            SystemSettingListViewModel viewModel = this.CreateListViewModel(viewModels);
+            return this.View(viewModel);
+        }
+
+        public ActionResult OnlinePayment()
+        {
+            IQueryable<SystemSettingViewModel> viewModels = from systemSetting in this.systemSettingService.GetByGroup(this.systemSettingSocialNetworkGroup)
+                                                            select this.CreateViewModel(systemSetting);
             SystemSettingListViewModel viewModel = this.CreateListViewModel(viewModels);
             return this.View(viewModel);
         }

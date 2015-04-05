@@ -8,7 +8,7 @@
 <div id="dialog-form">
     <table class="form">
         <tr>
-            <td class="col1">
+            <td>
                 <div class="editor-label">
                     <input type="hidden" id="dialog-OrderDetailId" />
                     <label>
@@ -17,7 +17,7 @@
                 </div>
             </td>
 
-            <td class="col2">
+            <td>
                 <div class="editor-field">
                     <input type="text" class="large"
                            id="dialog-quantity" onchange="calculateTotalOfDetail()"
@@ -27,7 +27,7 @@
         </tr>
 
         <tr>
-            <td class="col1">
+            <td>
                 <div class="editor-label">
                     <label>
                         Giá
@@ -45,7 +45,7 @@
         </tr>
 
         <tr>
-            <td class="col1">
+            <td >
                 <div class="editor-label">
                     <label>
                         Thành Tiền
@@ -278,7 +278,7 @@
             $("#dtpOrderDate").datepicker();
 
             setUpDialog($("#dialog-form"));
-            setupProductListDialog($("#dialog-form-add-product")); 
+            //setupProductListDialog($("#dialog-form-add-product")); 
             $("#btnSearchProduct").button();
             setSpinnerCurrency('dialog-quantity', 10, 1000000, 10, 100);
         });

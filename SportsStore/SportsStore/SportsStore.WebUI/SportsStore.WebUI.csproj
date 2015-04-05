@@ -973,6 +973,7 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\OrderDetailViewModelEdit.cshtml" />
     <Content Include="Areas\Admin\Views\SystemSetting\SEO.cshtml" />
     <Content Include="Areas\Admin\Views\SystemSetting\OnlineSupport.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemSetting\OnlinePayment.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -1214,6 +1215,7 @@
     <TypeScriptCompile Include="Scripts\admin\order\AddProductDialog.ts" />
     <TypeScriptCompile Include="Scripts\admin\order\OrderDetail.ts" />
     <TypeScriptCompile Include="Scripts\admin\order\showDialog.ts" />
+    <TypeScriptCompile Include="Scripts\admin\systemsetting\OnlineSupport.ts" />
     <TypeScriptCompile Include="Scripts\models\Order.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
