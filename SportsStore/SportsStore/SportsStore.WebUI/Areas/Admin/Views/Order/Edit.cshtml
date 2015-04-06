@@ -45,7 +45,7 @@
         </tr>
 
         <tr>
-            <td >
+            <td>
                 <div class="editor-label">
                     <label>
                         Thành Tiền
@@ -75,7 +75,7 @@
             {
                 <h2>Tạo Mới</h2>
             }
-        }       
+        }
 
         <div class="block">
             @using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -196,7 +196,7 @@
                 </table>
 
                 <hr />
-              
+
                 <div>
                     <table class="data display datatable" id="example">
                         <thead>
@@ -230,8 +230,9 @@
                                     Tổng Tiền:
                                 </td>
                                 <td style="width:220px">
-                                    <label id="labelOrderTotalBill">
-                                        @Model.Order.Total.ToString("N0") VND
+                                    <input type="hidden" value="@this.Model.Order.Total" id="hiddenFieldOrderTotal" name="Order.Total" />
+                                    <label id="labelOrderTotalBill">                                        
+                                        @Model.Order.Total.ToString("N0") vnd
                                     </label>
                                 </td>
                             </tr>
@@ -262,7 +263,7 @@
     <script src="~/Scripts/admin/js/setup.js"></script>
     <script src="~/Scripts/admin/order/OrderDetail.js"></script>
     <script src="~/Scripts/admin/order/showDialog.js"></script>
-    <script src="~/Scripts/admin/order/AddProductDialog.js"></script>    
+    <script src="~/Scripts/admin/order/AddProductDialog.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             setupLeftMenu();
@@ -278,7 +279,7 @@
             $("#dtpOrderDate").datepicker();
 
             setUpDialog($("#dialog-form"));
-            //setupProductListDialog($("#dialog-form-add-product")); 
+            //setupProductListDialog($("#dialog-form-add-product"));
             $("#btnSearchProduct").button();
             setSpinnerCurrency('dialog-quantity', 10, 1000000, 10, 100);
         });

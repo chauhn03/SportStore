@@ -120,7 +120,8 @@ namespace SportsStore.WebUI.Areas.Admin.Controllers
         {
             if (orderDetailViewModel.Deleted)
             {
-                this.orderDetailService.Delete(orderDetailViewModel.OrderDetail);
+                OrderDetail orderDetail = this.orderDetailService.GetById(orderDetailViewModel.OrderDetail.OrderDetailId);
+                this.orderDetailService.Delete(orderDetail);
             }
             else
             {

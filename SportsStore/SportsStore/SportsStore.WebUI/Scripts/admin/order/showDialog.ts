@@ -47,7 +47,7 @@ function removeOrderDetail(event: MouseEvent, orderDetailId: number) {
     orderDetail.Delete = true;
     setHiddenInputOrderDetail(orderDetail);
     calculateTotalOrderBill(0);
-    row.style.visibility = "hidden";
+    row.style.display = "none";
     //table.deleteRow(row.rowIndex);
 }
 
@@ -91,6 +91,9 @@ function getCurrentTotalOrderBill(): number {
 function setCurrentTotalOrderBill(total: number) {
     var label = <HTMLTextAreaElement>document.getElementById("labelOrderTotalBill");
     label.innerHTML = total.toLocaleString();
+
+    var hiddenField = <HTMLTextAreaElement>document.getElementById("hiddenFieldOrderTotal");
+    hiddenField.value = total.toString();
 }
 
 function getOrderDetailFromParentForm(orderDetailId: number): OrderDetail {

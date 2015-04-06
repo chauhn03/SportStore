@@ -18,6 +18,7 @@ namespace SportsStore.Repository.Fake
         {
             get
             {
+                
                 if (instance == null)
                 {
                     instance = new FakeOrderDetailRepository();
