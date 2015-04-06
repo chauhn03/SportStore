@@ -9,6 +9,7 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
 	public class ProductController : Controller
 	{       
 		#region Fields

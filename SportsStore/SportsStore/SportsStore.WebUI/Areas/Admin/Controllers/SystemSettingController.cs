@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     public class SystemSettingController : Controller
     {
         private string systemSettingOnlineSupportGroup = "OnlineSupport";

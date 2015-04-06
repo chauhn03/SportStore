@@ -1188,6 +1188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Attributes\" />
     <Folder Include="Common\" />
     <Folder Include="Scripts\admin\directives\" />
     <Folder Include="Scripts\admin\js\tiny-mce\plugins\spellchecker\classes\utils\" />

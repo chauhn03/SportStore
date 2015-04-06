@@ -8,6 +8,7 @@ using SportsStore.WebUI.Infrastructure.Common;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private IOrderService orderService;

@@ -8,6 +8,7 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     public class TopicController : Controller
     {
         private ITopicService topicService;
